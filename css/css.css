@@ -1,0 +1,62 @@
+input {
+    border: none;
+}
+
+a.button, input.button {
+    font-family: Rubik;
+    font-weight: bold;
+    font-size: 24px;
+    padding: 12px 25px;
+    letter-spacing: 0.02em;
+    background-color: #02897A;
+    border-radius: 10px;
+    transition: 0.2s background-color ease-in-out;
+    color: white;
+    text-decoration: none;
+}
+
+a.button:hover, input.button:hover {
+    background-color: #055945;
+}
+div.form-input{
+    font-family: Rubik;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 21px;
+    letter-spacing: 0.02em;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    width: 800px;
+}
+
+div.form-input label{
+    color: #373737;
+}
+
+div.form-input input{
+    display: flex;
+    font-family: Rubik;
+    font-style: normal;
+    font-size: 18px;
+    line-height: 21px;
+    letter-spacing: 0.02em;
+    background: #C9C9C9;
+    border-radius: 10px;
+    height: 54px;
+    outline: none;
+    color: #373737;
+    padding: 5px 20px 5px 20px;
+    flex-grow: 1;
+}
+
+div.form-input input::placeholder{
+    font-family: Rubik;
+    font-style: normal;
+    font-size: 18px;
+    line-height: 21px;
+    letter-spacing: 0.02em;
+    color: #828282;
+}
