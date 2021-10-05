@@ -5,8 +5,6 @@ require "autoload.php";
 init_php_session();
 
 $webPage = new WebPage("Inscription");
-$webPage->appendContent(getHeader());
-$webPage->appendCssUrl("css/css.css");
 
 $form = <<<HTML
 <div class="d-flex flex-row justify-content-center margin-topbottom-art">
@@ -18,10 +16,6 @@ $form = <<<HTML
                         <h2 class="form-title white-text-color">Inscription</h2>
                     </div>
                 </div> 
-                <div class="form-group d-flex flex-column">
-                     <div class="white-text-color">Identifiant</div>
-                     <input type="text" name="id" class="p-2 button-no-outline no-decoration white-text-color second-main-background border-radius-5" style="outline: 0; border:0;" required>
-                </div>
                 <div class="d-flex flex-row">
                     <div class="form-group d-flex flex-column margin-right">
                         <div class="white-text-color">Nom</div>
@@ -29,7 +23,7 @@ $form = <<<HTML
                     </div>
                     <div class="form-group d-flex flex-column">
                         <div class="white-text-color">Prénom</div>
-                        <input type="text" name="prenom" class="p-2 button-no-outline no-decoration white-text-color second-main-background border-radius-5" style="outline: 0; border:0;" required>
+                        <input type="text" name="prnm" class="p-2 button-no-outline no-decoration white-text-color second-main-background border-radius-5" style="outline: 0; border:0;" required>
                     </div>
                 </div>
                 <div class="form-group d-flex flex-column">
@@ -69,6 +63,5 @@ HTML;
 
 
 $webPage->appendContent($form);
-$webPage->appendContent(getFooter());
 
 echo $webPage->toHTML();
