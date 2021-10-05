@@ -170,22 +170,22 @@ HTML
         }
 
         return <<<HTML
-<!doctype html>
-<html lang="fr">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="css/css.css">
-        <title>{$this->title}</title>
-{$this->head()}
-    </head>
-    <body>
-        <div id='page'>
-{$this->body()}
-        </div>
-    </body>
-</html>
-HTML;
+        <!doctype html>
+        <html lang="fr">
+            <head>
+                <meta charset="utf-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <link rel="stylesheet" type="text/css" href="css/css.css">
+                <title>{$this->title}</title>
+                {$this->head()}
+            </head>
+            <body>
+                {$this->getHeader()}
+                {$this->body}
+                {$this->getFooter()}
+            </body>
+        </html>
+        HTML;
     }
 
     /**
@@ -209,5 +209,19 @@ HTML;
     public function getHTMLInput(string $title = '', string $inputType = '', string $name='', string $id='', string $placeholder='', string $value='', bool $required=true, bool $hidden=false): string {
         return "<div class='form-input'><label for='$id'>$title</label>
         <input type='$inputType' name='$name' id='$id' value='$value' placeholder='$placeholder' ".($required ? "required ": "").($hidden ? "hidden " : "")."></div>";
+    }
+
+    private function getHeader() : string {
+        return <<<HTML
+            <div class="header">
+                <a class="link" href="">ACCUEIL</a>
+            </div>
+        HTML;
+    }
+
+    private function getFooter() : string {
+        return <<<HTML
+            <div class="footer"></div>
+        HTML;
     }
 }
