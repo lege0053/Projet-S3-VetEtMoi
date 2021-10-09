@@ -7,6 +7,7 @@ input {
     border: none;
 }
 
+
 a.button, input.button {
     font-family: Rubik;
     font-weight: bold;
@@ -23,6 +24,7 @@ a.button, input.button {
 a.button:hover, input.button:hover {
     background-color: #055945;
 }
+
 div.form-input {
     font-family: Rubik;
     font-style: normal;
