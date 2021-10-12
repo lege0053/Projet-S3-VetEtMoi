@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 require "../autoload.php";
 
-init_php_session();
+Session::start();
 
 if(isset($_POST['nom']) && !empty($_POST['nom']) && isset($_POST['prnm']) && !empty($_POST['prnm'])
     && isset($_POST['mail']) && !empty($_POST['mail']) && isset($_POST['repeat_mail']) && !empty($_POST['repeat_mail'])
