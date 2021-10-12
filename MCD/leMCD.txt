@@ -1,0 +1,93 @@
+CREATE TABLE Utilisateur(
+   userId VARCHAR(50) ,
+   cp VARCHAR(50) ,
+   ville VARCHAR(50) ,
+   rue VARCHAR(50) ,
+   firstName VARCHAR(50)  NOT NULL,
+   lastName VARCHAR(50)  NOT NULL,
+   phone VARCHAR(50)  NOT NULL,
+   email VARCHAR(50)  NOT NULL,
+   password VARCHAR(120) ,
+   isAdmin INT,
+   commentaire VARCHAR(256) ,
+   PRIMARY KEY(userId)
+);
+
+CREATE TABLE Espece(
+   especeId INT,
+   libEspece VARCHAR(50)  NOT NULL,
+   PRIMARY KEY(especeId)
+);
+
+CREATE TABLE Race(
+   raceId INT,
+   libRace VARCHAR(50)  NOT NULL,
+   especeId INT NOT NULL,
+   PRIMARY KEY(raceId),
+   FOREIGN KEY(especeId) REFERENCES Espece(especeId)
+);
+
+CREATE TABLE CreneauType(
+   typeId INT,
+   libType VARCHAR(50)  NOT NULL,
+   PRIMARY KEY(typeId)
+);
+
+CREATE TABLE GenreStatut(
+   genreId INT,
+   libGenre VARCHAR(50)  NOT NULL,
+   PRIMARY KEY(genreId)
+);
+
+CREATE TABLE Dangerosite(
+   dangerositeId INT,
+   libDangerosite VARCHAR(50)  NOT NULL,
+   PRIMARY KEY(dangerositeId)
+);
+
+CREATE TABLE Animal(
+   animalId VARCHAR(50) ,
+   name VARCHAR(50) ,
+   birthDay DATE NOT NULL,
+   deathDay VARCHAR(50) ,
+   commentaire VARCHAR(256) ,
+   userId VARCHAR(50)  NOT NULL,
+   dangerositeId INT NOT NULL,
+   genreId INT NOT NULL,
+   raceId INT NOT NULL,
+   PRIMARY KEY(animalId),
+   FOREIGN KEY(userId) REFERENCES Utilisateur(userId),
+   FOREIGN KEY(dangerositeId) REFERENCES Dangerosite(dangerositeId),
+   FOREIGN KEY(genreId) REFERENCES GenreStatut(genreId),
+   FOREIGN KEY(raceId) REFERENCES Race(raceId)
+);
+
+CREATE TABLE Meeting(
+   meetingId VARCHAR(50) ,
+   meetingDate DATE NOT NULL,
+   isPayed INT NOT NULL,
+   price DECIMAL(25,2)  ,
+   userId VARCHAR(50)  NOT NULL,
+   animalId VARCHAR(50)  NOT NULL,
+   PRIMARY KEY(meetingId),
+   FOREIGN KEY(userId) REFERENCES Utilisateur(userId),
+   FOREIGN KEY(animalId) REFERENCES Animal(animalId)
+);
+
+CREATE TABLE Creneau(
+   creneauId INT,
+   startHour TIME,
+   endHour TIME,
+   dayName VARCHAR(50)  NOT NULL,
+   typeId INT NOT NULL,
+   PRIMARY KEY(creneauId),
+   FOREIGN KEY(typeId) REFERENCES CreneauType(typeId)
+);
+
+CREATE TABLE Concernee(
+   meetingId VARCHAR(50) ,
+   creneauId INT,
+   PRIMARY KEY(meetingId, creneauId),
+   FOREIGN KEY(meetingId) REFERENCES Meeting(meetingId),
+   FOREIGN KEY(creneauId) REFERENCES Creneau(creneauId)
+);

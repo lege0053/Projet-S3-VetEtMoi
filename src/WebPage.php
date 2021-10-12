@@ -289,33 +289,33 @@ HTML
 
     private function getFooter() : string {
         return <<<HTML
-<footer class="mt-5" style="background-color: #242424; color: #E2E2E2">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-3 col-sm-6">
-        <!--Column1-->
-        <div class="mt-5 mb-5">
-          <h4>Nous Contacter</h4>
-          <ul class="list-unstyled">
-            <li>03 25 56 35 96</li>
-            <li>contact@vetetmoi.fr</li>
-          </ul>
-        </div>
-      </div>
-    	<div class="mt-5 mb-5">
-    		<h4>Nos Réseaux</h4>
-            <a href="#">{$this->getSVGInsta()}</a>
-            <a href="#">{$this->getSVGYoutube()}</a>
-            <a href="#">{$this->getSVGTwitter()}</a></li>
-		</div>
-    </div>
-	<div class="row">
-		<div class="col-md-12" style="border-top: 1px solid #E2E2E2; padding: 10px;font-size: 12px;">
-			<p class="text-center">&copy; Copyright 2021 - Vet&Moi.  Tous droits réservés.</p>
-		</div>
-	</div>
-  </div>
-</footer>
-HTML;
+            <footer class="footer" style="background-color: #242424; color: #E2E2E2">
+              <div class="container">
+                <div class="row justify-content-center">
+                  <div class="col-md-3 col-sm-6">
+                    <!--Column1-->
+                    <div class="mt-5 mb-5">
+                      <h4>Nous Contacter</h4>
+                      <ul class="list-unstyled">
+                        <li>03 25 56 35 96</li>
+                        <li>contact@vetetmoi.fr</li>
+                      </ul>
+                    </div>
+                  </div>
+                    <div class="mt-5 mb-5">
+                        <h4>Nos Réseaux</h4>
+                        <a href="#">{$this->getSVGInsta()}</a>
+                        <a href="#">{$this->getSVGYoutube()}</a>
+                        <a href="#">{$this->getSVGTwitter()}</a></li>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12" style="border-top: 1px solid #E2E2E2; padding: 10px;font-size: 12px;">
+                        <p class="text-center">&copy; Copyright 2021 - Vet&Moi.  Tous droits réservés.</p>
+                    </div>
+                </div>
+              </div>
+            </footer>
+        HTML;
     }
 }
