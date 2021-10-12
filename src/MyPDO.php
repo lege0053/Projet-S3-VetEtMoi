@@ -2,4 +2,4 @@
 
 require_once 'MyPDO.template.php';
 
-MyPDO::setConfiguration('mysql:host=https://pma.frazionz.net;dbname=defaultNameBase;charset=utf8', 'iutprj11', 'iutprj11');
+MyPDO::setConfiguration('mysql:host=localhost;dbname=iut;charset=utf8', 'root', '');

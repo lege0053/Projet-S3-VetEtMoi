@@ -45,6 +45,31 @@ CREATE TABLE Dangerosite(
    PRIMARY KEY(dangerositeId)
 );
 
+CREATE TABLE Produits(
+   idProduit INT,
+   libProduit VARCHAR(50)  NOT NULL,
+   qte INT,
+   qteLimit INT NOT NULL,
+   PRIMARY KEY(idProduit)
+);
+
+CREATE TABLE Commande(
+   idCommande VARCHAR(50) ,
+   prixCmd DECIMAL(15,2)   NOT NULL,
+   dateCmd DATE,
+   PRIMARY KEY(idCommande)
+);
+
+CREATE TABLE News(
+   idNews INT,
+   title VARCHAR(50)  NOT NULL,
+   content TEXT NOT NULL,
+   dateNews DATE NOT NULL,
+   userId VARCHAR(50)  NOT NULL,
+   PRIMARY KEY(idNews),
+   FOREIGN KEY(userId) REFERENCES Utilisateur(userId)
+);
+
 CREATE TABLE Animal(
    animalId VARCHAR(50) ,
    name VARCHAR(50) ,
@@ -84,10 +109,27 @@ CREATE TABLE Creneau(
    FOREIGN KEY(typeId) REFERENCES CreneauType(typeId)
 );
 
-CREATE TABLE Concernee(
+CREATE TABLE Concerner(
    meetingId VARCHAR(50) ,
    creneauId INT,
    PRIMARY KEY(meetingId, creneauId),
    FOREIGN KEY(meetingId) REFERENCES Meeting(meetingId),
+   FOREIGN KEY(creneauId) REFERENCES Creneau(creneauId)
+);
+
+CREATE TABLE ContenirProduit(
+   idProduit INT,
+   idCommande VARCHAR(50) ,
+   qte INT NOT NULL,
+   PRIMARY KEY(idProduit, idCommande),
+   FOREIGN KEY(idProduit) REFERENCES Produits(idProduit),
+   FOREIGN KEY(idCommande) REFERENCES Commande(idCommande)
+);
+
+CREATE TABLE Horaire(
+   userId VARCHAR(50) ,
+   creneauId INT,
+   PRIMARY KEY(userId, creneauId),
+   FOREIGN KEY(userId) REFERENCES Utilisateur(userId),
    FOREIGN KEY(creneauId) REFERENCES Creneau(creneauId)
 );
