@@ -18,10 +18,10 @@ $html= <<< HTML
     <button type="button" class="btn m-1" style="font-weight: bold;background-color: #C20D0D; color: #FFFFFF">03 25 56 35 96</button>
 </div>
 <div class="d-flex flex-row">
-    <div class="d-inline-flex flex-column align-items-center mt-5 ml-5 pl-5">
+    <div class="d-flex flex-column align-items-center mt-5 ml-5 pl-5">
         <h2 style="font-weight: bold;">Bienvenue sur le site de la clinique Vet&Moi !</h2>
         <h4 style="font-weight: bold;">Prenez rendez-vous n'importe quand</h4>
-        <a href="#" class="btn m-1" style="font-weight: bold;background-color: #02897A; color: #FFFFFF">Prenez rendez-vous</a>
+        <a href="#" class="btn mt-2" style="font-weight: bold;background-color: #02897A; color: #FFFFFF">Prenez rendez-vous</a>
     </div>
     <img src="img/dog_cat.png" class="mx-auto w-25" alt="">
 </div>
@@ -43,11 +43,18 @@ $html= <<< HTML
             </div>
             <div class="d-flex flex-row mt-3">
                 <a href="#"><img src="img/carre_gris.png" alt="" height="200" class="p-2"></a> 
-                <a href="#"><img src="img/carre_gris.png" alt="" height="200" class="p-2"</a> 
-                <a href="#"><img src="img/carre_gris.png" alt="" height="200" class="p-2"</a> 
+                <a href="#"><img src="img/carre_gris.png" alt="" height="200" class="p-2"></a> 
+                <a href="#"><img src="img/carre_gris.png" alt="" height="200" class="p-2"></a> 
             </div>
-            <h4 style="font-weight: bold;">Vous voulez tout savoir sur votre animal ?</h4>
+            <h4 style="font-weight: bold;">Voulez-vous tout savoir sur votre animal ?</h4>
             <h6 style="font-weight: bold;">cliquez sur le type d’animal pour en apprendre plus !</h6>
+            <a href="./conseils.php" class="btn m-1 align-self-center mt-2" style="font-weight: bold;background-color: #02897A; color: #FFFFFF">Voir les autres conseils</a>
+        </div>
+        <div class="d-flex flex-column mt-5">
+            <div class="d-flex flex-row">
+                {$webPage->getSVGMiniLogo()}
+                <h4 style="font-weight: bold; color: #055945; border-bottom: 8px solid #02897A;">Où sommes-nous situé ?</h4>
+            </div>
         </div>
     </div>
 </div>
