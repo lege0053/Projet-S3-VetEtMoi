@@ -3,19 +3,29 @@ declare(strict_types=1);
 
 class User
 {
-    private int $id;
-    private string $lastName;
+    private int $userId;
+    private string $cp;
+    private string $ville;
+    private string $rue;
     private string $firstName;
-    private string $login;
+    private string $lastName;
     private string $phone;
+    private string $email;
+    private int $isAdmin;
+    private string $commentaire;
 
     public function __construct(array $data)
     {
-        $this->id = (int)$data['id'] ?? -1;
+        $this->userId = (int)$data['id'] ?? -1;
+        $this->cp = $data['cp'] ?? '';
+        $this->ville = $data['ville'] ?? '';
+        $this->rue = $data['rue'] ?? '';
         $this->lastName = $data['lastName'] ?? '';
         $this->firstName = $data['firstName'] ?? '';
-        $this->login = $data['login'] ?? '';
         $this->phone = $data['phone'] ?? '';
+        $this->email = $data['email'] ?? '';
+        $this->isAdmin = $data['isAdmin'] ?? '';
+        $this->commentaire = $data['commentaire'] ?? '';
     }
 
     /**
@@ -29,9 +39,9 @@ class User
     /**
      * @return int
      */
-    public function getId(): int
+    public function getUserId(): int
     {
-        return $this->id;
+        return $this->userId;
     }
 
     /**
@@ -42,13 +52,6 @@ class User
         return $this->lastName;
     }
 
-    /**
-     * @return string
-     */
-    public function getLogin(): string
-    {
-        return $this->login;
-    }
 
     /**
      * @return string
@@ -59,6 +62,54 @@ class User
     }
 
     /**
+     * @return mixed|string
+     */
+    public function getCommentaire(): string
+    {
+        return $this->commentaire;
+    }
+
+    /**
+     * @return mixed|string
+     */
+    public function getVille(): string
+    {
+        return $this->ville;
+    }
+
+    /**
+     * @return mixed|string
+     */
+    public function getRue(): string
+    {
+        return $this->rue;
+    }
+
+    /**
+     * @return int|mixed|string
+     */
+    public function getIsAdmin()
+    {
+        return $this->isAdmin;
+    }
+
+    /**
+     * @return mixed|string
+     */
+    public function getCp(): string
+    {
+        return $this->cp;
+    }
+
+    /**
+     * @return mixed|string
+     */
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    /**
      * @return string
      */
     public function profile() : string
@@ -66,7 +117,6 @@ class User
         return <<<HTML
             <span>Nom<br>&emsp;{$this->lastName}</span><br>
             <span>Prénom<br>&emsp;{$this->firstName}</span><br>
-            <span>Login<br>&emsp;{$this->login}[{$this->id}]</span><br>
             <span>Téléphone<br>&emsp;{$this->phone}</span>
 HTML;
     }
