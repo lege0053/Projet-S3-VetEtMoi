@@ -7,6 +7,16 @@ input {
     border: none;
 }
 
+.linkNav {
+    color: #262626;
+    font-family: Rubik;
+    font-weight: bold;
+}
+
+.linkNav:hover {
+    color: #02897A;
+    text-decoration: underline;
+}
 
 a.button, input.button {
     font-family: Rubik;
@@ -66,4 +76,18 @@ div.form-input input::placeholder{
     line-height: 21px;
     letter-spacing: 0.02em;
     color: #828282;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    background: #000000;
+    color: #FFFFFF;
 }

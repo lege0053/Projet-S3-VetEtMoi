@@ -83,7 +83,5 @@ $form = <<<HTML
 </div>
 HTML;
 
-
 $webPage->appendContent($form);
-
 echo $webPage->toHTML();

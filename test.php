@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-include "src/WebPage.php";
+require_once "autoload.php";
 
 $p = new WebPage("Test");
 
