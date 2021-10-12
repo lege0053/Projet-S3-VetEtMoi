@@ -34,7 +34,7 @@ $html= <<< HTML
             <a href="#"><img src="img/partCat.png" alt="" height="200"</a> 
             <a href="#"><img src="img/partNac.png" alt="" height="200"></a> 
         </div>
-        <h4 style="font-weight: bold;">Vous voulez tout savoir sur votre animal ?</h4>
+        <h4 style="font-weight: bold;">Voulez-vous tout savoir sur votre animal ?</h4>
         <h6 style="font-weight: bold;">cliquez sur le type d’animal pour en apprendre plus !</h6>
         <div class="d-flex flex-column mt-5">
             <div class="d-flex flex-row">
@@ -46,8 +46,8 @@ $html= <<< HTML
                 <a href="#"><img src="img/carre_gris.png" alt="" height="200" class="p-2"></a> 
                 <a href="#"><img src="img/carre_gris.png" alt="" height="200" class="p-2"></a> 
             </div>
-            <h4 style="font-weight: bold;">Voulez-vous tout savoir sur votre animal ?</h4>
-            <h6 style="font-weight: bold;">cliquez sur le type d’animal pour en apprendre plus !</h6>
+            <h4 style="font-weight: bold;">Avez-vous besoin d'autre conseils ?</h4>
+            <h6 style="font-weight: bold;">Nous en avons d'autres, aussi croustillants les uns que les autres !</h6>
             <a href="./conseils.php" class="btn m-1 align-self-center mt-2" style="font-weight: bold;background-color: #02897A; color: #FFFFFF">Voir les autres conseils</a>
         </div>
         <div class="d-flex flex-column mt-5">
