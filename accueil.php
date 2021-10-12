@@ -13,7 +13,7 @@ $html= <<< HTML
 <div class="d-flex justify-content-center">
     <h3 style="font-weight: bold;">Une Urgence ?</h3>
 </div>
-<div class="d-flex justify-content-center">
+<div class="d-flex justify-content-center mb-3">
     <a href="#" class="btn m-1" style="font-weight: bold;background-color: #C20D0D; color: #FFFFFF">En ligne</a>
     <button type="button" class="btn m-1" style="font-weight: bold;background-color: #C20D0D; color: #FFFFFF">03 25 56 35 96</button>
 </div>
@@ -26,15 +26,30 @@ $html= <<< HTML
     <img src="img/dog_cat.png" class="mx-auto w-25" alt="">
 </div>
 
-<div class="d-flex flex-column text-center mt-5">
-    <h1 style="font-weight: bold;">Espace</h1>
-    <div class="d-flex flex-row mt-3" style="padding-left: 460px">
-        <a href="#"><img src="img/partChien.png" alt="" height="200"></a> 
-        <a href="#"><img src="img/partCat.png" alt="" height="200"</a> 
-        <a href="#"><img src="img/partNac.png" alt="" height="200"></a> 
+<div class="d-flex justify-content-center">
+    <div class="d-flex flex-column text-center mt-5">
+        <h1 style="font-weight: bold;">Espace</h1>
+        <div class="d-flex flex-row mt-3">
+            <a href="#"><img src="img/partChien.png" alt="" height="200"></a> 
+            <a href="#"><img src="img/partCat.png" alt="" height="200"</a> 
+            <a href="#"><img src="img/partNac.png" alt="" height="200"></a> 
+        </div>
+        <h4 style="font-weight: bold;">Vous voulez tout savoir sur votre animal ?</h4>
+        <h6 style="font-weight: bold;">cliquez sur le type d’animal pour en apprendre plus !</h6>
+        <div class="d-flex flex-column mt-5">
+            <div class="d-flex flex-row">
+                {$webPage->getSVGMiniLogo()}
+                <h4 style="font-weight: bold; color: #055945; border-bottom: 8px solid #02897A;">Nos Derniers Conseils</h4>
+            </div>
+            <div class="d-flex flex-row mt-3">
+                <a href="#"><img src="img/carre_gris.png" alt="" height="200" class="p-2"></a> 
+                <a href="#"><img src="img/carre_gris.png" alt="" height="200" class="p-2"</a> 
+                <a href="#"><img src="img/carre_gris.png" alt="" height="200" class="p-2"</a> 
+            </div>
+            <h4 style="font-weight: bold;">Vous voulez tout savoir sur votre animal ?</h4>
+            <h6 style="font-weight: bold;">cliquez sur le type d’animal pour en apprendre plus !</h6>
+        </div>
     </div>
-    <h4 style="font-weight: bold;">Vous voulez tout savoir sur votre animal ?</h4>
-    <h6 style="font-weight: bold;">cliquez sur le type d’animal pour en apprendre plus !</h6>
 </div>
 
 HTML;
