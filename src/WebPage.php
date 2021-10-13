@@ -297,7 +297,7 @@ HTML
                     <div class="mt-5 mb-5">
                       <h4>Nous Contacter</h4>
                       <ul class="list-unstyled">
-                        <li>03 25 56 35 96</li>
+                        <li><a href="tel:+33325563596" style="text-decoration: none; color: #02897A">03 25 56 35 96</a> </li>
                         <li>contact@vetetmoi.fr</li>
                       </ul>
                     </div>
