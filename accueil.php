@@ -16,7 +16,7 @@ $html= <<< HTML
 <div class="d-flex justify-content-center mb-3">
     <a href="#" class="btn m-1" style="font-weight: bold;background-color: #C20D0D; color: #FFFFFF">En ligne</a>
     <a href="tel:+33325563596" class="btn m-1" style="font-weight: bold;background-color: #C20D0D; color: #FFFFFF">03 25 56 35 96</a>
-</div>s
+</div>
 <div class="d-flex flex-row">
     <div class="d-flex flex-column align-items-center mt-5 ml-5 pl-5">
         <h2 style="font-weight: bold;">Bienvenue sur le site de la clinique Vet&Moi !</h2>
