@@ -12,7 +12,7 @@ $webPage->appendToHead(<<< HTML
 
 
 $form = <<<HTML
-<div class="d-flex flex-row justify-content-center">
+<div class="d-flex flex-row justify-content-center mb-5">
     <img src="img/lapin.png" height="250px" class="align-self-center mr-5"/>
     <div class="d-flex flex-column w-50 pt-2 pb-2 pr-5 pl-5" style="background-color: #DDDDDD; border-radius: 10px">
             <form action="trmt/connexion_trmt.php" method="post">   
