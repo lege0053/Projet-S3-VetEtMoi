@@ -88,12 +88,10 @@ class WebPage
     public function appendCss(string $css): void
     {
         $this->appendToHead(<<<HTML
-    <style type='text/css'>
-    {$css}
-    </style>
-
-HTML
-        );
+            <style type='text/css'>
+            {$css}
+            </style>
+        HTML);
     }
 
     /**
@@ -106,10 +104,8 @@ HTML
     public function appendCssUrl(string $url): void
     {
         $this->appendToHead(<<<HTML
-    <link rel="stylesheet" type="text/css" href="{$url}">
-
-HTML
-        );
+            <link rel="stylesheet" type="text/css" href="{$url}">
+        HTML);
     }
 
     /**
@@ -122,12 +118,10 @@ HTML
     public function appendJs(string $js): void
     {
         $this->appendToHead(<<<HTML
-    <script type='text/javascript'>
-    {$js}
-    </script>
-
-HTML
-        );
+            <script defer type='text/javascript'>
+            {$js}
+            </script>
+        HTML);
     }
 
     /**
@@ -140,10 +134,8 @@ HTML
     public function appendJsUrl(string $url): void
     {
         $this->appendToHead(<<<HTML
-    <script type='text/javascript' src='{$url}'></script>
-
-HTML
-        );
+            <script defer type='text/javascript' src='{$url}'></script>
+        HTML);
     }
 
     /**
