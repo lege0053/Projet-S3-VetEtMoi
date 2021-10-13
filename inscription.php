@@ -71,7 +71,7 @@ $form = <<<HTML
                 </div>
                 <div class="form-group custom-control custom-checkbox">
                     <input type="checkbox" class="custom-control-input" id="conditions_utilisations" required>
-                       <label class="custom-control-label" style="font-weight: bold;" for = "conditions_utilisations">Accepter les <a href="#">conditions d'utilisations</a></label>
+                       <label class="custom-control-label" style="font-weight: bold;" for = "conditions_utilisations">Accepter les <a href="#" style="text-decoration: none; color: #02897A">conditions d'utilisations</a></label>
                 </div>
                 <div class="d-flex flex-row justify-content-center">
                     <div class="form-group d-inline-flex">
