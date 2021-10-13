@@ -56,37 +56,37 @@ $html= <<< HTML
 <!-- Section: Contact v.1 -->
 <section class="my-5">
   <h2 class="h1-responsive font-weight-bold text-center my-5">Contactez-nous</h2>
-  <div class="row">
+  <div class="row mr-3 ml-3">
     <div class="col-lg-5 mb-lg-0 mb-4">
       <div class="card">
-        <div class="card-body">
+        <div class="card-body" style="font-weight: bold;background-color: #DDDDDD;">
           <div class="form-header blue accent-1">
-            <h3 class="mt-2"><i class="fas fa-envelope"></i> Ecrivez-nous:</h3>
+            <h3 class="mt-2"><i class="fas fa-envelope"></i> Ecrivez-nous !</h3>
           </div>
           <div class="md-form">
             <label for="form-name">Votre nom</label>
-            <input type="text" id="form-name" class="form-control">
+            <input type="text" id="form-name" class="form-control" style="outline: 0; border:0;background-color: #C9C9C9;">
           </div>
           <div class="md-form">
             <label for="form-email">Votre mail</label>
-            <input type="text" id="form-email" class="form-control">
+            <input type="text" id="form-email" class="form-control" style="outline: 0; border:0;background-color: #C9C9C9;">
           </div>
           <div class="md-form">
             <label for="form-Subject">Sujet</label>
-            <input type="text" id="form-Subject" class="form-control">
+            <input type="text" id="form-Subject" class="form-control" style="outline: 0; border:0;background-color: #C9C9C9;">
           </div>
           <div class="md-form">
           <label for="form-text">Votre message</label>
-            <textarea id="form-text" class="form-control md-textarea" rows="3"></textarea>
+            <textarea id="form-text" class="form-control md-textarea" rows="3" style="outline: 0; border:0;background-color: #C9C9C9;"></textarea>
           </div>
-          <div class="text-center">
-            <button class="btn">Envoyer</button>
+          <div class="text-center mt-4">
+            {$webPage->getHTMLButton(true, "Envoyer", "#")}
           </div>
         </div>
       </div>
     </div>
     <div class="col-lg-7">
-      <div id="map-container-section" class="z-depth-1-half map-container-section mb-4" style="height: 400px">
+      <div id="map-container-section" class="z-depth-1-half map-container-section mb-4" style="height: 100%">
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2604.5102262308587!2d4.048937015569729!3d49.24777437932755!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e9743696b72967%3A0x16942c3d585b4b98!2s226%20Bd%20Pommery%2C%2051100%20Reims!5e0!3m2!1sfr!2sfr!4v1634032967797!5m2!1sfr!2sfr" frameborder="0"
           style="border:0" allowfullscreen loading="lazy"></iframe>
       </div>
