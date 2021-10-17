@@ -32,7 +32,7 @@ class Products
     }
 
     /**
-     * Return all product (order by name, or columnName)
+     * Return all product (order by name, or columnName).
      * @param string|null $columnName
      * @return array
      * @throws Exception
