@@ -5,68 +5,42 @@ require "../autoload.php";
 
 Session::start();
 
-if(isset($_GET['lastName'], $_GET['firstName'], ))
+if(isset($_POST['lastName'], $_POST['firstName'], $_POST['email'], $_POST['code'], $_POST['phone'])
+&& !empty($_POST['lastName']) && !empty($_POST['firstName']) && !empty($_POST['email']) && !empty($_POST['code']) && !empty($_POST['phone'])) {
 
+    $lastName = htmlspecialchars($_POST['lastName']);
+    $firstName = htmlspecialchars($_POST['firstName']);
+    $email = htmlspecialchars($_POST['email']);
+    $password = htmlspecialchars($_POST['code']);
+    $phone = htmlspecialchars($_POST['phone']);
 
-
-
-
-if(isset($_POST['nom']) && !empty($_POST['nom']) && isset($_POST['prnm']) && !empty($_POST['prnm'])
-    && isset($_POST['mail']) && !empty($_POST['mail']) && isset($_POST['repeat_mail']) && !empty($_POST['repeat_mail'])
-    && isset($_POST['mdp']) && !empty($_POST['mdp']) && isset($_POST['repeat_mdp']) && !empty($_POST['repeat_mdp'])
-    && isset($_POST['tel']) && !empty($_POST['tel']) )
-{
-    $nom = htmlspecialchars($_POST['nom']);
-    $prnm = htmlspecialchars($_POST['prnm']);
-    $mail = htmlspecialchars($_POST['mail']);
-    $repeat_mail = htmlspecialchars($_POST['repeat_mail']);
-    $mdp = htmlspecialchars($_POST['mdp']);
-    $repeat_mdp = htmlspecialchars($_POST['repeat_mdp']);
-    $tel = preg_replace('/\s+/', '', htmlspecialchars($_POST['tel']));
-
-    $check = MyPDO::getInstance()->prepare(<<<SQL
-        SELECT * FROM Utilisateur
-        WHERE mail = ?
+    $check = MyPdo::getInstance()->prepare(<<<SQL
+        SELECT * FROM Users
+        WHERE email = ?
     SQL);
-    $check->execute([$mail]);
+    $check->execute([$email]);
     $data = $check->fetch();
-    $row = $check->rowCount();
 
-    if($row == 0)
-    {
-        if(strlen($nom) <= 40)
-        {
-            if(strlen($prnm) <= 40)
-            {
-                if(strlen($mail) <= 60)
-                {
-                    if(filter_var($mail, FILTER_VALIDATE_EMAIL))
-                    {
-                        if(preg_match("/[0-9]{10}/", $tel)) /** A revoir +33 ect */
+    if($check->rowCount() == 0) {
+        if(strlen($lastName) <= 50) {
+            if(strlen($firstName) <= 50) {
+                if(strlen($email) <= 50) {
+                    if(filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                        if(true) // PREG MATCH LE PHONE ICI LES AMIS
                         {
-                            $mdp = password_hash($mdp, PASSWORD_BCRYPT); /**A voir cryptage SHA12**/
-                            $chr='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                            $allChars='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
                             $id='';
-                            for($i=0; $i<12; $i++)
-                            {
-                                $id.=$chr[random_int(0,62)];
+                            for($i=0; $i<12; $i++) {
+                                $id.= $allChars[random_int(0,61)];
                             }
+
                             $insert = MyPDO::getInstance()->prepare(
-                                'INSERT INTO Utilisateur(id, nom, prnm, mail, mdp, tel)
-                            VALUES(?,?, ?, ?, ?, ?)');
+                                'INSERT INTO Users(userId, lastName, firstName, email, password, phone)
+                            VALUES(:userId, :lastName, :firstName, :email, :password, :phone)');
+                            $insert->execute(['userId' => $id, 'lastName' => $lastName, 'firstName' => $firstName, 'email' => $email, 'password' => $password, 'phone' => $phone]);
 
-                            $insert->execute([$id,$nom, $prnm, $mail, $mdp, $tel]);
-
-                            $get = MyPDO::getInstance()->prepare(<<<SQL
-                            SELECT * FROM Utilisateur
-                            WHERE mail = ?
-                        SQL);
-                            $get->execute([$mail]);
-                            $data = $get->fetch();
-
-                            $_SESSION['idUtilisateur'] = (int)($data['idUtilisateur']);
-                            $_SESSION['isAdmin'] = (int)($data['isAdmin']);
-                            header('Location: ../userpage.php');
+                            $_SESSION['userId'] = $id;
+                            header('Location: ../profile.php');
                         } else header('Location: ../inscription.php?reg_err=tel');
                     } else header('Location: ../inscription.php?reg_err=mail');
                 } else header('Location: ../inscription.php?reg_err=mail_lenght');
@@ -74,4 +48,3 @@ if(isset($_POST['nom']) && !empty($_POST['nom']) && isset($_POST['prnm']) && !em
         } else header('Location: ../inscription.php?reg_err=nom_lenght');
     } else header('Location: ../inscription.php?reg_err=already');
 } else header('Location: ../inscription.php');
-

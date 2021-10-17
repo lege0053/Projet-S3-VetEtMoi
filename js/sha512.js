@@ -190,7 +190,7 @@ var CryptoJS = CryptoJS || function (a, m) {
                     var u = y[x - 15], e = u.high, z = u.low, u = (e >>> 1 | z << 31) ^ (e >>> 8 | z << 24) ^ e >>> 7,
                         z = (z >>> 1 | e << 31) ^ (z >>> 8 | e << 24) ^ (z >>> 7 | e << 25), D = y[x - 2], e = D.high,
                         k = D.low, D = (e >>> 19 | k << 13) ^
-                            (e << 3 | k >>> 29) ^ e >>> 6,
+                        (e << 3 | k >>> 29) ^ e >>> 6,
                         k = (k >>> 19 | e << 13) ^ (k << 3 | e >>> 29) ^ (k >>> 6 | e << 26), e = y[x - 7], Y = e.high,
                         C = y[x - 16], A = C.high, C = C.low, e = z + e.low, u = u + Y + (e >>> 0 < z >>> 0 ? 1 : 0),
                         e = e + k, u = u + D + (e >>> 0 < k >>> 0 ? 1 : 0), e = e + C,

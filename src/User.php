@@ -5,27 +5,27 @@ class User
 {
     private int $userId;
     private string $cp;
-    private string $ville;
+    private string $city;
     private string $rue;
     private string $firstName;
     private string $lastName;
     private string $phone;
     private string $email;
     private int $isAdmin;
-    private string $commentaire;
+    private string $comment;
 
     public function __construct(array $data)
     {
-        $this->userId = (int)$data['id'] ?? -1;
+        $this->userId = (int)$data['userId'] ?? -1;
         $this->cp = $data['cp'] ?? '';
-        $this->ville = $data['ville'] ?? '';
+        $this->city = $data['city'] ?? '';
         $this->rue = $data['rue'] ?? '';
         $this->lastName = $data['lastName'] ?? '';
         $this->firstName = $data['firstName'] ?? '';
         $this->phone = $data['phone'] ?? '';
         $this->email = $data['email'] ?? '';
-        $this->isAdmin = $data['isAdmin'] ?? '';
-        $this->commentaire = $data['commentaire'] ?? '';
+        $this->isAdmin = (int)($data['isAdmin']) ?? 0;
+        $this->comment = $data['comment'] ?? '';
     }
 
     /**
@@ -64,17 +64,17 @@ class User
     /**
      * @return mixed|string
      */
-    public function getCommentaire(): string
+    public function getCity(): string
     {
-        return $this->commentaire;
+        return $this->city;
     }
 
     /**
      * @return mixed|string
      */
-    public function getVille(): string
+    public function getComment(): string
     {
-        return $this->ville;
+        return $this->comment;
     }
 
     /**
