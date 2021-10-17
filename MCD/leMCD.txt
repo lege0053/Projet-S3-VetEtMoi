@@ -1,7 +1,7 @@
-CREATE TABLE Utilisateur(
+CREATE TABLE Users(
    userId VARCHAR(50) ,
    cp VARCHAR(50) ,
-   ville VARCHAR(50) ,
+   city VARCHAR(50) ,
    rue VARCHAR(50) ,
    firstName VARCHAR(50)  NOT NULL,
    lastName VARCHAR(50)  NOT NULL,
@@ -9,65 +9,65 @@ CREATE TABLE Utilisateur(
    email VARCHAR(50)  NOT NULL,
    password VARCHAR(120) ,
    isAdmin INT,
-   commentaire VARCHAR(256) ,
+   comment VARCHAR(256) ,
    PRIMARY KEY(userId)
 );
 
-CREATE TABLE Espece(
-   especeId INT,
-   libEspece VARCHAR(50)  NOT NULL,
-   PRIMARY KEY(especeId)
+CREATE TABLE Species(
+   speciesId INT,
+   speciesName VARCHAR(50)  NOT NULL,
+   PRIMARY KEY(speciesId)
 );
 
 CREATE TABLE Race(
    raceId INT,
-   libRace VARCHAR(50)  NOT NULL,
-   especeId INT NOT NULL,
+   raceName VARCHAR(50)  NOT NULL,
+   speciesId INT NOT NULL,
    PRIMARY KEY(raceId),
-   FOREIGN KEY(especeId) REFERENCES Espece(especeId)
+   FOREIGN KEY(speciesId) REFERENCES Species(speciesId)
 );
 
-CREATE TABLE CreneauType(
+CREATE TABLE TimeSlotType(
    typeId INT,
-   libType VARCHAR(50)  NOT NULL,
+   typeName VARCHAR(50)  NOT NULL,
    PRIMARY KEY(typeId)
 );
 
-CREATE TABLE GenreStatut(
-   genreId INT,
-   libGenre VARCHAR(50)  NOT NULL,
-   PRIMARY KEY(genreId)
+CREATE TABLE GenderStatus(
+   genderId INT,
+   genderName VARCHAR(50)  NOT NULL,
+   PRIMARY KEY(genderId)
 );
 
-CREATE TABLE Dangerosite(
-   dangerositeId INT,
-   libDangerosite VARCHAR(50)  NOT NULL,
-   PRIMARY KEY(dangerositeId)
+CREATE TABLE Threat(
+   ThreatId INT,
+   ThreatName VARCHAR(50)  NOT NULL,
+   PRIMARY KEY(ThreatId)
 );
 
-CREATE TABLE Produits(
-   idProduit INT,
-   libProduit VARCHAR(50)  NOT NULL,
-   qte INT,
-   qteLimit INT NOT NULL,
-   PRIMARY KEY(idProduit)
+CREATE TABLE Products(
+   productId INT,
+   productName VARCHAR(50)  NOT NULL,
+   quantity INT,
+   quantityLimit INT NOT NULL,
+   PRIMARY KEY(productId)
 );
 
-CREATE TABLE Commande(
-   idCommande VARCHAR(50) ,
-   prixCmd DECIMAL(15,2)   NOT NULL,
-   dateCmd DATE,
-   PRIMARY KEY(idCommande)
+CREATE TABLE Command(
+   commandId VARCHAR(50) ,
+   commandPrice DECIMAL(15,2)   NOT NULL,
+   commandDate DATE,
+   PRIMARY KEY(commandId)
 );
 
 CREATE TABLE News(
-   idNews INT,
+   newsId INT,
    title VARCHAR(50)  NOT NULL,
    content TEXT NOT NULL,
    dateNews DATE NOT NULL,
    userId VARCHAR(50)  NOT NULL,
-   PRIMARY KEY(idNews),
-   FOREIGN KEY(userId) REFERENCES Utilisateur(userId)
+   PRIMARY KEY(newsId),
+   FOREIGN KEY(userId) REFERENCES Users(userId)
 );
 
 CREATE TABLE Animal(
@@ -75,15 +75,15 @@ CREATE TABLE Animal(
    name VARCHAR(50) ,
    birthDay DATE NOT NULL,
    deathDay VARCHAR(50) ,
-   commentaire VARCHAR(256) ,
+   comment VARCHAR(256) ,
    userId VARCHAR(50)  NOT NULL,
-   dangerositeId INT NOT NULL,
-   genreId INT NOT NULL,
+   ThreatId INT NOT NULL,
+   genderId INT NOT NULL,
    raceId INT NOT NULL,
    PRIMARY KEY(animalId),
-   FOREIGN KEY(userId) REFERENCES Utilisateur(userId),
-   FOREIGN KEY(dangerositeId) REFERENCES Dangerosite(dangerositeId),
-   FOREIGN KEY(genreId) REFERENCES GenreStatut(genreId),
+   FOREIGN KEY(userId) REFERENCES Users(userId),
+   FOREIGN KEY(ThreatId) REFERENCES Threat(ThreatId),
+   FOREIGN KEY(genderId) REFERENCES GenderStatus(genderId),
    FOREIGN KEY(raceId) REFERENCES Race(raceId)
 );
 
@@ -95,41 +95,41 @@ CREATE TABLE Meeting(
    userId VARCHAR(50)  NOT NULL,
    animalId VARCHAR(50)  NOT NULL,
    PRIMARY KEY(meetingId),
-   FOREIGN KEY(userId) REFERENCES Utilisateur(userId),
+   FOREIGN KEY(userId) REFERENCES Users(userId),
    FOREIGN KEY(animalId) REFERENCES Animal(animalId)
 );
 
-CREATE TABLE Creneau(
-   creneauId INT,
+CREATE TABLE TimeSlot(
+   timeSlotId INT,
    startHour TIME,
    endHour TIME,
    dayName VARCHAR(50)  NOT NULL,
    typeId INT NOT NULL,
-   PRIMARY KEY(creneauId),
-   FOREIGN KEY(typeId) REFERENCES CreneauType(typeId)
+   PRIMARY KEY(timeSlotId),
+   FOREIGN KEY(typeId) REFERENCES TimeSlotType(typeId)
 );
 
-CREATE TABLE Concerner(
+CREATE TABLE Concern(
    meetingId VARCHAR(50) ,
-   creneauId INT,
-   PRIMARY KEY(meetingId, creneauId),
+   timeSlotId INT,
+   PRIMARY KEY(meetingId, timeSlotId),
    FOREIGN KEY(meetingId) REFERENCES Meeting(meetingId),
-   FOREIGN KEY(creneauId) REFERENCES Creneau(creneauId)
+   FOREIGN KEY(timeSlotId) REFERENCES TimeSlot(timeSlotId)
 );
 
-CREATE TABLE ContenirProduit(
-   idProduit INT,
-   idCommande VARCHAR(50) ,
-   qte INT NOT NULL,
-   PRIMARY KEY(idProduit, idCommande),
-   FOREIGN KEY(idProduit) REFERENCES Produits(idProduit),
-   FOREIGN KEY(idCommande) REFERENCES Commande(idCommande)
+CREATE TABLE Content(
+   productId INT,
+   commandId VARCHAR(50) ,
+   quantity INT NOT NULL,
+   PRIMARY KEY(productId, commandId),
+   FOREIGN KEY(productId) REFERENCES Products(productId),
+   FOREIGN KEY(commandId) REFERENCES Command(commandId)
 );
 
 CREATE TABLE Horaire(
    userId VARCHAR(50) ,
-   creneauId INT,
-   PRIMARY KEY(userId, creneauId),
-   FOREIGN KEY(userId) REFERENCES Utilisateur(userId),
-   FOREIGN KEY(creneauId) REFERENCES Creneau(creneauId)
+   timeSlotId INT,
+   PRIMARY KEY(userId, timeSlotId),
+   FOREIGN KEY(userId) REFERENCES Users(userId),
+   FOREIGN KEY(timeSlotId) REFERENCES TimeSlot(timeSlotId)
 );
