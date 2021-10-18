@@ -7,33 +7,45 @@ Session::start();
 $webPage = new WebPage("Accueil");
 $webPage->appendToHead(<<< HTML
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        body {
+            background-image: url("img/bg_accueil.png");
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+    </style>
     HTML);
 
 $html= <<< HTML
+<br><br>
 <div class="d-flex justify-content-center" xmlns="http://www.w3.org/1999/html">
     <h3 style="font-weight: bold;">Une Urgence ?</h3>
 </div>
 <div class="d-flex justify-content-center mb-3">
-    <a href="#" class="btn m-1" style="font-weight: bold;background-color: #C20D0D; color: #FFFFFF">En ligne</a>
-    <a href="tel:+33325563596" class="btn m-1" style="font-weight: bold;background-color: #C20D0D; color: #FFFFFF">03 25 56 35 96</a>
+    <a href="#" class="btn m-1 mr-3" style="font-weight: bold;background-color: #C20D0D; color: #FFFFFF">En ligne</a>
+    <a href="tel:+33325563596" class="btn m-1 ml-3" style="font-weight: bold;background-color: #C20D0D; color: #FFFFFF">03 25 56 35 96</a>
 </div>
-<div class="d-flex flex-row">
-    <div class="d-flex flex-column align-items-center mt-5 ml-5 pl-5">
-        <h2 style="font-weight: bold;">Bienvenue sur le site de la clinique Vet&Moi !</h2>
+<div class="d-flex justify-content-center">
+    <div class="d-flex flex-column align-items-center pt-5 mr-5">
+        <h2 style="font-weight: bold;">Bienvenue sur le site</h2>
+        <h2 style="font-weight: bold;">de la clinique Vet&Moi !</h2>
+        <br>
         <h4 style="font-weight: bold;">Prenez rendez-vous n'importe quand</h4>
+        <br>
         <a href="#" class="btn m-1" style="font-weight: bold;background-color: #02897A; color: #FFFFFF">Prenez rendez-vous</a>
     </div>
-    <img src="img/dog_cat.png" class="mx-auto w-25" alt="">
+    <img src="img/dog_cat.png" class="ml-5" style="max-width:40%;" alt="">
 </div>
-
+<br><br><br><br><br><br><br><br><br><br><br><br><br>
 <div class="d-flex justify-content-center">
     <div class="d-flex flex-column text-center mt-5">
-        <h1 style="font-weight: bold;">Espace</h1>
+        <h1 style="font-weight: bold; color: white;">Espace</h1>
         <div class="d-flex flex-row mt-3">
             <a href="#"><img src="img/partChien.png" alt="" height="200"></a> 
             <a href="#"><img src="img/partCat.png" alt="" height="200"</a> 
             <a href="#"><img src="img/partNac.png" alt="" height="200"></a> 
         </div>
+        <br>
         <h4 style="font-weight: bold;">Voulez-vous tout savoir sur votre animal ?</h4>
         <h6 style="font-weight: bold;">cliquez sur le type d’animal pour en apprendre plus !</h6>
         <div class="d-flex flex-column mt-5">
@@ -46,8 +58,10 @@ $html= <<< HTML
                 <a href="#"><img src="img/carre_gris.png" alt="" height="200" class="p-2"></a> 
                 <a href="#"><img src="img/carre_gris.png" alt="" height="200" class="p-2"></a> 
             </div>
+            <br>
             <h4 style="font-weight: bold;">Voulez-vous plus de conseils ?</h4>
             <h6 style="font-weight: bold;">Nous en avons d'autres, aussi croustillants les uns que les autres !</h6>
+            <br>
             <a href="./conseils.php" class="btn m-1 align-self-center" style="font-weight: bold;background-color: #02897A; color: #FFFFFF">Voir les autres conseils</a>
         </div>
     </div>
