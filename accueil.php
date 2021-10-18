@@ -48,7 +48,7 @@ $html= <<< HTML
         </div>
         <br>
         <h4 style="font-weight: bold;">Voulez-vous tout savoir sur votre animal ?</h4>
-        <h6 style="font-weight: bold;">cliquez sur le type d’animal pour en apprendre plus !</h6>
+        <h6 style="font-weight: bold;">Cliquez sur le type d’animal pour en apprendre plus !</h6>
         <div class="d-flex flex-column mt-5">
             <div class="d-flex flex-row">
                 {$webPage->getSVGMiniLogo()}
