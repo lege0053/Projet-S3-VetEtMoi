@@ -2,4 +2,4 @@
 
 require_once 'MyPDO.template.php';
 
-MyPDO::setConfiguration('mysql:host=localhost;dbname=iutprj11;charset=utf8', 'root', '');
+MyPDO::setConfiguration('mysql:host=mysql;dbname=infs3_prj11;charset=utf8', 'infs3_prj11', 'bobLeVeto51');

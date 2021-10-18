@@ -14,7 +14,7 @@ if(isset($_POST['lastName'], $_POST['firstName'], $_POST['email'], $_POST['code'
     $password = htmlspecialchars($_POST['code']);
     $phone = htmlspecialchars($_POST['phone']);
 
-    $check = MyPdo::getInstance()->prepare(<<<SQL
+    $check = MyPDO::getInstance()->prepare(<<<SQL
         SELECT * FROM Users
         WHERE email = ?
     SQL);
