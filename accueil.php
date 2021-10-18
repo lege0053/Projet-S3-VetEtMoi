@@ -6,9 +6,9 @@ Session::start();
 
 $webPage = new WebPage("Accueil");
 $webPage->appendToHead(<<< HTML
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <style>
         body {
+            background-color: #f5f5f5;
             background-image: url("img/bg_accueil.png");
             background-size: cover;
             background-repeat: no-repeat;
@@ -17,6 +17,7 @@ $webPage->appendToHead(<<< HTML
     HTML);
 
 $html= <<< HTML
+<div class="accueil">
 <br><br>
 <div class="d-flex justify-content-center" xmlns="http://www.w3.org/1999/html">
     <h3 style="font-weight: bold;">Une Urgence ?</h3>
@@ -107,7 +108,7 @@ $html= <<< HTML
     </div>
   </div>
 </section>
-
+</div>
 HTML;
 
 $webPage->appendContent($html);

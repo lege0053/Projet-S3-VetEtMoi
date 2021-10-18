@@ -6,9 +6,17 @@ Session::start();
 
 $webPage = new WebPage("Changement d'adresse");
 $webPage->appendToHead(<<< HTML
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        body {
+            background-image: url("img/bg_simple.png");
+            background-color: #f5f5f5;
+            background-size: 100%;
+            background-repeat: no-repeat;
+        }
+    </style>
     HTML);
 
+$webPage->appendContent("<br><br><br><br>");
 $form = <<<HTML
 <div class="d-flex flex-row justify-content-center mb-5">
     <img src="img/peroquet.png" height="250px" class="align-self-center mr-5"/>
