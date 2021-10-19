@@ -2,7 +2,6 @@
 declare(strict_types=1);
 
 require "autoload.php";
-Session::start();
 
 $webPage = new WebPage("Changement de mot de passe");
 $webPage->appendToHead(<<< HTML

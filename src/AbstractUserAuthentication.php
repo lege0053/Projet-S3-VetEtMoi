@@ -47,6 +47,11 @@ abstract class AbstractUserAuthentication
         return isset($_SESSION[self::SESSION_KEY]) && isset($_SESSION[self::SESSION_KEY][self::SESSION_USER_KEY]) && $_SESSION[self::SESSION_KEY][self::SESSION_USER_KEY] instanceof User;
     }
 
+    public static function isUserAdmin() : bool {
+        Session::start();
+        return isset($_SESSION[self::SESSION_KEY]) && isset($_SESSION[self::SESSION_KEY][self::SESSION_USER_KEY]) && $_SESSION[self::SESSION_KEY][self::SESSION_USER_KEY] instanceof User && $_SESSION[self::SESSION_KEY][self::SESSION_USER_KEY]->isAdmin();
+    }
+
     protected function getUserFromSession() : User {
         Session::start();
         if(!$this->isUserConnected())

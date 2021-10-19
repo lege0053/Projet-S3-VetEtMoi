@@ -265,6 +265,20 @@ class WebPage
     }
 
     private function getHeader() : string {
+        $userHeader = !AbstractUserAuthentication::isUserConnected() ? <<<HTML
+            <a class="linkNav m-2 p-2" href="./connexion.php">{$this->getSVGPers()}CONNEXION</a>
+            <a class="linkNav m-2 p-2" href="./inscription.php">{$this->getSVGPers()}S'INSCRIRE</a>
+        HTML
+        : (
+            AbstractUserAuthentication::isUserAdmin() ?
+                <<< HTML
+                    <a class="linkNav m-2 p-2" href="./gestion.php">{$this->getSVGPers()}GESTION</a>
+                    <a class="linkNav m-2 p-2" href="./profile.php">{$this->getSVGPers()}MON COMPTE</a>
+                HTML
+            : <<<HTML
+            <a class="linkNav m-2 p-2" href="./profile.php">{$this->getSVGPers()}MON COMPTE</a>
+        HTML);
+
         return <<<HTML
         <nav class="d-flex justify-content-between mb-5">
             <svg class="mr-auto p-3" width="390" height="82" viewBox="0 0 390 82" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -275,8 +289,7 @@ class WebPage
             <a class="linkNav m-2 p-2" href="./activites.php">ACTIVITES</a>
             <a class="linkNav m-2 p-2" href="./conseils.php">CONSEILS</a>
             <a class="linkNav m-2 p-2" href="./boutique.php">BOUTIQUE</a>
-            <a class="linkNav m-2 p-2" href="./connexion.php">{$this->getSVGPers()}CONNEXION</a>
-            <a class="linkNav m-2 p-2" href="./inscription.php">{$this->getSVGPers()}S'INSCRIRE</a>
+            $userHeader
         </nav>
         HTML;
     }

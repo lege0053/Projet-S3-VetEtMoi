@@ -94,6 +94,14 @@ class User
     }
 
     /**
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        return $this->isAdmin == 1;
+    }
+
+    /**
      * @return mixed|string
      */
     public function getCp(): string
