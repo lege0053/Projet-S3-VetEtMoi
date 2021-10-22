@@ -28,12 +28,13 @@ $html= <<< HTML
 </div>
 <br><br><br><br><br><br><br><br><br><br><br><br><br>
 <div class="d-flex justify-content-center">
-    <div class="d-flex flex-column text-center mt-5">
-        <h1 style="font-weight: bold; color: white;">Espace</h1>
+    <img src="img/svg/background-accueil.svg" style="position: absolute; z-index: -1;">
+    <div class="d-flex flex-column text-center" style="margin-top: 350px;">
+        <h1 style="font-weight: bold; color: white; font-size: 64px; margin-bottom: 80px;">Espace</h1>
         <div class="d-flex flex-row mt-3">
-            <a href="#"><img src="img/partChien.png" alt="" height="200"></a> 
-            <a href="#"><img src="img/partCat.png" alt="" height="200"</a> 
-            <a href="#"><img src="img/partNac.png" alt="" height="200"></a> 
+            <a href="#"><img src="img/partChien.png" alt="" height="250"></a> 
+            <a href="#"><img src="img/partCat.png" alt="" height="250"</a> 
+            <a href="#"><img src="img/partNac.png" alt="" height="250"></a> 
         </div>
         <br>
         <h4 style="font-weight: bold;">Voulez-vous tout savoir sur votre animal ?</h4>

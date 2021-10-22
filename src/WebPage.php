@@ -242,7 +242,7 @@ class WebPage
             </svg>
             <a class="linkNav m-2 p-2" href="./accueil.php">ACCUEIL</a>
             <a class="linkNav m-2 p-2" href="./activites.php">ACTIVITES</a>
-            <a class="linkNav m-2 p-2" href="./conseils.php">CONFSEILS</a>
+                <a class="linkNav m-2 p-2" href="./conseils.php">CONSEILS</a>
             <a class="linkNav m-2 p-2" href="./boutique.php">BOUTIQUE</a>
             $userHeader
         </nav>

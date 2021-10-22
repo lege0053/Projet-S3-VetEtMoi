@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+include "WebPage.php";
 
 class User
 {
@@ -120,12 +121,23 @@ class User
     /**
      * @return string
      */
-    public function profile() : string
+    public function getHTMLProfile() : string
     {
+        $webPage = new WebPage();
         return <<<HTML
-            <span>Nom<br>&emsp;{$this->lastName}</span><br>
-            <span>Prénom<br>&emsp;{$this->firstName}</span><br>
-            <span>Téléphone<br>&emsp;{$this->phone}</span>
+
+            <div class="main-ui-class">
+                <span class="title">Mon Profil</span>
+                <div class="d-flex flex-column">
+                    <span class="d-flex">
+                        {$webPage->getIcon("user")}
+                        <p>Nom</p>
+                    </span>
+                    <div></div>
+                    
+                </div>
+            </div>
+
 HTML;
     }
 
