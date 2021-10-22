@@ -44,7 +44,7 @@ $html= <<< HTML
                 {$webPage->getIcon("cat")}
                 <h4 style="font-weight: bold; color: #055945; border-bottom: 8px solid #02897A;">Nos Derniers Conseils</h4>
             </div>
-            <div class="d-flex flex-row mt-3">
+            <div class="d-flex flex-row justify-content-center mt-3">
                 <a href="#"><img src="img/carre_gris.png" alt="" height="200" class="p-2"></a> 
                 <a href="#"><img src="img/carre_gris.png" alt="" height="200" class="p-2"></a> 
                 <a href="#"><img src="img/carre_gris.png" alt="" height="200" class="p-2"></a> 
