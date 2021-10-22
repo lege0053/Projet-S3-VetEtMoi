@@ -4,16 +4,6 @@ declare(strict_types=1);
 require "autoload.php";
 
 $webPage = new WebPage("Accueil");
-$webPage->appendToHead(<<< HTML
-    <style>
-        body {
-            background-color: #f5f5f5;
-            background-image: url("img/bg_accueil.png");
-            background-size: cover;
-            background-repeat: no-repeat;
-        }
-    </style>
-    HTML);
 
 $html= <<< HTML
 
@@ -50,7 +40,7 @@ $html= <<< HTML
         <h6 style="font-weight: bold;">Cliquez sur le type d’animal pour en apprendre plus !</h6>
         <div class="d-flex flex-column mt-5">
             <div class="d-flex flex-row">
-                {$webPage->getSVGMiniLogo()}
+                {$webPage->getIcon("cat")}
                 <h4 style="font-weight: bold; color: #055945; border-bottom: 8px solid #02897A;">Nos Derniers Conseils</h4>
             </div>
             <div class="d-flex flex-row mt-3">
@@ -63,7 +53,7 @@ $html= <<< HTML
             <h6 style="font-weight: bold;">Nous en avons d'autres, aussi croustillants les uns que les autres !</h6>
             <a href="./conseils.php" class="btn m-1 align-self-center" style="font-weight: bold;background-color: #02897A; color: #FFFFFF">Voir les autres conseils</a>
             <div class="d-flex flex-row mt-5">
-                {$webPage->getSVGMiniLogo()}
+                {$webPage->getIcon("cat")}
                 <h4 style="font-weight: bold; color: #055945; border-bottom: 8px solid #02897A;">Où sommes-nous situé ?</h4>
             </div>
             <section class="my-3">
@@ -75,7 +65,7 @@ $html= <<< HTML
                 </div>
             </section>
             <div class="d-flex flex-row mt-5">
-                {$webPage->getSVGMiniLogo()}
+                {$webPage->getIcon("cat")}
                 <h4 style="font-weight: bold; color: #055945; border-bottom: 8px solid #02897A;">Nous Contacter</h4>
             </div>
             <section class="my-3">

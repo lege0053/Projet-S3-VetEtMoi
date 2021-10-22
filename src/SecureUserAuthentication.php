@@ -16,8 +16,8 @@ class SecureUserAuthentication extends AbstractUserAuthentication
         $_SESSION[self::SESSION_CHALLENGE_KEY] = Random::string(self::RANDOM_STRING_SIZE);
         $code = self::CODE_INPUT_NAME;
 
-        $mailSVG = WebPage::getSVGMail();
-        $mdpSVF = WebPage::getSVGMdp();
+        $mailSVG = WebPage::getIcon("mail");
+        $mdpSVF = WebPage::getIcon("lock");
         $submitButton = WebPage::getHTMLButton(true, "Se Connecter");
 
         return <<<HTML

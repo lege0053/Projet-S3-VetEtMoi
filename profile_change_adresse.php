@@ -4,16 +4,6 @@ declare(strict_types=1);
 require "autoload.php";
 
 $webPage = new WebPage("Changement d'adresse");
-$webPage->appendToHead(<<< HTML
-    <style>
-        body {
-            background-image: url("img/bg_simple.png");
-            background-color: #f5f5f5;
-            background-size: 100%;
-            background-repeat: no-repeat;
-        }
-    </style>
-    HTML);
 
 $webPage->appendContent("<br><br><br><br>");
 $form = <<<HTML
