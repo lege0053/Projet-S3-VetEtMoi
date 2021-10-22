@@ -8,7 +8,7 @@ $webPage = new WebPage("Changement d'adresse");
 $webPage->appendContent("<br><br><br><br>");
 $form = <<<HTML
 <div class="d-flex flex-row justify-content-center mb-5">
-    <img src="img/peroquet.png" height="250px" class="align-self-center mr-5"/>
+    <img src="img/animal/parrot.png" height="250px" class="align-self-center mr-5"/>
     <div class="d-flex flex-column w-50 pt-2 pb-2 pr-5 pl-5" style="background-color: #DDDDDD; border-radius: 10px">
             <form action="trmt/connexion_trmt.php" method="post">   
                 <div class="d-flex pb-4 mt-2 justify-content-center">

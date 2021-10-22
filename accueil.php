@@ -24,7 +24,7 @@ $html= <<< HTML
         <br>
         <a href="#" class="btn m-1" style="font-weight: bold;background-color: #02897A; color: #FFFFFF">Prenez rendez-vous</a>
     </div>
-    <img src="img/dog_cat.png" class="ml-5" style="max-width:40%;" alt="">
+    <img src="img/animal/dogAndcat.png" class="ml-5" style="max-width:40%;" alt="">
 </div>
 <br><br><br><br><br><br><br><br><br><br><br><br><br>
 <div class="d-flex justify-content-center">

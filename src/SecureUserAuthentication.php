@@ -35,7 +35,7 @@ class SecureUserAuthentication extends AbstractUserAuthentication
             } 
         </script>
         <div class="d-flex flex-row justify-content-center mb-5">
-            <img src="img/catInsciption.png" height="250px" class="align-self-center mr-5"/>
+            <img src="img/animal/cat1.png" height="250px" class="align-self-center mr-5"/>
             <div class="d-flex flex-column w-50 pt-2 pb-2 pr-5 pl-5" style="background-color: #DDDDDD; border-radius: 10px">
                 <form action="$action" method="post" onsubmit="codeSHA512();">   
                     <div class="d-flex pb-4 mt-2 justify-content-center">
