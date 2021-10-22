@@ -26,7 +26,7 @@ $html= <<< HTML
     </div>
     <img src="img/animal/dogAndcat.png" class="ml-5" style="max-width:40%;" alt="">
 </div>
-<br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br>
 <div class="d-flex justify-content-center">
     <img src="img/svg/background-accueil.svg" style="position: absolute; z-index: -1;">
     <div class="d-flex flex-column text-center" style="margin-top: 350px;">
