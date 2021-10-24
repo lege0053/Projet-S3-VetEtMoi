@@ -22,7 +22,7 @@ $html= <<< HTML
         <br>
         <h4 style="font-weight: bold;">Prenez rendez-vous n'importe quand</h4>
         <br>
-        <a href="#" class="btn m-1" style="font-weight: bold;background-color: #02897A; color: #FFFFFF">Prenez rendez-vous</a>
+        <a href="listeAnimal.php" class="btn m-1" style="font-weight: bold;background-color: #02897A; color: #FFFFFF">Prenez rendez-vous</a>
     </div>
     <img src="img/animal/dogAndcat.png" class="ml-5" style="max-width:40%;" alt="">
 </div>
