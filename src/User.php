@@ -159,7 +159,7 @@ class User
                         </span>
                         <div class="d-flex w-100" style="gap: 20px;">
                             <span class="info-container flex-grow-1">{$this->phone}</span>
-                            {$webPage->getHTMLButton(false, "Modifier", "#", "15px", "25px", "18px")}
+                            {$webPage->getHTMLButton(false, "Modifier", "profile_change_phone.php", "15px", "25px", "18px")}
                         </div>
                     </div>
                     
@@ -170,7 +170,7 @@ class User
                         </span>
                         <div class="d-flex w-100" style="gap: 20px;">
                             <span class="info-container flex-grow-1">{$this->rue} {$this->cp} {$this->city}</span>
-                            {$webPage->getHTMLButton(false, "Modifier", "#", "15px", "25px", "18px")}
+                            {$webPage->getHTMLButton(false, "Modifier", "profile_change_adresse.php", "15px", "25px", "18px")}
                         </div>
                     </div>
                     
@@ -181,7 +181,7 @@ class User
                         </span>
                         <div class="d-flex w-100" style="gap: 20px;">
                             <span class="info-container flex-grow-1">{$this->email}</span>
-                            {$webPage->getHTMLButton(false, "Modifier", "#", "15px", "25px", "18px")}
+                            {$webPage->getHTMLButton(false, "Modifier", "profile_change_mail.php", "15px", "25px", "18px")}
                         </div>
                     </div>
                     
@@ -192,7 +192,7 @@ class User
                         </span>
                         <div class="d-flex w-100" style="gap: 20px;">
                             <span class="info-container flex-grow-1">**************</span>
-                            {$webPage->getHTMLButton(false, "Modifier", "#", "15px", "25px", "18px")}
+                            {$webPage->getHTMLButton(false, "Modifier", "profile_change_password.php", "15px", "25px", "18px")}
                         </div>
                     </div>
                 </div>

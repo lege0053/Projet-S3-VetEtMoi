@@ -173,7 +173,7 @@ class WebPage
                 <title>{$this->title}</title>
                 {$this->head()}
             </head>
-            <body style="gap: 45px;">
+            <body style="gap: 60px;">
                 {$this->getHeader()}
                 {$this->body}
                 {$this->getFooter()}
@@ -213,8 +213,9 @@ class WebPage
         return $submitType ? "<input class='button' type=\"submit\" value=\"$value\" style=\"font-size: {$fontSize}; padding: {$paddingBottomTop} {$paddingLeftRight};\">" : "<a class='button' href=\"$href\" style=\"font-size: $fontSize; padding: $paddingBottomTop $paddingLeftRight;\">$value</a>";
     }
 
-    public static function getHTMLInput(string $title = '', string $inputType = '', string $name='', string $id='', string $placeholder='', string $value='', bool $required=true, bool $hidden=false): string {
-        return "<div class='form-input'><label for='$id'>$title</label>
+    public static function getHTMLInput(string $title = '', string $inputType = '', string $name='', string $id='', string $placeholder='', string $value='', bool $required=true, bool $hidden=false, string $iconType = ''): string {
+        $icon = !empty($iconType) ? self::getIcon($iconType, 22) : '';
+        return "<div class='form-input'><label for='$id'>{$icon} $title</label>
         <input type='$inputType' name='$name' id='$id' value='$value' placeholder='$placeholder' ".($required ? "required ": "").($hidden ? "hidden " : "")."></div>";
     }
 
@@ -251,7 +252,7 @@ class WebPage
 
     private function getFooter() : string {
         return <<<HTML
-            <footer class="footer" style="background-color: #242424; color: #E2E2E2">
+            <footer id="footer" style="background-color: #242424; color: #E2E2E2">
               <div class="container">
                 <div class="row justify-content-center">
                   <div class="col-md-3 col-sm-6">
