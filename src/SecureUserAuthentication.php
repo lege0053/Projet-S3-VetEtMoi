@@ -21,7 +21,7 @@ class SecureUserAuthentication extends AbstractUserAuthentication
         $submitButton = WebPage::getHTMLButton(true, "Se Connecter");
 
         return <<<HTML
-        <script type="text/javascript" src="js/sha512v2.js"></script>
+        <script type="text/javascript" src="js/sha512.js"></script>
         <script type="text/javascript">
             function codeSHA512() {
                 let hashEmail = Sha512.hash(document.getElementById('email').value.toString());

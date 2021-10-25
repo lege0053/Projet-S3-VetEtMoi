@@ -8,11 +8,11 @@ Session::start();
 if(isset($_POST['lastName'], $_POST['firstName'], $_POST['email'], $_POST['code'], $_POST['phone'])
 && !empty($_POST['lastName']) && !empty($_POST['firstName']) && !empty($_POST['email']) && !empty($_POST['code']) && !empty($_POST['phone'])) {
 
-    $lastName = htmlspecialchars($_POST['lastName']);
-    $firstName = htmlspecialchars($_POST['firstName']);
-    $email = htmlspecialchars($_POST['email']);
-    $password = htmlspecialchars($_POST['code']);
-    $phone = htmlspecialchars($_POST['phone']);
+    $lastName = WebPage::escapeString($_POST['lastName']);
+    $firstName = WebPage::escapeString($_POST['firstName']);
+    $email = WebPage::escapeString($_POST['email']);
+    $password = WebPage::escapeString($_POST['code']);
+    $phone = WebPage::escapeString($_POST['phone']);
 
     $check = MyPDO::getInstance()->prepare(<<<SQL
         SELECT * FROM Users

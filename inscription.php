@@ -5,11 +5,11 @@ require "autoload.php";
 
 $webPage = new WebPage("Inscription");
 
-$webPage->appendJsUrl("js/sha512v2.js");
+$webPage->appendJsUrl("js/sha512.js");
 $webPage->appendJs(<<<JS
             function hash512() {
                 document.getElementById('code').value = Sha512.hash(document.getElementById('password').value.toString());
-            } 
+            }
 JS);
 
 $form = <<<HTML
@@ -79,7 +79,7 @@ $form = <<<HTML
                 <input type="text" id="code" name="code" hidden>
                 <div class="d-flex flex-row justify-content-center">
                     <div class="form-group d-inline-flex">
-                        {$webPage->getHTMLButton(true, "S'inscrire", "#")}
+                        {$webPage->getHTMLButton(true, "S'inscrire")}
                     </div>
                 </div>
             </form>

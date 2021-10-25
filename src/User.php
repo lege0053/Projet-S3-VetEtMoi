@@ -4,7 +4,7 @@ require_once ("WebPage.php");
 
 class User
 {
-    private int $userId;
+    private string $userId;
     private string $cp;
     private string $city;
     private string $rue;
@@ -17,7 +17,7 @@ class User
 
     public function __construct(array $data)
     {
-        $this->userId = (int)$data['userId'] ?? -1;
+        $this->userId = $data['userId'] ?? '';
         $this->cp = $data['cp'] ?? '';
         $this->city = $data['city'] ?? '';
         $this->rue = $data['rue'] ?? '';
@@ -38,9 +38,9 @@ class User
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getUserId(): int
+    public function getUserId(): string
     {
         return $this->userId;
     }

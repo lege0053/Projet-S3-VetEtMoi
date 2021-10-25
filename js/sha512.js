@@ -1,245 +1,266 @@
-/*
-CryptoJS v3.1.2
-code.google.com/p/crypto-js
-(c) 2009-2013 by Jeff Mott. All rights reserved.
-code.google.com/p/crypto-js/wiki/License
-*/
-var CryptoJS = CryptoJS || function (a, m) {
-    var r = {}, f = r.lib = {}, g = function () {
-        }, l = f.Base = {
-            extend: function (a) {
-                g.prototype = this;
-                var b = new g;
-                a && b.mixIn(a);
-                b.hasOwnProperty("init") || (b.init = function () {
-                    b.$super.init.apply(this, arguments)
-                });
-                b.init.prototype = b;
-                b.$super = this;
-                return b
-            }, create: function () {
-                var a = this.extend();
-                a.init.apply(a, arguments);
-                return a
-            }, init: function () {
-            }, mixIn: function (a) {
-                for (var b in a) a.hasOwnProperty(b) && (this[b] = a[b]);
-                a.hasOwnProperty("toString") && (this.toString = a.toString)
-            }, clone: function () {
-                return this.init.prototype.extend(this)
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
+/* SHA-512 (FIPS 180-4) implementation in JavaScript                  (c) Chris Veness 2016-2019  */
+/*                                                                                   MIT Licence  */
+/* www.movable-type.co.uk/scripts/sha512.html                                                     */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
+
+
+/**
+ * SHA-512 hash function reference implementation.
+ *
+ * This is an annotated direct implementation of FIPS 180-4, without any optimisations. It is
+ * intended to aid understanding of the algorithm rather than for production use.
+ *
+ * While it could be used where performance is not critical, I would recommend using the ‘Web
+ * Cryptography API’ (developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/digest) for the browser,
+ * or the ‘crypto’ library (nodejs.org/api/crypto.html#crypto_class_hash) in Node.js.
+ *
+ * SHA-512 is more difficult to implement in JavaScript than SHA-256, as it is based on 64-bit
+ * (unsigned) integers, which are not natively supported in JavaScript (in which all numbers are
+ * IEEE 754 64-bit floating-point numbers). A 'Long' library here provides UInt64-style support.
+ *
+ * See csrc.nist.gov/groups/ST/toolkit/secure_hashing.html
+ *     csrc.nist.gov/groups/ST/toolkit/examples.html
+ */
+class Sha512 {
+
+    /**
+     * Generates SHA-512 hash of string.
+     *
+     * @param   {string} msg - (Unicode) string to be hashed.
+     * @param   {Object} [options]
+     * @param   {string} [options.msgFormat=string] - Message format: 'string' for JavaScript string
+     *   (gets converted to UTF-8 for hashing); 'hex-bytes' for string of hex bytes ('616263' ≡ 'abc') .
+     * @param   {string} [options.outFormat=hex] - Output format: 'hex' for string of contiguous
+     *   hex bytes; 'hex-w' for grouping hex bytes into groups of (8 byte / 16 character) words.
+     * @returns {string} Hash of msg as hex character string.
+     *
+     * @example
+     *   import Sha512 from './sha512.js';
+     *   const hash = Sha512.hash('abc'); // 'ddaf35a193617abacc417349ae20413112e6fa4e89a97ea20a9eeee64b55d39a2192992a274fc1a836ba3c23a3feebbd454d4423643ce80e2a9ac94fa54ca49f'
+     */
+    static hash(msg, options) {
+        const defaults = { msgFormat: 'string', outFormat: 'hex' };
+        const opt = Object.assign(defaults, options);
+
+        switch (opt.msgFormat) {
+            default: // default is to convert string to UTF-8, as SHA only deals with byte-streams
+            case 'string':   msg = utf8Encode(msg);       break;
+            case 'hex-bytes':msg = hexBytesToString(msg); break; // mostly for running tests
+        }
+
+        // constants [§4.2.3]
+        const K = [
+            '428a2f98d728ae22', '7137449123ef65cd', 'b5c0fbcfec4d3b2f', 'e9b5dba58189dbbc',
+            '3956c25bf348b538', '59f111f1b605d019', '923f82a4af194f9b', 'ab1c5ed5da6d8118',
+            'd807aa98a3030242', '12835b0145706fbe', '243185be4ee4b28c', '550c7dc3d5ffb4e2',
+            '72be5d74f27b896f', '80deb1fe3b1696b1', '9bdc06a725c71235', 'c19bf174cf692694',
+            'e49b69c19ef14ad2', 'efbe4786384f25e3', '0fc19dc68b8cd5b5', '240ca1cc77ac9c65',
+            '2de92c6f592b0275', '4a7484aa6ea6e483', '5cb0a9dcbd41fbd4', '76f988da831153b5',
+            '983e5152ee66dfab', 'a831c66d2db43210', 'b00327c898fb213f', 'bf597fc7beef0ee4',
+            'c6e00bf33da88fc2', 'd5a79147930aa725', '06ca6351e003826f', '142929670a0e6e70',
+            '27b70a8546d22ffc', '2e1b21385c26c926', '4d2c6dfc5ac42aed', '53380d139d95b3df',
+            '650a73548baf63de', '766a0abb3c77b2a8', '81c2c92e47edaee6', '92722c851482353b',
+            'a2bfe8a14cf10364', 'a81a664bbc423001', 'c24b8b70d0f89791', 'c76c51a30654be30',
+            'd192e819d6ef5218', 'd69906245565a910', 'f40e35855771202a', '106aa07032bbd1b8',
+            '19a4c116b8d2d0c8', '1e376c085141ab53', '2748774cdf8eeb99', '34b0bcb5e19b48a8',
+            '391c0cb3c5c95a63', '4ed8aa4ae3418acb', '5b9cca4f7763e373', '682e6ff3d6b2b8a3',
+            '748f82ee5defb2fc', '78a5636f43172f60', '84c87814a1f0ab72', '8cc702081a6439ec',
+            '90befffa23631e28', 'a4506cebde82bde9', 'bef9a3f7b2c67915', 'c67178f2e372532b',
+            'ca273eceea26619c', 'd186b8c721c0c207', 'eada7dd6cde0eb1e', 'f57d4f7fee6ed178',
+            '06f067aa72176fba', '0a637dc5a2c898a6', '113f9804bef90dae', '1b710b35131c471b',
+            '28db77f523047d84', '32caab7b40c72493', '3c9ebe0a15c9bebc', '431d67c49c100d4c',
+            '4cc5d4becb3e42b6', '597f299cfc657e2a', '5fcb6fab3ad6faec', '6c44198c4a475817',
+        ].map(k => Sha512.Long.fromString(k));
+
+        // initial hash value [§5.3.5]
+        const H = [
+            '6a09e667f3bcc908', 'bb67ae8584caa73b', '3c6ef372fe94f82b', 'a54ff53a5f1d36f1',
+            '510e527fade682d1', '9b05688c2b3e6c1f', '1f83d9abfb41bd6b', '5be0cd19137e2179',
+        ].map(h => Sha512.Long.fromString(h));
+
+        // PREPROCESSING [§6.4.1]
+
+        msg += String.fromCharCode(0x80);  // add trailing '1' bit (+ 0's padding) to string [§5.1.2]
+
+        // convert string msg into 1024-bit blocks (array of 16 uint64) [§5.2.2]
+        const l = msg.length/8 + 2; // length (in 64-bit longs) of msg + ‘1’ + appended length
+        const N = Math.ceil(l/16);  // number of 16-long (1024-bit) blocks required to hold 'l' ints
+        const M = new Array(N);     // message M is N×16 array of 64-bit integers
+
+        for (let i=0; i<N; i++) {
+            M[i] = new Array(16);
+            for (let j=0; j<16; j++) { // encode 8 chars per uint64 (128 per block), big-endian encoding
+                const lo = (msg.charCodeAt(i*128+j*8+0)<<24) | (msg.charCodeAt(i*128+j*8+1)<<16)
+                    | (msg.charCodeAt(i*128+j*8+2)<< 8) | (msg.charCodeAt(i*128+j*8+3)<< 0);
+                const hi = (msg.charCodeAt(i*128+j*8+4)<<24) | (msg.charCodeAt(i*128+j*8+5)<<16)
+                    | (msg.charCodeAt(i*128+j*8+6)<< 8) | (msg.charCodeAt(i*128+j*8+7)<< 0);
+                M[i][j] = new Sha512.Long(lo, hi);
+            } // note running off the end of msg is ok 'cos bitwise ops on NaN return 0
+        }
+        // add length (in bits) into final pair of 64-bit integers (big-endian) [§5.1.2]
+        M[N-1][14] = new Sha512.Long(0, 0); // tooo hard... limit msg to 2 million terabytes
+        // note: most significant word would be (len-1)*8 >>> 32, but since JS converts
+        // bitwise-op args to 32 bits, we need to simulate this by arithmetic operators
+        const lenHi = ((msg.length-1)*8) / Math.pow(2, 32);
+        const lenLo = ((msg.length-1)*8) >>> 0; // note '>>> 0' coerces number to unsigned 32-bit integer
+        M[N-1][15] = new Sha512.Long(Math.floor(lenHi), lenLo);
+
+
+        // HASH COMPUTATION [§6.4.2]
+
+        for (let i=0; i<N; i++) {
+            const W = new Array(80);
+
+            // 1 - prepare message schedule 'W'
+            for (let t=0;  t<16; t++) W[t] = M[i][t];
+            for (let t=16; t<80; t++) {
+                W[t] = (Sha512.σ1(W[t-2]).add(W[t-7]).add(Sha512.σ0(W[t-15])).add(W[t-16]));
             }
-        },
-        p = f.WordArray = l.extend({
-            init: function (a, b) {
-                a = this.words = a || [];
-                this.sigBytes = b != m ? b : 4 * a.length
-            }, toString: function (a) {
-                return (a || q).stringify(this)
-            }, concat: function (a) {
-                var b = this.words, d = a.words, c = this.sigBytes;
-                a = a.sigBytes;
-                this.clamp();
-                if (c % 4) for (var j = 0; j < a; j++) b[c + j >>> 2] |= (d[j >>> 2] >>> 24 - 8 * (j % 4) & 255) << 24 - 8 * ((c + j) % 4); else if (65535 < d.length) for (j = 0; j < a; j += 4) b[c + j >>> 2] = d[j >>> 2]; else b.push.apply(b, d);
-                this.sigBytes += a;
-                return this
-            }, clamp: function () {
-                var n = this.words, b = this.sigBytes;
-                n[b >>> 2] &= 4294967295 <<
-                    32 - 8 * (b % 4);
-                n.length = a.ceil(b / 4)
-            }, clone: function () {
-                var a = l.clone.call(this);
-                a.words = this.words.slice(0);
-                return a
-            }, random: function (n) {
-                for (var b = [], d = 0; d < n; d += 4) b.push(4294967296 * a.random() | 0);
-                return new p.init(b, n)
+
+            // 2 - initialise working variables a, b, c, d, e, f, g, h with previous hash value
+            let a = H[0], b = H[1], c = H[2], d = H[3], e = H[4], f = H[5], g = H[6], h = H[7];
+
+            // 3 - main loop (note 'addition modulo 2^64')
+            for (let t=0; t<80; t++) {
+                const T1 = h.add(Sha512.Σ1(e)).add(Sha512.Ch(e, f, g)).add(K[t]).add(W[t]);
+                const T2 = Sha512.Σ0(a).add(Sha512.Maj(a, b, c));
+                h = g;
+                g = f;
+                f = e;
+                e = d.add(T1);
+                d = c;
+                c = b;
+                b = a;
+                a = T1.add(T2);
             }
-        }), y = r.enc = {}, q = y.Hex = {
-            stringify: function (a) {
-                var b = a.words;
-                a = a.sigBytes;
-                for (var d = [], c = 0; c < a; c++) {
-                    var j = b[c >>> 2] >>> 24 - 8 * (c % 4) & 255;
-                    d.push((j >>> 4).toString(16));
-                    d.push((j & 15).toString(16))
-                }
-                return d.join("")
-            }, parse: function (a) {
-                for (var b = a.length, d = [], c = 0; c < b; c += 2) d[c >>> 3] |= parseInt(a.substr(c,
-                    2), 16) << 24 - 4 * (c % 8);
-                return new p.init(d, b / 2)
-            }
-        }, G = y.Latin1 = {
-            stringify: function (a) {
-                var b = a.words;
-                a = a.sigBytes;
-                for (var d = [], c = 0; c < a; c++) d.push(String.fromCharCode(b[c >>> 2] >>> 24 - 8 * (c % 4) & 255));
-                return d.join("")
-            }, parse: function (a) {
-                for (var b = a.length, d = [], c = 0; c < b; c++) d[c >>> 2] |= (a.charCodeAt(c) & 255) << 24 - 8 * (c % 4);
-                return new p.init(d, b)
-            }
-        }, fa = y.Utf8 = {
-            stringify: function (a) {
-                try {
-                    return decodeURIComponent(escape(G.stringify(a)))
-                } catch (b) {
-                    throw Error("Malformed UTF-8 data");
-                }
-            }, parse: function (a) {
-                return G.parse(unescape(encodeURIComponent(a)))
-            }
-        },
-        h = f.BufferedBlockAlgorithm = l.extend({
-            reset: function () {
-                this._data = new p.init;
-                this._nDataBytes = 0
-            }, _append: function (a) {
-                "string" == typeof a && (a = fa.parse(a));
-                this._data.concat(a);
-                this._nDataBytes += a.sigBytes
-            }, _process: function (n) {
-                var b = this._data, d = b.words, c = b.sigBytes, j = this.blockSize, l = c / (4 * j),
-                    l = n ? a.ceil(l) : a.max((l | 0) - this._minBufferSize, 0);
-                n = l * j;
-                c = a.min(4 * n, c);
-                if (n) {
-                    for (var h = 0; h < n; h += j) this._doProcessBlock(d, h);
-                    h = d.splice(0, n);
-                    b.sigBytes -= c
-                }
-                return new p.init(h, c)
-            }, clone: function () {
-                var a = l.clone.call(this);
-                a._data = this._data.clone();
-                return a
-            }, _minBufferSize: 0
-        });
-    f.Hasher = h.extend({
-        cfg: l.extend(), init: function (a) {
-            this.cfg = this.cfg.extend(a);
-            this.reset()
-        }, reset: function () {
-            h.reset.call(this);
-            this._doReset()
-        }, update: function (a) {
-            this._append(a);
-            this._process();
-            return this
-        }, finalize: function (a) {
-            a && this._append(a);
-            return this._doFinalize()
-        }, blockSize: 16, _createHelper: function (a) {
-            return function (b, d) {
-                return (new a.init(d)).finalize(b)
-            }
-        }, _createHmacHelper: function (a) {
-            return function (b, d) {
-                return (new ga.HMAC.init(a,
-                    d)).finalize(b)
+
+            // 4 - compute the new intermediate hash value
+            H[0] = H[0].add(a);
+            H[1] = H[1].add(b);
+            H[2] = H[2].add(c);
+            H[3] = H[3].add(d);
+            H[4] = H[4].add(e);
+            H[5] = H[5].add(f);
+            H[6] = H[6].add(g);
+            H[7] = H[7].add(h);
+        }
+
+        // convert H0..H7 to hex strings (with leading zeros)
+        for (let h=0; h<H.length; h++) H[h] = H[h].toString();
+
+        // concatenate H0..H7, with separator if required
+        const separator = opt.outFormat=='hex-w' ? ' ' : '';
+
+        return H.join(separator);
+
+        /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
+
+        function utf8Encode(str) {
+            try {
+                return new TextEncoder().encode(str, 'utf-8').reduce((prev, curr) => prev + String.fromCharCode(curr), '');
+            } catch (e) { // no TextEncoder available?
+                return unescape(encodeURIComponent(str)); // monsur.hossa.in/2012/07/20/utf-8-in-javascript.html
             }
         }
-    });
-    var ga = r.algo = {};
-    return r
-}(Math);
-(function (a) {
-    var m = CryptoJS, r = m.lib, f = r.Base, g = r.WordArray, m = m.x64 = {};
-    m.Word = f.extend({
-        init: function (a, p) {
-            this.high = a;
-            this.low = p
+
+        function hexBytesToString(hexStr) { // convert string of hex numbers to a string of chars (eg '616263' -> 'abc').
+            const str = hexStr.replace(' ', ''); // allow space-separated groups
+            return str=='' ? '' : str.match(/.{2}/g).map(byte => String.fromCharCode(parseInt(byte, 16))).join('');
         }
-    });
-    m.WordArray = f.extend({
-        init: function (l, p) {
-            l = this.words = l || [];
-            this.sigBytes = p != a ? p : 8 * l.length
-        }, toX32: function () {
-            for (var a = this.words, p = a.length, f = [], q = 0; q < p; q++) {
-                var G = a[q];
-                f.push(G.high);
-                f.push(G.low)
-            }
-            return g.create(f, this.sigBytes)
-        }, clone: function () {
-            for (var a = f.clone.call(this), p = a.words = this.words.slice(0), g = p.length, q = 0; q < g; q++) p[q] = p[q].clone();
-            return a
-        }
-    })
-})();
-(function () {
-    function a() {
-        return g.create.apply(g, arguments)
     }
 
-    for (var m = CryptoJS, r = m.lib.Hasher, f = m.x64, g = f.Word, l = f.WordArray, f = m.algo, p = [a(1116352408, 3609767458), a(1899447441, 602891725), a(3049323471, 3964484399), a(3921009573, 2173295548), a(961987163, 4081628472), a(1508970993, 3053834265), a(2453635748, 2937671579), a(2870763221, 3664609560), a(3624381080, 2734883394), a(310598401, 1164996542), a(607225278, 1323610764), a(1426881987, 3590304994), a(1925078388, 4068182383), a(2162078206, 991336113), a(2614888103, 633803317),
-        a(3248222580, 3479774868), a(3835390401, 2666613458), a(4022224774, 944711139), a(264347078, 2341262773), a(604807628, 2007800933), a(770255983, 1495990901), a(1249150122, 1856431235), a(1555081692, 3175218132), a(1996064986, 2198950837), a(2554220882, 3999719339), a(2821834349, 766784016), a(2952996808, 2566594879), a(3210313671, 3203337956), a(3336571891, 1034457026), a(3584528711, 2466948901), a(113926993, 3758326383), a(338241895, 168717936), a(666307205, 1188179964), a(773529912, 1546045734), a(1294757372, 1522805485), a(1396182291,
-            2643833823), a(1695183700, 2343527390), a(1986661051, 1014477480), a(2177026350, 1206759142), a(2456956037, 344077627), a(2730485921, 1290863460), a(2820302411, 3158454273), a(3259730800, 3505952657), a(3345764771, 106217008), a(3516065817, 3606008344), a(3600352804, 1432725776), a(4094571909, 1467031594), a(275423344, 851169720), a(430227734, 3100823752), a(506948616, 1363258195), a(659060556, 3750685593), a(883997877, 3785050280), a(958139571, 3318307427), a(1322822218, 3812723403), a(1537002063, 2003034995), a(1747873779, 3602036899),
-        a(1955562222, 1575990012), a(2024104815, 1125592928), a(2227730452, 2716904306), a(2361852424, 442776044), a(2428436474, 593698344), a(2756734187, 3733110249), a(3204031479, 2999351573), a(3329325298, 3815920427), a(3391569614, 3928383900), a(3515267271, 566280711), a(3940187606, 3454069534), a(4118630271, 4000239992), a(116418474, 1914138554), a(174292421, 2731055270), a(289380356, 3203993006), a(460393269, 320620315), a(685471733, 587496836), a(852142971, 1086792851), a(1017036298, 365543100), a(1126000580, 2618297676), a(1288033470,
-            3409855158), a(1501505948, 4234509866), a(1607167915, 987167468), a(1816402316, 1246189591)], y = [], q = 0; 80 > q; q++) y[q] = a();
-    f = f.SHA512 = r.extend({
-        _doReset: function () {
-            this._hash = new l.init([new g.init(1779033703, 4089235720), new g.init(3144134277, 2227873595), new g.init(1013904242, 4271175723), new g.init(2773480762, 1595750129), new g.init(1359893119, 2917565137), new g.init(2600822924, 725511199), new g.init(528734635, 4215389547), new g.init(1541459225, 327033209)])
-        }, _doProcessBlock: function (a, f) {
-            for (var h = this._hash.words,
-                     g = h[0], n = h[1], b = h[2], d = h[3], c = h[4], j = h[5], l = h[6], h = h[7], q = g.high, m = g.low, r = n.high, N = n.low, Z = b.high, O = b.low, $ = d.high, P = d.low, aa = c.high, Q = c.low, ba = j.high, R = j.low, ca = l.high, S = l.low, da = h.high, T = h.low, v = q, s = m, H = r, E = N, I = Z, F = O, W = $, J = P, w = aa, t = Q, U = ba, K = R, V = ca, L = S, X = da, M = T, x = 0; 80 > x; x++) {
-                var B = y[x];
-                if (16 > x) var u = B.high = a[f + 2 * x] | 0, e = B.low = a[f + 2 * x + 1] | 0; else {
-                    var u = y[x - 15], e = u.high, z = u.low, u = (e >>> 1 | z << 31) ^ (e >>> 8 | z << 24) ^ e >>> 7,
-                        z = (z >>> 1 | e << 31) ^ (z >>> 8 | e << 24) ^ (z >>> 7 | e << 25), D = y[x - 2], e = D.high,
-                        k = D.low, D = (e >>> 19 | k << 13) ^
-                        (e << 3 | k >>> 29) ^ e >>> 6,
-                        k = (k >>> 19 | e << 13) ^ (k << 3 | e >>> 29) ^ (k >>> 6 | e << 26), e = y[x - 7], Y = e.high,
-                        C = y[x - 16], A = C.high, C = C.low, e = z + e.low, u = u + Y + (e >>> 0 < z >>> 0 ? 1 : 0),
-                        e = e + k, u = u + D + (e >>> 0 < k >>> 0 ? 1 : 0), e = e + C,
-                        u = u + A + (e >>> 0 < C >>> 0 ? 1 : 0);
-                    B.high = u;
-                    B.low = e
-                }
-                var Y = w & U ^ ~w & V, C = t & K ^ ~t & L, B = v & H ^ v & I ^ H & I, ha = s & E ^ s & F ^ E & F,
-                    z = (v >>> 28 | s << 4) ^ (v << 30 | s >>> 2) ^ (v << 25 | s >>> 7),
-                    D = (s >>> 28 | v << 4) ^ (s << 30 | v >>> 2) ^ (s << 25 | v >>> 7), k = p[x], ia = k.high,
-                    ea = k.low, k = M + ((t >>> 14 | w << 18) ^ (t >>> 18 | w << 14) ^ (t << 23 | w >>> 9)),
-                    A = X + ((w >>> 14 | t << 18) ^ (w >>> 18 | t << 14) ^ (w << 23 | t >>> 9)) + (k >>> 0 < M >>>
-                    0 ? 1 : 0), k = k + C, A = A + Y + (k >>> 0 < C >>> 0 ? 1 : 0), k = k + ea,
-                    A = A + ia + (k >>> 0 < ea >>> 0 ? 1 : 0), k = k + e, A = A + u + (k >>> 0 < e >>> 0 ? 1 : 0),
-                    e = D + ha, B = z + B + (e >>> 0 < D >>> 0 ? 1 : 0), X = V, M = L, V = U, L = K, U = w, K = t,
-                    t = J + k | 0, w = W + A + (t >>> 0 < J >>> 0 ? 1 : 0) | 0, W = I, J = F, I = H, F = E, H = v,
-                    E = s, s = k + e | 0, v = A + B + (s >>> 0 < k >>> 0 ? 1 : 0) | 0
-            }
-            m = g.low = m + s;
-            g.high = q + v + (m >>> 0 < s >>> 0 ? 1 : 0);
-            N = n.low = N + E;
-            n.high = r + H + (N >>> 0 < E >>> 0 ? 1 : 0);
-            O = b.low = O + F;
-            b.high = Z + I + (O >>> 0 < F >>> 0 ? 1 : 0);
-            P = d.low = P + J;
-            d.high = $ + W + (P >>> 0 < J >>> 0 ? 1 : 0);
-            Q = c.low = Q + t;
-            c.high = aa + w + (Q >>> 0 < t >>> 0 ? 1 : 0);
-            R = j.low = R + K;
-            j.high = ba + U + (R >>> 0 < K >>> 0 ? 1 : 0);
-            S = l.low =
-                S + L;
-            l.high = ca + V + (S >>> 0 < L >>> 0 ? 1 : 0);
-            T = h.low = T + M;
-            h.high = da + X + (T >>> 0 < M >>> 0 ? 1 : 0)
-        }, _doFinalize: function () {
-            var a = this._data, f = a.words, h = 8 * this._nDataBytes, g = 8 * a.sigBytes;
-            f[g >>> 5] |= 128 << 24 - g % 32;
-            f[(g + 128 >>> 10 << 5) + 30] = Math.floor(h / 4294967296);
-            f[(g + 128 >>> 10 << 5) + 31] = h;
-            a.sigBytes = 4 * f.length;
-            this._process();
-            return this._hash.toX32()
-        }, clone: function () {
-            var a = r.clone.call(this);
-            a._hash = this._hash.clone();
-            return a
-        }, blockSize: 32
-    });
-    m.SHA512 = r._createHelper(f);
-    m.HmacSHA512 = r._createHmacHelper(f)
-})();
+
+    /**
+     * Rotates right (circular right shift) value x by n positions [§3.2.4].
+     * @private
+     */
+    static ROTR(x, n) { // emulates (x >>> n) | (x << (64-n)
+        if (n == 0) return x;
+        if (n == 32) return new Sha512.Long(x.lo, x.hi);
+
+        let hi = x.hi, lo = x.lo;
+
+        if (n > 32) {
+            [ lo, hi ] = [ hi, lo ]; // swap hi/lo
+            n -= 32;
+        }
+
+        const hi1 = (hi >>> n) | (lo << (32-n));
+        const lo1 = (lo >>> n) | (hi << (32-n));
+
+        return new Sha512.Long(hi1, lo1);
+    }
+
+
+    /**
+     * Logical functions [§4.1.3].
+     * @private
+     */
+    static Σ0(x) { return Sha512.ROTR(x, 28).xor(Sha512.ROTR(x, 34)).xor(Sha512.ROTR(x, 39)); }
+    static Σ1(x) { return Sha512.ROTR(x, 14).xor(Sha512.ROTR(x, 18)).xor(Sha512.ROTR(x, 41)); }
+    static σ0(x) { return Sha512.ROTR(x,  1).xor(Sha512.ROTR(x,  8)).xor(x.shr(7)); }
+    static σ1(x) { return Sha512.ROTR(x, 19).xor(Sha512.ROTR(x, 61)).xor(x.shr(6)); }
+    static Ch(x, y, z)  { return (x.and(y)).xor(x.not().and(z)); }         // 'choice'
+    static Maj(x, y, z) { return (x.and(y)).xor(x.and(z)).xor(y.and(z)); } // 'majority'
+
+}
+
+
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
+
+/**
+ * JavaScript has no support for 64-bit integers; this class provides methods required to support
+ * 64-bit unsigned integers within Sha256.
+ *
+ * All string manipulation is radix 16. Note n >>> 0 coerces n to unsigned 32-bit value.
+ */
+Sha512.Long = class {
+
+    constructor(hi, lo) {
+        this.hi = hi >>> 0;
+        this.lo = lo >>> 0;
+    }
+
+    static fromString(str) {
+        const hi = parseInt(str.slice(0, -8), 16);
+        const lo = parseInt(str.slice(-8), 16);
+
+        return new Sha512.Long(hi, lo);
+    }
+
+    toString() {
+        const hi = ('00000000'+this.hi.toString(16)).slice(-8);
+        const lo = ('00000000'+this.lo.toString(16)).slice(-8);
+
+        return hi + lo;
+    }
+
+    add(that) { // addition modulo 2^64
+        const lo = this.lo + that.lo;
+        const hi = this.hi + that.hi + (lo>0x100000000 ? 1 : 0); // carry top bit if lo > 2^32
+
+        return new Sha512.Long(hi >>> 0, lo >>> 0);
+    }
+
+    and(that) { // &
+        return new Sha512.Long(this.hi & that.hi, this.lo & that.lo);
+    }
+
+    xor(that) { // ^
+        return new Sha512.Long(this.hi ^ that.hi, this.lo ^ that.lo);
+    }
+
+    not() {  // ~
+        return new Sha512.Long(~this.hi, ~this.lo);
+    }
+
+    shr(n) { // >>>
+        if (n ==  0) return this;
+        if (n == 32) return new Sha512.Long(0, this.hi);
+        if (n >  32) return new Sha512.Long(0, this.hi >>> n-32);
+        /* n < 32 */ return new Sha512.Long(this.hi >>> n, this.lo >>> n | this.hi << (32-n));
+    }
+
+};
