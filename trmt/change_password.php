@@ -27,7 +27,7 @@ if($auth->isUserConnected()){
                 SQL);
                 $req2->execute(['userId' => $user->getUserId(), 'password' => $newPassword]);
                 header('Location: ../profile.php');
-            } //else header('Location: ../profile_change_password.php?err_repeatPassword');
-        } //else header('Location: ../profile_change_password.php?err_oldPassword');
-    } //else header('Location: ../profile_change_password.php?err_infos');
-} //else header('Location: ../connexion.php');
+            } else header('Location: ../profile_change_password.php?err_repeatPassword');
+        } else header('Location: ../profile_change_password.php?err_oldPassword');
+    } else header('Location: ../profile_change_password.php?err_infos');
+} else header('Location: ../connexion.php');
