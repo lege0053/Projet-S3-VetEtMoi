@@ -10,8 +10,6 @@ if(AbstractUserAuthentication::isUserConnected()) {
 }
 else {
     $webPage = new WebPage("Connexion");
-
-    $webPage->appendContent("<br><br><br><br>");
     $webPage->appendContent($userAuth->loginForm('trmt/connexion_trmt.php'));
     echo $webPage->toHTML();
 }

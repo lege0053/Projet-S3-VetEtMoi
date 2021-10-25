@@ -48,8 +48,6 @@ input {
 
 a.button, input.button {
     font-weight: bold;
-    font-size: 24px;
-    padding: 12px 25px;
     letter-spacing: 0.02em;
     background-color: #02897A;
     border-radius: 10px;
@@ -60,6 +58,8 @@ a.button, input.button {
 
 a.button:hover, input.button:hover {
     background-color: #055945;
+    text-decoration: none;
+    color: white;
 }
 
 div.form-input {
@@ -115,23 +115,72 @@ html {
 }
 
 .main-ui-class {
-    background: #DDDDDD;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
+    padding: 20px 50px;
+
+    background: #DDDDDD;
     border-radius: 20px;
-    padding: 20px;
+    width: 700px;
+
+    font-size: 18px;
+    font-weight: 600;
+    color: #373737;
 }
 .main-ui-class .title{
     font-size: 36px;
-    font-weight: 600;
+    font-weight: 700;
 }
+
+.info-container {
+    margin: 0;
+    background-color: #C9C9C9;
+    padding: 15px 25px 15px 25px;
+    border-radius: 10px;
+    min-height: 48px;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+/* FLEX UTILITIES */
 
 .d-flex {
     display: flex;
 }
-
 .flex-column {
     flex-direction: column;
 }
-
+.flex-row{
+    flex-direction: row;
+}
+.flex-grow-1 {
+    flex-grow: 1;
+}
+.flex-grow-0 {
+    flex-grow: 0;
+}
+.align-items-center {
+    align-items: center;
+}
+.justify-content-center {
+    justify-content: center;
+}
+.justify-content-space-between{
+    justify-content: space-between;
+}
+.justify-content-space-around {
+    justify-content: space-around;
+}
+.justify-content-space-evenly{
+    justify-content: space-evenly;
+}
+.justify-content-end {
+    justify-content: end;
+}
+.justify-content-start {
+    justify-content: start;
+}

@@ -10,13 +10,15 @@ $user = $auth->getUser();
 $webPage = new WebPage("Profil");
 $logoutButton = WebPage::getHTMLButton(true, "Se déconnecter");
 $webPage->appendContent(<<<HTML
-    <form action="trmt/logout.php" method="post">
-        <input name="logout" hidden>
-       $logoutButton 
-    </form>
-    <div class="d-flex" style="justify-content: center;">
-        <img src="img/animal/cat1.png" height="400">
-        {$user->getHTMLProfile()}
+    <div class="d-flex flex-column">
+        <form action="trmt/logout.php" method="post" style="display: flex; justify-content: center;">
+            <input name="logout" hidden>
+           $logoutButton 
+        </form>
+        <div class="d-flex" style="justify-content: center; align-items: center;">
+            <img src="img/animal/cat1.png" height="400">
+            {$user->getHTMLProfile()}
+        </div>
     </div>
 HTML);
 

@@ -127,18 +127,76 @@ class User
         return <<<HTML
 
             <div class="main-ui-class">
-                <span class="title">Mon Profil</span>
-                <div class="d-flex flex-column">
-                    <span class="d-flex">
-                        {$webPage->getIcon("user")}
-                        <p>Nom</p>
-                    </span>
-                    <div></div>
+                <span class="title" style="margin-bottom: 38px;">Mon Profil</span>
+                <div class="d-flex" style="justify-content: space-evenly; margin-bottom: 38px; gap: 38px;">
+                    {$webPage->getHTMLButton(false, "Gérer mes Animaux", "#")}
+                    {$webPage->getHTMLButton(false, "Factures", "#")}
+                </div>
+                
+                <div class="w-100" style="display: flex; flex-direction: column; gap: 20px;">
+                    <div class="d-flex w-100" style="gap: 20px;">
+                        <div class="d-flex flex-grow-1 flex-column">
+                            <span class="d-flex">
+                                {$webPage->getIcon("user")}
+                                <span>Nom</span>
+                            </span>
+                            <span class="info-container">{$this->lastName}</span>
+                        </div>
+                        
+                        <div class="d-flex flex-grow-1 flex-column">
+                            <span class="d-flex">
+                                {$webPage->getIcon("user")}
+                                <span>Prénom</span>
+                            </span>
+                            <span class="info-container">{$this->firstName}</span>
+                        </div>
+                    </div>
                     
+                    <div class="d-flex w-100 flex-column">
+                        <span class="d-flex">
+                            {$webPage->getIcon("phone")}
+                            <span>Téléphone</span>
+                        </span>
+                        <div class="d-flex w-100" style="gap: 20px;">
+                            <span class="info-container flex-grow-1">{$this->phone}</span>
+                            {$webPage->getHTMLButton(false, "Modifier", "#", "15px", "25px", "18px")}
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex w-100 flex-column">
+                        <span class="d-flex">
+                            {$webPage->getIcon("house")}
+                                <span>Adresse Postale</span>
+                        </span>
+                        <div class="d-flex w-100" style="gap: 20px;">
+                            <span class="info-container flex-grow-1">{$this->rue} {$this->cp} {$this->city}</span>
+                            {$webPage->getHTMLButton(false, "Modifier", "#", "15px", "25px", "18px")}
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex w-100 flex-column">
+                        <span class="d-flex">
+                            {$webPage->getIcon("mail")}
+                            <span>Adresse Mail</span>
+                        </span>
+                        <div class="d-flex w-100" style="gap: 20px;">
+                            <span class="info-container flex-grow-1">{$this->email}</span>
+                            {$webPage->getHTMLButton(false, "Modifier", "#", "15px", "25px", "18px")}
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex w-100 flex-column">
+                        <span class="d-flex">
+                            {$webPage->getIcon("lock")}
+                            <span>Mot de Passe</span>
+                        </span>
+                        <div class="d-flex w-100" style="gap: 20px;">
+                            <span class="info-container flex-grow-1">**************</span>
+                            {$webPage->getHTMLButton(false, "Modifier", "#", "15px", "25px", "18px")}
+                        </div>
+                    </div>
                 </div>
             </div>
-
 HTML;
     }
-
 }

@@ -173,7 +173,7 @@ class WebPage
                 <title>{$this->title}</title>
                 {$this->head()}
             </head>
-            <body>
+            <body style="gap: 45px;">
                 {$this->getHeader()}
                 {$this->body}
                 {$this->getFooter()}
@@ -209,8 +209,8 @@ class WebPage
         HTML;
     }
 
-    public static function getHTMLButton(bool $submitType, string $value, string $href=''): string {
-        return $submitType ? "<input class='button' type=\"submit\" value=\"$value\">" : "<a class='button' href=\"$href\">$value</a>";
+    public static function getHTMLButton(bool $submitType, string $value, string $href='', string $paddingBottomTop = "12px", string $paddingLeftRight = "25px",string $fontSize = "24px"): string {
+        return $submitType ? "<input class='button' type=\"submit\" value=\"$value\" style=\"font-size: {$fontSize}; padding: {$paddingBottomTop} {$paddingLeftRight};\">" : "<a class='button' href=\"$href\" style=\"font-size: $fontSize; padding: $paddingBottomTop $paddingLeftRight;\">$value</a>";
     }
 
     public static function getHTMLInput(string $title = '', string $inputType = '', string $name='', string $id='', string $placeholder='', string $value='', bool $required=true, bool $hidden=false): string {

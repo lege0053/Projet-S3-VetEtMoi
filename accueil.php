@@ -6,27 +6,27 @@ require "autoload.php";
 $webPage = new WebPage("Accueil");
 
 $html= <<< HTML
-
-<br><br>
-<div class="d-flex justify-content-center" xmlns="http://www.w3.org/1999/html">
-    <h3 style="font-weight: bold;">Une Urgence ?</h3>
-</div>
-<div class="d-flex justify-content-center mb-3">
-    <a href="#" class="btn m-1 mr-3" style="font-weight: bold;background-color: #C20D0D; color: #FFFFFF">En ligne</a>
-    <a href="tel:+33325563596" class="btn m-1 ml-3" style="font-weight: bold;background-color: #C20D0D; color: #FFFFFF">03 25 56 35 96</a>
-</div>
-<div class="d-flex justify-content-center">
-    <div class="d-flex flex-column align-items-center pt-5 mr-5">
-        <h2 style="font-weight: bold;">Bienvenue sur le site</h2>
-        <h2 style="font-weight: bold;">de la clinique Vet&Moi !</h2>
-        <br>
-        <h4 style="font-weight: bold;">Prenez rendez-vous n'importe quand</h4>
-        <br>
-        <a href="listeAnimal.php" class="btn m-1" style="font-weight: bold;background-color: #02897A; color: #FFFFFF">Prenez rendez-vous</a>
+<div>
+    <div class="d-flex justify-content-center" xmlns="http://www.w3.org/1999/html">
+        <h3 style="font-weight: bold;">Une Urgence ?</h3>
     </div>
-    <img src="img/animal/dogAndcat.png" class="ml-5" style="max-width:40%;" alt="">
+    <div class="d-flex justify-content-center mb-3">
+        <a href="#" class="btn m-1 mr-3" style="font-weight: bold;background-color: #C20D0D; color: #FFFFFF">En ligne</a>
+        <a href="tel:+33325563596" class="btn m-1 ml-3" style="font-weight: bold;background-color: #C20D0D; color: #FFFFFF">03 25 56 35 96</a>
+    </div>
+    <div class="d-flex justify-content-center">
+        <div class="d-flex flex-column align-items-center pt-5 mr-5">
+            <h2 style="font-weight: bold;">Bienvenue sur le site</h2>
+            <h2 style="font-weight: bold;">de la clinique Vet&Moi !</h2>
+            <br>
+            <h4 style="font-weight: bold;">Prenez rendez-vous n'importe quand</h4>
+            <br>
+            <a href="listeAnimal.php" class="btn m-1" style="font-weight: bold;background-color: #02897A; color: #FFFFFF">Prenez rendez-vous</a>
+        </div>
+        <img src="img/animal/dogAndcat.png" class="ml-5" style="max-width:40%;" alt="">
+    </div>
 </div>
-<br>
+
 <div class="d-flex justify-content-center">
     <img src="img/svg/background-accueil.svg" style="position: absolute; z-index: -1;">
     <div class="d-flex flex-column text-center" style="margin-top: 350px;">
@@ -69,10 +69,8 @@ $html= <<< HTML
                 {$webPage->getIcon("cat")}
                 <h4 style="font-weight: bold; color: #055945; border-bottom: 8px solid #02897A;">Nous Contacter</h4>
             </div>
-            <section class="my-3">
-                    <div class="mb-4">
-                        <div class="card">
-                            <div class="card-body" style="font-weight: bold;background-color: #DDDDDD;">
+            <section>
+                <div class="card-body" style="font-weight: bold;background-color: #DDDDDD;">
                                 <div class="form-header blue accent-1">
                                     <h3 class="mt-4"><i class="fas fa-envelope"></i> Ecrivez-nous !</h3>
                                 </div>
@@ -82,17 +80,15 @@ $html= <<< HTML
                                 <div class="md-form">
                                     <input type="text" id="form-email" class="mt-2 form-control" style="outline: 0; border:0;background-color: #C9C9C9;" placeholder="Votre mail">
                                 </div>
-                                <div class="md-form">
-                                    <input type="text" id="form-Subject" class="mt-2 form-control" style="outline: 0; border:0;background-color: #C9C9C9;" placeholder="Sujet">
-                                </div>
-                                <div class="md-form">
-                                    <textarea id="form-text" class="mt-2 form-control md-textarea" rows="3" style="outline: 0; border:0;background-color: #C9C9C9;" placeholder="Votre message"></textarea>
-                                </div>
-                                <div class="text-center mt-4">
-                                {$webPage->getHTMLButton(true, "Envoyer", "#")}
-                                </div>
-                            </div>
-                        </div>
+                    <div class="md-form">
+                        <input type="text" id="form-Subject" class="mt-2 form-control" style="outline: 0; border:0;background-color: #C9C9C9;" placeholder="Sujet">
+                    </div>
+                    <div class="md-form">
+                        <textarea id="form-text" class="mt-2 form-control md-textarea" rows="3" style="outline: 0; border:0;background-color: #C9C9C9;" placeholder="Votre message"></textarea>
+                    </div>
+                    <div class="text-center mt-4">
+                        {$webPage->getHTMLButton(true, "Envoyer", "#")}
+                    </div>
                 </section>
             </div>        
         </div>
