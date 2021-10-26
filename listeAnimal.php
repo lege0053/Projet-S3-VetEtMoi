@@ -58,7 +58,7 @@ $webPage->appendContent("</div>");
 <div class="d-flex flex-column align-items-center">
     <br><br>
     <h3 style="font-weight: bold;">Vous n'avez pas d'animaux enregistrer !</h3>
-    <a href="#" class="btn m-1" style="font-weight: bold;background-color: #02897A; color: #FFFFFF">Ajouter un animal</a>
+    <a href="#" class="btn m-1" style="font-weight: bold;background-color: #02897A; color: #FFFFFF">Gérer mes Animaux</a>
 </div>
 HTML);
 }
