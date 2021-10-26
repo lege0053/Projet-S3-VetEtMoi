@@ -140,6 +140,15 @@ html {
     font-weight: 700;
 }
 
+.icon-container {
+    height: 216px;
+    width: 216px;
+    background-color: #02897A;
+    margin: 0;
+    padding: 15px 25px 15px 25px;
+    border-radius: 10px;
+}
+
 .info-container {
     margin: 0;
     background-color: #C9C9C9;
