@@ -246,7 +246,7 @@ class WebPage
         : (
             AbstractUserAuthentication::isUserAdmin() ?
                 <<< HTML
-                    <a class="linkNav m-2 p-2" href="./gestion.php">{$this->getIcon("user")}GESTION</a>
+                    <a class="linkNav m-2 p-2" href="./gestion.php">GESTION</a>
                     <a class="linkNav m-2 p-2" href="./profile.php">{$this->getIcon("user")}MON COMPTE</a>
                 HTML
             : <<<HTML

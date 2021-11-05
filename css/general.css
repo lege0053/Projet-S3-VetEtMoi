@@ -45,8 +45,9 @@ input {
 
 .linkNav:hover {
     color: #02897A;
-    text-decoration: underline;
+    text-decoration: none;
 }
+
 
 a.button, input.button {
     font-weight: bold;
