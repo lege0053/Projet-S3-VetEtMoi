@@ -219,6 +219,25 @@ class WebPage
         <input type='$inputType' name='$name' id='$id' value='$value' placeholder='$placeholder' ".($required ? "required ": "").($hidden ? "hidden " : "").($disabled ? "disabled " : "")."></div>";
     }
 
+    public function getActivite(string $name, string $bgColor,  bool $isSvg, string $lienHref = "#")
+    {
+        $nameMaj = strtoupper($name);
+        $nameNoSpace = str_replace(' ', '', $name);
+        $img = "<img class='align-self-center m-auto' src='img/$nameNoSpace.png' height='120' alt=''>";
+        if($isSvg)
+        {
+            $img = "<div class='align-self-center m-auto'>{$this->getIcon("$nameNoSpace", 120)}</div>";
+        }
+        return <<<HTML
+        <div class="d-flex align-items-center flex-column">
+            <a href="$lienHref" class="d-flex" style="width: 180px; height: 180px; background-color: $bgColor; border-radius: 50px; margin: 10px;">
+                $img
+            </a>
+            <p style="color: #02897A">$nameMaj</p>
+        </div>
+        HTML;
+    }
+
     private function getHeader() : string {
         $userHeader = !AbstractUserAuthentication::isUserConnected() ? <<<HTML
             <a class="linkNav m-2 p-2" href="./connexion.php">{$this->getIcon("user")}CONNEXION</a>
@@ -227,7 +246,7 @@ class WebPage
         : (
             AbstractUserAuthentication::isUserAdmin() ?
                 <<< HTML
-                    <a class="linkNav m-2 p-2" href="./gestion.php">{$this->getIcon("user")}GESTION</a>
+                    <a class="linkNav m-2 p-2" href="./gestion.php">GESTION</a>
                     <a class="linkNav m-2 p-2" href="./profile.php">{$this->getIcon("user")}MON COMPTE</a>
                 HTML
             : <<<HTML

@@ -149,8 +149,13 @@ class User
             <div class="main-ui-class">
                 <span class="title" style="margin-bottom: 38px;">Mon Profil</span>
                 <div class="d-flex" style="justify-content: space-evenly; margin-bottom: 38px; gap: 38px;">
-                    {$webPage->getHTMLButton(false, "Gérer mes Animaux", "#")}
-                    {$webPage->getHTMLButton(false, "Factures", "#")}
+                    {$webPage->getHTMLButton(false, "Mes Animaux", "listeAnimal.php","15px", "15px", "19px")}
+                    {$webPage->getHTMLButton(false, "Mes factures", "#", "15px", "15px", "19px")}
+                    <form action="trmt/logout.php" method="post" style="display: flex; justify-content: center;">
+                        <input name="logout" hidden>
+                        {$webPage->getHTMLButton(true, "Se déconnecter", "#", "15px", "25px", "19px")}
+                    </form>
+                    
                 </div>
                 
                 <div class="w-100" style="display: flex; flex-direction: column; gap: 20px;">

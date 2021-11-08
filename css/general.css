@@ -45,8 +45,9 @@ input {
 
 .linkNav:hover {
     color: #02897A;
-    text-decoration: underline;
+    text-decoration: none;
 }
+
 
 a.button, input.button {
     font-weight: bold;
@@ -116,7 +117,7 @@ html {
 #footer {
     width: 100%;
     background: #000000;
-    color: #FFFFFF;
+    color: #E2E2E2;
     margin-top: auto;
 }
 
@@ -138,6 +139,15 @@ html {
 .main-ui-class .title{
     font-size: 36px;
     font-weight: 700;
+}
+
+.icon-container {
+    height: 216px;
+    width: 216px;
+    background-color: #02897A;
+    margin: 0;
+    padding: 15px 25px 15px 25px;
+    border-radius: 10px;
 }
 
 .info-container {

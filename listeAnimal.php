@@ -43,8 +43,8 @@ HTML);
         <a style="color: #262626; font-weight: bold;">Jeudi 25 Octobre 2020
     </div>
     <div class='d-flex flex-column justify-content-center'>
-        <a class='button' href='profile.php'>Info sur {$animal['name']}</a>
-        <a class='button' href="prisederdv.php?id={$animal['id']}">Rendez-Vous</a>
+        <a class='button' href='#'>Info sur {$animal['name']}</a>
+        <a class='button' href="#">Rendez-Vous</a>
     </div>
 </div>
 
@@ -58,7 +58,6 @@ $webPage->appendContent("</div>");
 <div class="d-flex flex-column align-items-center">
     <br><br>
     <h3 style="font-weight: bold;">Vous n'avez pas d'animaux enregistrer !</h3>
-    <a href="#" class="btn m-1" style="font-weight: bold;background-color: #02897A; color: #FFFFFF">Gérer mes Animaux</a>
 </div>
 HTML);
 }
