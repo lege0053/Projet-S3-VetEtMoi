@@ -10,7 +10,7 @@ $form = <<<HTML
 <div class="d-flex flex-row justify-content-center mb-5">
     <img src="img/animal/cat1.png" height="250px" class="align-self-center mr-5"/>
     <div class="d-flex flex-column pt-2 pb-2 pr-5 pl-5" style="background-color: #DDDDDD; border-radius: 10px">
-            <form action="#" method="post" onsubmit="hash512();">
+            <form action="trmt/ajouterAnimal_trmt.php" method="post" onsubmit="hash512();">
                 <div class="d-flex pb-4 justify-content-center">
                     <h2 style="font-weight: bold;">Ajout d'un animal</h2>
                 </div>                 
