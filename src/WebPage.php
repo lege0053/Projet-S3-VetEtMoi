@@ -213,10 +213,10 @@ class WebPage
         return $submitType ? "<input class='button' type=\"submit\" value=\"$value\" style=\"font-size: {$fontSize}; padding: {$paddingBottomTop} {$paddingLeftRight};\">" : "<a class='button' href=\"$href\" style=\"font-size: $fontSize; padding: $paddingBottomTop $paddingLeftRight;\">$value</a>";
     }
 
-    public static function getHTMLInput(string $title = '', string $inputType = '', string $name='', string $id='', string $placeholder='', string $value='', bool $required=true, bool $hidden=false, string $iconType = ''): string {
+    public static function getHTMLInput(string $title = '', string $inputType = '', string $name='', string $id='', string $placeholder='', string $value='', bool $required=true, bool $hidden=false, string $iconType = '', bool $disabled = false): string {
         $icon = !empty($iconType) ? self::getIcon($iconType, 22) : '';
         return "<div class='form-input'><label for='$id'>{$icon} $title</label>
-        <input type='$inputType' name='$name' id='$id' value='$value' placeholder='$placeholder' ".($required ? "required ": "").($hidden ? "hidden " : "")."></div>";
+        <input type='$inputType' name='$name' id='$id' value='$value' placeholder='$placeholder' ".($required ? "required ": "").($hidden ? "hidden " : "").($disabled ? "disabled " : "")."></div>";
     }
 
     private function getHeader() : string {

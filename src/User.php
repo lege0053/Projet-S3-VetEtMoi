@@ -1,9 +1,11 @@
 <?php
 declare(strict_types=1);
 require_once ("WebPage.php");
+include_once "MyPDO.php";
 
 class User
 {
+
     private string $userId;
     private string $cp;
     private string $city;
@@ -26,6 +28,24 @@ class User
         $this->phone = $data['phone'] ?? '';
         $this->email = $data['email'] ?? '';
         $this->isAdmin = (int)($data['isAdmin']) ?? 0;
+        $this->comment = $data['comment'] ?? '';
+    }
+
+    public function flush()
+    {
+        $req = MyPDO::getInstance()->prepare(<<<SQL
+            SELECT * FROM Users
+            WHERE userId = :userId;
+        SQL);
+        $req->execute(['userId' => $this->userId]);
+        $data = $req->fetch();
+        $this->cp = $data['cp'] ?? '';
+        $this->city = $data['city'] ?? '';
+        $this->rue = $data['rue'] ?? '';
+        $this->lastName = $data['lastName'] ?? '';
+        $this->firstName = $data['firstName'] ?? '';
+        $this->phone = $data['phone'] ?? '';
+        $this->email = $data['email'] ?? '';
         $this->comment = $data['comment'] ?? '';
     }
 
