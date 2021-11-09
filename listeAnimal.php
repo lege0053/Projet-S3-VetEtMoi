@@ -22,27 +22,29 @@ $rep = $animals->fetchAll();
 if ($rep){
     $webPage->appendContent(<<< HTML
 <div class="d-flex justify-content-center">
-    <h3 style="font-weight: bold;">{$webPage->getIcon('cat', 38)}Mes Formidables Animaux</h3>
+    {$webPage->getIcon('cat', 38)}
+    <h3 style="font-weight: bold;">Mes Formidables Animaux</h3>
 </div>
 <div class="d-flex flex-column">
 HTML);
 
     foreach ($rep as $animal) {
     $webPage->appendContent(<<< HTML
-<div class="d-flex flex-row justify-content-around pt-2 pb-2 pr-5 pl-5" style="background-color: #DDDDDD; border-radius: 10px; width: 80%">
-    <div>
-        <img src="img/partChien.png" class="mx-auto w-25" alt="">
-    </div>
-    <div class="d-flex flex-column justify-content-start">
-        <a style="color: #02897A; font-weight: bold;">Prochain rendez-vous
-        <a style="color: #262626; font-weight: bold;">Mercredi 2 Octobre 2021
-        <a style="color: #262626; font-weight: bold;">11:00
-        <a style="color: #02897A; font-weight: bold;">Dernier rendez-vous
-        <a style="color: #262626; font-weight: bold;">Jeudi 25 Octobre 2020
-    </div>
-    <div class='d-flex flex-column justify-content-center'>
-        <a class='button' href='#'>Info sur {$animal['name']}</a>
-        <a class='button' href="#">Rendez-Vous</a>
+<div class="d-flex justify-content-center flex-row">
+    <div class="container row p-3 m-3 w-50" style="background-color: #DDDDDD; border-radius: 20px;">
+        <img src="img/partChien.png" alt="" style="height: 250px; margin-right: 15px;">
+        <div class="d-flex flex-column justify-content-center" style="margin-right: 50px;">
+            <a style="color: #02897A; font-weight: bold;">Prochain rendez-vous
+            <a style="color: #262626; font-weight: bold;">Mercredi 2 Octobre 2021
+            <a style="color: #262626; font-weight: bold; margin-bottom: 10px;">11:00
+            <a style="color: #02897A; font-weight: bold;">Dernier rendez-vous
+            <a style="color: #262626; font-weight: bold;">Jeudi 25 Octobre 2020
+            <a style="color: #262626; font-weight: bold;">11:00
+        </div>
+        <div class='d-flex flex-column justify-content-center'>
+            <a class='button p-2 m-1' href='#'>Info sur {$animal['name']}</a>
+            <a class='button justify-content-cente p-2 m-1' href="#">Rendez-Vous</a>
+        </div>
     </div>
 </div>
 
