@@ -44,7 +44,7 @@ HTML);
             <a style="color: #262626; font-weight: bold;">Jeudi 25 Octobre 2020
         </div>
         <div class='d-flex flex-column justify-content-center'>
-            <a class='button m-1 p-2' href='#'>Info sur {$animal['name']}</a>
+            <a class='button m-1 p-2' href='profile_animal.php'>Info sur {$animal['name']}</a>
             <a class='button m-1 p-2' style="text-align: center" href="#">Rendez-Vous</a>
         </div>
     </div>
