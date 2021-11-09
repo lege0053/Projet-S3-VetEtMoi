@@ -173,7 +173,7 @@ class WebPage
                 <title>{$this->title}</title>
                 {$this->head()}
             </head>
-            <body style="gap: 60px;">
+            <body style="gap: 60px; overflow-x: hidden;">
                 {$this->getHeader()}
                 {$this->body}
                 {$this->getFooter()}
