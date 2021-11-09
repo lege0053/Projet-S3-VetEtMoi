@@ -9,7 +9,8 @@ $auth = new SecureUserAuthentication();
 if(!SecureUserAuthentication::isUserConnected()){
     header("Location: connexion.php");
 }
-    
+
+/**Recherche des animaux du client**/
 $animals = MyPDO::getInstance()->prepare(
     <<<SQL
 SELECT * FROM Animal
@@ -19,6 +20,7 @@ SQL
 $animals->execute([$auth->getUser()->getUserId()]);
 $rep = $animals->fetchAll();
 
+/**Si le client à au moins un animal**/
 if ($rep){
     $webPage->appendContent(<<< HTML
 <div class="d-flex justify-content-center">
@@ -27,11 +29,12 @@ if ($rep){
 
 HTML);
 
+    /**Pour chaque animal du client**/
     foreach ($rep as $animal) {
-    $webPage->appendContent(<<< HTML
+        /**On affiche l'animal**/
+        $webPage->appendContent(<<< HTML
 <div class="d-flex flex-row justify-content-center">
     <div class="d-flex justify-content-space-between row w-50 p-3" style="background-color: #DDDDDD;border-radius: 15px;">
-    
         {$webPage->getImgCarre("dog", $animal['name'], 200)}
         <div class="d-flex flex-column justify-content-center">
             <a style="color: #02897A; font-weight: bold;">Prochain rendez-vous
@@ -52,10 +55,15 @@ HTML);
 $webPage->appendContent("</div>");
 
 } else {
+    /**Si le client n'a pas d'animal**/
     $webPage->appendContent(<<< HTML
-<div class="d-flex flex-column align-items-center">
-    <br><br>
-    <h3 style="font-weight: bold;">Vous n'avez pas d'animaux enregistrer !</h3>
+<div class="d-flex flex-row justify-content-space-around mt-5">
+    <div class="d-flex flex-column justify-content-center align-items-center">
+        <h3 style="font-weight: bold;align-self: center;">Vous n'avez pas d'animaux enregistrer...</h3>
+        <p class="align-items-center">Venez nous présentez vos animaux directement en clinique pour qu'ils apparaissent !</p>
+        <a href="listeAnimal.php" class="btn m-1 mb-5" style="font-weight: bold;background-color: #02897A; color: #FFFFFF">Prenez rendez-vous</a>
+    </div>
+    <img src="img/animal/diversAnimals.png" width="700" alt="">
 </div>
 HTML);
 }
