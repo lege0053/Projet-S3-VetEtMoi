@@ -2,6 +2,7 @@
 declare(strict_types=1);
 require_once ("WebPage.php");
 include_once "MyPDO.php";
+include_once "Animal.php";
 
 class User
 {
@@ -137,6 +138,41 @@ class User
     public function getEmail(): string
     {
         return $this->email;
+    }
+
+    /**
+     * @return array
+     */
+    public function getAnimals(): array
+    {
+        $pdo = MyPDO::getInstance()->prepare(<<<SQL
+            SELECT * FROM Animal
+            WHERE userId = :userId;
+        SQL);
+        $pdo->execute(['userId' => $this->userId]);
+        $pdo->setFetchMode(PDO::FETCH_CLASS, Animal::class);
+        $array = $pdo->fetchAll();
+        if(!$array)
+        {
+            throw new InvalidArgumentException("No animals for this user.");
+        }
+        return $array;
+    }
+
+    public function getMeetings() : array
+    {
+        $pdo = MyPDO::getInstance()->prepare(<<<SQL
+            SELECT * FROM Meeting
+            WHERE userId = :userId;
+        SQL);
+        $pdo->execute(['userId' => $this->userId]);
+        $pdo->setFetchMode(PDO::FETCH_CLASS, Meeting::class);
+        $array = $pdo->fetchAll();
+        if(!$array)
+        {
+            throw new InvalidArgumentException("No meeting for this user.");
+        }
+        return $array;
     }
 
     /**
