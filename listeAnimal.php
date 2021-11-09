@@ -30,7 +30,7 @@ HTML);
     foreach ($rep as $animal) {
     $webPage->appendContent(<<< HTML
 <div class="d-flex flex-row justify-content-center">
-    <div class="container justify-content-space-around row w-50 p-3" style="background-color: #DDDDDD;border-radius: 15px;">
+    <div class="d-flex justify-content-space-between row w-50 p-3" style="background-color: #DDDDDD;border-radius: 15px;">
         <img src="img/partChien.png" alt="" style="height: 200px;">
         <div class="d-flex flex-column justify-content-center">
             <a style="color: #02897A; font-weight: bold;">Prochain rendez-vous
