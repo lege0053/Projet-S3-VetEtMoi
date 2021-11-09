@@ -36,7 +36,8 @@ class User
         $req = MyPDO::getInstance()->prepare(<<<SQL
             SELECT * FROM Users
             WHERE userId = :userId;
-        SQL);
+        SQL
+        );
         $req->execute(['userId' => $this->userId]);
         $data = $req->fetch();
         $this->cp = $data['cp'] ?? '';
@@ -141,7 +142,7 @@ class User
     /**
      * @return string
      */
-    public function getHTMLProfile() : string
+    public function getHTMLProfile(): string
     {
         $webPage = new WebPage();
         return <<<HTML
@@ -149,7 +150,7 @@ class User
             <div class="main-ui-class">
                 <span class="title" style="margin-bottom: 38px;">Mon Profil</span>
                 <div class="d-flex" style="justify-content: space-evenly; margin-bottom: 38px; gap: 38px;">
-                    {$webPage->getHTMLButton(false, "Mes Animaux", "listeAnimal.php","15px", "15px", "19px")}
+                    {$webPage->getHTMLButton(false, "Mes Animaux", "listeAnimal.php", "15px", "15px", "19px")}
                     {$webPage->getHTMLButton(false, "Mes factures", "#", "15px", "15px", "19px")}
                     <form action="trmt/logout.php" method="post" style="display: flex; justify-content: center;">
                         <input name="logout" hidden>

@@ -3,27 +3,26 @@ declare(strict_types=1);
 
 require "autoload.php";
 
+$webPage = new WebPage("ChoixAnimal");
 $auth = new SecureUserAuthentication();
+
 if(!SecureUserAuthentication::isUserConnected()){
     header("Location: connexion.php");
 }
-
-$webPage = new WebPage("ChoixAnimal");
     
-$stmt = MyPDO::getInstance()->prepare(
+$animals = MyPDO::getInstance()->prepare(
     <<<SQL
-SELECT animalId as "id", name
-FROM Animal
+SELECT * FROM Animal
 WHERE userId = ?;
 SQL
 );
-$stmt->execute([$auth->getUser()->getUserId()]);
-$rep = $stmt->fetchAll();
-if ($rep){
+$animals->execute([$auth->getUser()->getUserId()]);
+$rep = $animals->fetchAll();
 
+if ($rep){
     $webPage->appendContent(<<< HTML
 <div class="d-flex justify-content-center">
-    <h3 style="font-weight: bold;">{$webPage->getIcon('cat', 38)}Choisir le profil pour lequel vous voulez prendre un rendez-vous</h3>
+    <h3 style="font-weight: bold;">{$webPage->getIcon('cat', 38)}Mes Formidables Animaux</h3>
 </div>
 <div class="d-flex flex-column">
 HTML);
