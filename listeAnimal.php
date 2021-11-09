@@ -22,15 +22,15 @@ $rep = $animals->fetchAll();
 if ($rep){
     $webPage->appendContent(<<< HTML
 <div class="d-flex justify-content-center">
-    <h3 style="font-weight: bold;">{$webPage->getIcon('cat', 38)}Mes Formidables Animaux</h3>
+    <h3 style="font-weight: bold; margin-top: 20px;">{$webPage->getIcon('cat', 38)}Mes Formidables Animaux</h3>
 </div>
-<div class="d-flex flex-column">
+
 HTML);
 
     foreach ($rep as $animal) {
     $webPage->appendContent(<<< HTML
 <div class="d-flex flex-row justify-content-center">
-    <div class="container justify-content-space-around row w-50 m-3 p-3" style="background-color: #DDDDDD;border-radius: 15px;">
+    <div class="container justify-content-space-around row w-50 p-3" style="background-color: #DDDDDD;border-radius: 15px;">
         <img src="img/partChien.png" alt="" style="height: 200px;">
         <div class="d-flex flex-column justify-content-center">
             <a style="color: #02897A; font-weight: bold;">Prochain rendez-vous

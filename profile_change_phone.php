@@ -5,7 +5,6 @@ require "autoload.php";
 
 $webPage = new WebPage("Changement d'adresse");
 
-$webPage->appendContent("<br><br><br><br>");
 $form = <<<HTML
 <div class="d-flex flex-row justify-content-center mb-5">
     <img src="img/animal/parrot.png" height="250px" class="align-self-center mr-5"/>

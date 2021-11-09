@@ -4,7 +4,7 @@ require "autoload.php";
 $webPage = new WebPage("Activités");
 
 $html = <<<HTML
-<div class="d-flex flex-column" style="padding-top: 100px;">
+<div class="d-flex flex-column">
     <div class="d-flex flex-row justify-content-center mb-2">
         <h2 style="padding-left: 80px; text-align: center">Découvez Nos Activités !</h2>
     </div>
