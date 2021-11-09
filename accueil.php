@@ -19,7 +19,7 @@ $html= <<< HTML
             <h2 style="font-weight: bold;">Bienvenue sur le site</h2>
             <h2 style="font-weight: bold;">de la clinique Vet&Moi !</h2>
             <br>
-            <h4 style="font-weight: bold;">Prenez rendez-vous n'importe quand</h4>
+            <h4 style="font-weight: bold;">Prenez rendez-vous n'importe quand !</h4>
             <br>
             <a href="listeAnimal.php" class="btn m-1" style="font-weight: bold;background-color: #02897A; color: #FFFFFF">Prenez rendez-vous</a>
         </div>
