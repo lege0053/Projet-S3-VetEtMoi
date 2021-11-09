@@ -32,9 +32,9 @@ $html= <<< HTML
     <div class="d-flex flex-column text-center" style="margin-top: 350px;">
         <h1 style="font-weight: bold; color: white; font-size: 64px; margin-bottom: 80px;">Espace</h1>
         <div class="d-flex flex-row mt-3">
-            <a href="#"><img src="img/partChien.png" alt="" height="250"></a> 
-            <a href="#"><img src="img/partCat.png" alt="" height="250"</a> 
-            <a href="#"><img src="img/partNac.png" alt="" height="250"></a> 
+            <a href="#">{$webPage->getImgCarre("dog", "Chiens")}</a> 
+            <a href="#">{$webPage->getImgCarre("cat", "Chat")}</a>
+            <a href="#">{$webPage->getImgCarre("nac", "NAC")}</a>
         </div>
         <br>
         <h4 style="font-weight: bold;">Voulez-vous tout savoir sur votre animal ;?</h4>

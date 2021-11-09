@@ -205,8 +205,18 @@ class WebPage
      */
     public static function getIcon(string $iconName, int $size = 24) : string {
          return <<<HTML
-            <img src="img/svg/icon-$iconName.svg" height="$size" width="$size">
+            <img src="img/svg/icon-$iconName.svg" height="$size" width="$size" alt="">
         HTML;
+    }
+
+    public function getImgCarre(string $animalBgName, string $title, int $size = 250) : string {
+        $fontSize = $size - 50;
+        return <<< HTML
+        <div style="position: relative;text-align: center;">
+          <img src="img/rounded_$animalBgName.png" height="$size" width="$size" alt="image" >
+          <p style="font-size:$fontSize%;text-shadow: 2px 2px 2px black;font-weight: bold;color:white;position: absolute;top: 80%;left: 50%;transform: translate(-50%, -50%);width: 100%;">$title</p>
+        </div>
+HTML;
     }
 
     public static function getHTMLButton(bool $submitType, string $value, string $href='', string $paddingBottomTop = "12px", string $paddingLeftRight = "25px",string $fontSize = "24px"): string {

@@ -45,7 +45,7 @@ $html= <<< HTML
 </div>
 
 <div class="d-flex flex-row pt-2 pb-2 pr-5 pl-5" style="background-color: #DDDDDD; border-radius: 10px">
-    <img src="img/partChien.png" class="mx-auto w-25" alt="">
+    <img src="img/rounded_dog.png" class="mx-auto w-25" alt="">
     <div class="d-flex flex-column justify-content-left">
         <div class="d-flex flex-column justify-content-left"> 
             <a style="color: #02897A; font-weight: bold;">Nom
