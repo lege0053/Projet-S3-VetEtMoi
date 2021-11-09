@@ -70,9 +70,9 @@ $html= <<< HTML
                 <h4 style="font-weight: bold; color: #055945; border-bottom: 8px solid #02897A;">Nous Contacter</h4>
             </div>
             <section>
-                <div class="card-body" style="font-weight: bold;background-color: #DDDDDD; border-radius: 10px;">
+                <div class="card-body mt-3" style="font-weight: bold;background-color: #DDDDDD; border-radius: 10px;">
                                 <div class="form-header blue accent-1">
-                                    <h3 class="mt-4"><i class="fas fa-envelope"></i> Ecrivez-nous !</h3>
+                                    <h3><i class="fas fa-envelope"></i> Ecrivez-nous !</h3>
                                 </div>
                                 <div class="md-form">
                                     <input type="text" id="form-name" class="mt-4 form-control" style="outline: 0; border:0;background-color: #C9C9C9;" placeholder="Votre nom">
