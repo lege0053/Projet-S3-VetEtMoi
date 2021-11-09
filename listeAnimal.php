@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 require "autoload.php";
 
-$webPage = new WebPage("ChoixAnimal");
+$webPage = new WebPage("Mes Animaux");
 $auth = new SecureUserAuthentication();
 
 if(!SecureUserAuthentication::isUserConnected()){
