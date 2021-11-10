@@ -191,8 +191,7 @@ class User
                     <form action="trmt/logout.php" method="post" style="display: flex; justify-content: center;">
                         <input name="logout" hidden>
                         {$webPage->getHTMLButton(true, "Se déconnecter", "#", "15px", "25px", "19px")}
-                    </form>
-                    
+                    </form> 
                 </div>
                 
                 <div class="w-100" style="display: flex; flex-direction: column; gap: 20px;">

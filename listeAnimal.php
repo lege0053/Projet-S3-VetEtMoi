@@ -43,9 +43,16 @@ HTML);
             <a style="color: #02897A; font-weight: bold;">Dernier rendez-vous
             <a style="color: #262626; font-weight: bold;">Jeudi 25 Octobre 2020
         </div>
-        <div class='d-flex flex-column justify-content-center'>
-            <a class='button m-1 p-2' href='profile_animal.php'>Info sur {$animal['name']}</a>
-            <a class='button m-1 p-2' style="text-align: center" href="#">Rendez-Vous</a>
+        
+        <div class="d-flex flex-column" style="margin-top:25%;gap:25px;">
+            <form action="profile_animal.php" method="post" style="display: flex; justify-content: center;">
+                <input type="hidden" id="info" name="info"  value="{$animal['animalId']}">
+                {$webPage->getHTMLButton(true, "Info sur {$animal['name']}", "profile_animal.php", "9px", "10px", "16px")}
+            </form>
+            <form action="#" method="post" style="display: flex; justify-content: center;">
+                <input type="hidden" id="idAnimalForRdv" name="idAnimalForRdv"  value="{$animal['animalId']}">
+                {$webPage->getHTMLButton(true, "Rendez-vous", "#", "9px", "10px", "16px")}
+            </form>
         </div>
     </div>
 </div>
