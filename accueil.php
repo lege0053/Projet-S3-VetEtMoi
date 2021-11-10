@@ -21,7 +21,7 @@ $html= <<< HTML
             <br>
             <h4 style="font-weight: bold;">Prenez rendez-vous n'importe quand !</h4>
             <br>
-            <a href="listeAnimal.php" class="btn m-1" style="font-weight: bold;background-color: #02897A; color: #FFFFFF">Prenez rendez-vous</a>
+            {$webPage->getHTMLButton(false, "Prenez rendez-vous", "listeAnimal.php", "15px", "15px", "17px")}
         </div>
         <img src="img/animal/dogAndcat.png" class="ml-5" style="max-width:40%;" alt="">
     </div>
@@ -50,9 +50,11 @@ $html= <<< HTML
                 <a href="#"><img src="img/carre_gris.png" alt="" height="200" class="p-2"></a> 
             </div>
             <br>
-            <h4 style="font-weight: bold;">Voulez-vous plus de conseils ?</h4>
-            <h6 style="font-weight: bold;">Nous en avons d'autres, aussi croustillants les uns que les autres !</h6>
-            <a href="./conseils.php" class="btn m-1 align-self-center" style="font-weight: bold;background-color: #02897A; color: #FFFFFF">Voir les autres conseils</a>
+            <div class="d-flex flex-column align-items-center">
+                <h4 style="font-weight: bold;">Voulez-vous plus de conseils ?</h4>
+                <h6 style="font-weight: bold; padding-bottom: 10px;">Nous en avons d'autres, aussi croustillants les uns que les autres !</h6>
+                {$webPage->getHTMLButton(false, "Voir les autres conseils", "./conseils.php", "15px", "15px", "16px")}
+            </div>
             <div class="d-flex flex-row mt-5">
                 {$webPage->getIcon("cat")}
                 <h4 style="font-weight: bold; color: #055945; border-bottom: 8px solid #02897A;">Où sommes-nous situé ?</h4>
