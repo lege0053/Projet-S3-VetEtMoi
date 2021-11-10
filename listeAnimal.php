@@ -46,7 +46,7 @@ HTML);
         
         <div class="d-flex flex-column" style="margin-top:25%;gap:25px;">
             <form action="profile_animal.php" method="post" style="display: flex; justify-content: center;">
-                <input type="hidden" id="info" name="info"  value="{$animal['animalId']}">
+                <input type="hidden" id="animalId" name="info"  value="{$animal['animalId']}">
                 {$webPage->getHTMLButton(true, "Info sur {$animal['name']}", "profile_animal.php", "9px", "10px", "16px")}
             </form>
             <form action="#" method="post" style="display: flex; justify-content: center;">
