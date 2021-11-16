@@ -44,7 +44,7 @@ HTML);
             <a style="color: #262626; font-weight: bold;">Jeudi 25 Octobre 2020
         </div>
         
-        <div class="d-flex flex-column" style="margin-top:25%;gap:25px;">
+        <div class="d-flex flex-column justify-content-center" style="gap:25px;">
             <a class='button' style="display: flex; justify-content: center;" href="profile_animal.php?id={$animal['animalId']}">Info sur {$animal['name']}</a>
             <a class='button' style="display: flex; justify-content: center;" href="#">Rendez-Vous</a>
         </div>
