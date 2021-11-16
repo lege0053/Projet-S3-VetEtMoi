@@ -36,15 +36,16 @@ HTML);
         $webPage->appendContent(<<< HTML
 <div class="d-flex flex-row justify-content-center">
     <div class="d-flex justify-content-space-between row w-50 p-3" style="background-color: #DDDDDD;border-radius: 15px;">
-        {$webPage->getImgCarre("{$animal->getNameImgCarre()}", $animal->getName(), 200)}
-        <div class="d-flex flex-column justify-content-center">
-            <a style="color: #02897A; font-weight: bold;">Prochain rendez-vous
-            <a style="color: #262626; font-weight: bold;">Mercredi 2 Octobre 2021
-            <a style="color: #262626; font-weight: bold; margin-bottom: 10px;">11:00
-            <a style="color: #02897A; font-weight: bold;">Dernier rendez-vous
-            <a style="color: #262626; font-weight: bold;">Jeudi 25 Octobre 2020
+        <div class="d-flex flex-row">
+            {$webPage->getImgCarre("{$animal->getNameImgCarre()}", $animal->getName(), 200)}
+            <div class="d-flex flex-column justify-content-center" style="margin-left: 15px;">
+                <a style="color: #02897A; font-weight: bold;">Prochain rendez-vous
+                <a style="color: #262626; font-weight: bold;">Mercredi 2 Octobre 2021
+                <a style="color: #262626; font-weight: bold; margin-bottom: 10px;">11:00
+                <a style="color: #02897A; font-weight: bold;">Dernier rendez-vous
+                <a style="color: #262626; font-weight: bold;">Jeudi 25 Octobre 2020
+            </div>
         </div>
-        
         <div class="d-flex flex-column justify-content-center" style="gap:25px;">
             <a class='button' style="display: flex; justify-content: center; padding: 15px;" href="profile_animal.php?id={$animal->getAnimalId()}">Info sur {$animal->getName()}</a>
             <a class='button' style="display: flex; justify-content: center;padding: 15px;" href="#">Rendez-Vous</a>
