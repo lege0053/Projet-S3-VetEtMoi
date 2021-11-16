@@ -32,19 +32,27 @@ $html= <<< HTML
 </div>
 
 <div class="d-flex flex-row justify-content-center">
-    <div class="d-flex justify-content-space-between row p-3" style="background-color: #DDDDDD;border-radius: 15px; width:60%">
+    <div class="d-flex justify-content-space-between row p-3" style="background-color: #DDDDDD;border-radius: 15px; width:70%">
         <div class="d-flex flex-row">
             {$webPage->getImgCarre("{$animal->getNameImgCarre()}", "{$animal->getName()}", 300)}
-            <div class="d-flex flex-column justify-content-center" style="margin-left: 10px; margin-right: 150px; font-size: 20px;">
+            <div class="d-flex flex-column justify-content-center" style="margin-left: 20px; margin-right: 60px; font-size: 20px;">
+                    <a style="color: #02897A; font-weight: bold;">Espèce
+                    <a style="color: #262626; font-weight: bold; margin-bottom: 20px;">{$animal->getSpecieName()}
                     <a style="color: #02897A; font-weight: bold;">Nom
-                    <a style="color: #262626; font-weight: bold; margin-bottom: 20px;">{$animal->getName()}
+                    <a style="color: #262626; font-weight: bold;margin-bottom: 20px;">{$animal->getName()}
+                    <a style="color: #02897A; font-weight: bold;">Genre
+                    <a style="color: #262626; font-weight: bold;">{$animal->getGenderId()}
+            </div>
+                    <div class="d-flex flex-column justify-content-center" style="margin-right: 120px; font-size: 20px;">
+                    <a style="color: #02897A; font-weight: bold;">Race
+                    <a style="color: #262626; font-weight: bold; margin-bottom: 20px;">{$animal->getNameRace()}
                     <a style="color: #02897A; font-weight: bold;">Age
                     <a style="color: #262626; font-weight: bold;margin-bottom: 20px;">{$age}
                     <a style="color: #02897A; font-weight: bold;">Date de Naissance
                     <a style="color: #262626; font-weight: bold;">{$animal->getBirthDay()}
             </div>
         </div>
-        <div class="d-flex flex-column justify-content-center" style="font-size: 20px;">
+        <div class="d-flex flex-column justify-content-center" style="font-size: 20px; text-align: end">
             <a style="color: #02897A; font-weight: bold;">Prochain rendez-vous
             <a style="color: #262626; font-weight: bold;">{$futurRDV}
             <a style="color: #262626; font-weight: bold;margin-bottom: 20px;">11:00
