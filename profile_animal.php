@@ -8,7 +8,7 @@ if(!SecureUserAuthentication::isUserConnected()){
     header("Location: connexion.php");
 }
 
-if ((!isset($_GET["animalId"])) || !ctype_digit($_GET["animalId"])) {
+if ((!isset($_GET["id"])) || !ctype_digit($_GET["id"])) {
     header("Location: listeAnimal.php");
 }
 

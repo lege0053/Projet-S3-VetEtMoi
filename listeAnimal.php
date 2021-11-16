@@ -45,14 +45,8 @@ HTML);
         </div>
         
         <div class="d-flex flex-column" style="margin-top:25%;gap:25px;">
-            <form action="profile_animal.php" method="post" style="display: flex; justify-content: center;">
-                <input type="hidden" id="animalId" name="info"  value="{$animal['animalId']}">
-                {$webPage->getHTMLButton(true, "Info sur {$animal['name']}", "profile_animal.php", "9px", "10px", "16px")}
-            </form>
-            <form action="#" method="post" style="display: flex; justify-content: center;">
-                <input type="hidden" id="idAnimalForRdv" name="idAnimalForRdv"  value="{$animal['animalId']}">
-                {$webPage->getHTMLButton(true, "Rendez-vous", "#", "9px", "10px", "16px")}
-            </form>
+            <a class='button' style="display: flex; justify-content: center;" href="profile_animal.php?id={$animal['animalId']}">Info sur {$animal['name']}</a>
+            <a class='button' style="display: flex; justify-content: center;" href="#">Rendez-Vous</a>
         </div>
     </div>
 </div>
