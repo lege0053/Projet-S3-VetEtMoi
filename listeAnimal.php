@@ -31,16 +31,12 @@ HTML);
 
     /**Pour chaque animal du client**/
     foreach ($rep as $animal) {
-
-        /**On récupère la race de l'animal**/
         $animal = Animal::createFromId($animal['animalId']);
-
-
         /**On affiche l'animal**/
         $webPage->appendContent(<<< HTML
 <div class="d-flex flex-row justify-content-center">
     <div class="d-flex justify-content-space-between row w-50 p-3" style="background-color: #DDDDDD;border-radius: 15px;">
-        {$webPage->getImgCarre("{$race->getSpeciesName()}", $animal['name'], 200)}
+        {$webPage->getImgCarre("{$animal->getNameSpecie()}", $animal->getName(), 200)}
         <div class="d-flex flex-column justify-content-center">
             <a style="color: #02897A; font-weight: bold;">Prochain rendez-vous
             <a style="color: #262626; font-weight: bold;">Mercredi 2 Octobre 2021
@@ -50,7 +46,7 @@ HTML);
         </div>
         
         <div class="d-flex flex-column justify-content-center" style="gap:25px;">
-            <a class='button' style="display: flex; justify-content: center; padding: 15px;" href="profile_animal.php?id={$animal['animalId']}">Info sur {$animal['name']}</a>
+            <a class='button' style="display: flex; justify-content: center; padding: 15px;" href="profile_animal.php?id={$animal->getName()}">Info sur {$animal->getName()}</a>
             <a class='button' style="display: flex; justify-content: center;padding: 15px;" href="#">Rendez-Vous</a>
         </div>
     </div>

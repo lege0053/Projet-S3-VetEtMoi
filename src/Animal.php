@@ -281,7 +281,7 @@ class Animal
      * @return string
      */
     public function getNameSpecie(): string {
-        $race = Race::createFromId($this->raceID);
+        $race = Race::createFromId($this->getRaceID());
         $specie = Spiecie::createFromId($race->getSpeciesId());
         return $specie->getSpeciesName();
     }
