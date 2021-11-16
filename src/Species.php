@@ -14,7 +14,7 @@ class Species
         WHERE speciesId=?
         SQL);
 
-        $req->setFetchMode(PDO::FETCH_CLASS, Race::class);
+        $req->setFetchMode(PDO::FETCH_CLASS, Species::class);
         $req->execute([$id]);
         $return=$req->fetch();
         if(!$return)
