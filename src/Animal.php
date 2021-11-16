@@ -299,4 +299,13 @@ class Animal
         return $name;
     }
 
+    public function getGenderName(): string
+    {
+        if($this->genderId == 1)
+        {
+            return "Femelle";
+        }
+        return "Mâle";
+    }
+
 }

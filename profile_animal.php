@@ -41,7 +41,7 @@ $html= <<< HTML
                     <a style="color: #02897A; font-weight: bold;">Nom
                     <a style="color: #262626; font-weight: bold;margin-bottom: 20px;">{$animal->getName()}
                     <a style="color: #02897A; font-weight: bold;">Genre
-                    <a style="color: #262626; font-weight: bold;">{$animal->getGenderId()}
+                    <a style="color: #262626; font-weight: bold;">{$animal->getGenderName()}
             </div>
                     <div class="d-flex flex-column justify-content-center" style="margin-right: 120px; font-size: 20px;">
                     <a style="color: #02897A; font-weight: bold;">Race
