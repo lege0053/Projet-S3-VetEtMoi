@@ -48,7 +48,7 @@ HTML);
         </div>
         <div class="d-flex flex-column justify-content-center" style="gap:25px;">
             <a class='button' style="display: flex; justify-content: center; padding: 15px;" href="profile_animal.php?id={$animal->getAnimalId()}">Info sur {$animal->getName()}</a>
-            <a class='button' style="display: flex; justify-content: center;padding: 15px;" href="#">Rendez-Vous</a>
+            <a class='button' style="display: flex; justify-content: center;padding: 15px;" href="prisederdv.php?id={$animal->getAnimalId()}">Rendez-Vous</a>
         </div>
     </div>
 </div>
