@@ -2,12 +2,12 @@
 
 class Animal
 {
-    private int $animalId;
+    private string $animalId;
     private string $name;
     private string $birthDay;
-    private string $deathDay;
-    private string $comment;
-    private int $userId;
+    private ? string $deathDay;
+    private ? string $comment;
+    private string $userId;
     private int $threatId;
     private int $genderId;
     private int $raceID;
@@ -192,7 +192,7 @@ class Animal
     /**
      * @return int
      */
-    public function getUserId(): int
+    public function getUserId(): string
     {
         return $this->userId;
     }
@@ -232,7 +232,7 @@ class Animal
     /**
      * @return int
      */
-    public function getAnimalId(): int
+    public function getAnimalId(): string
     {
         return $this->animalId;
     }
