@@ -163,8 +163,8 @@ class User
     {
         $pdo = MyPDO::getInstance()->prepare(<<<SQL
             SELECT * FROM Meeting
-            WHERE userId = :userId
-            ORDER by meetingDate DESC;
+            WHERE userId = :userId AND meetingDate > CAST(CURRENT_TIMESTAMP AS DATE)
+            ORDER by meetingDate;
         SQL);
         $pdo->execute(['userId' => $this->userId]);
         $pdo->setFetchMode(PDO::FETCH_CLASS, Meeting::class);
