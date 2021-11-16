@@ -6,6 +6,31 @@ $auth = new SecureUserAuthentication();
 if(!SecureUserAuthentication::isUserConnected())
     header("Location: connexion.php");
 $user = $auth->getUser();
+$rdvList = $user->getMeetings();
+$rdv = "<span>Vous n'avez aucun rendez-vous</span>";
+if($rdvList){
+    $rdvs = "";
+    foreach($rdvList as $rdv){
+        $rdvs .= "<tr>
+                    <td>{$rdv->getDate()}</td>
+                    <td>{$rdv->getAnimal()->getName()}</td>
+                    <td></td>
+                  </tr>";
+    }
+    $rdvHTML = <<< HTML
+        <table>
+            <thead>
+                <tr>
+                    <td>Date</td>
+                    <td>Nom de l'animal</td>
+                </tr>
+            </thead>
+            $rdvs
+        </table>
+
+    HTML;
+
+}
 
 $webPage = new WebPage("Profil");
 $webPage->appendContent(<<<HTML
@@ -14,8 +39,9 @@ $webPage->appendContent(<<<HTML
             <img src="img/animal/cat1.png" height="400">
             {$user->getHTMLProfile()}
         </div>
-        <div class="d-flex flex-column pt-5" style="height: 600px; background-color: #E3E3E3;">
-            <h1 class="d-flex align-self-center"><b>Prochain Rendez-Vous</b></h1>
+        <div class="d-flex flex-column justify-content-center align-items-center">
+            <h1 class="title">Prochain Rendez-Vous</h1>
+            $rdv
         </div>
     </div>
 HTML);

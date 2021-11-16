@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+include_once("Animal.php");
 
 class Meeting
 {
@@ -7,7 +8,7 @@ class Meeting
     private int $meetingId;
     private string $meetingDate;
     private int $isPayed;
-    private double $price;
+    private ? double $price;
     private string $userId;
     private string $animalId;
 
@@ -57,6 +58,11 @@ class Meeting
     public function getUserId(): string
     {
         return $this->userId;
+    }
+
+    public function getAnimal() : Animal
+    {
+        return Animal::createFromId($this->animalId);
     }
 
 }

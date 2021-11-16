@@ -167,12 +167,7 @@ class User
         SQL);
         $pdo->execute(['userId' => $this->userId]);
         $pdo->setFetchMode(PDO::FETCH_CLASS, Meeting::class);
-        $array = $pdo->fetchAll();
-        if(!$array)
-        {
-            throw new InvalidArgumentException("No meeting for this user.");
-        }
-        return $array;
+        return $pdo->fetchAll();
     }
 
     /**

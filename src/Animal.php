@@ -18,7 +18,7 @@ class Animal
      * @return static
      * @throws Exception
      */
-    public static function createFromId(int $id):self
+    public static function createFromId(string $id):self
     {
         $req=MyPDO::getInstance()->prepare(<<<SQL
         SELECT *
