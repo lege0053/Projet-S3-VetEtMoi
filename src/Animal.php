@@ -10,7 +10,7 @@ class Animal
     private string $userId;
     private int $threatId;
     private int $genderId;
-    private int $raceID;
+    private int $raceId;
 
     /**
      * Return Animal object from an id.
@@ -200,9 +200,9 @@ class Animal
     /**
      * @return int
      */
-    public function getRaceID(): int
+    public function getRaceId(): int
     {
-        return $this->raceID;
+        return $this->raceId;
     }
 
     /**
