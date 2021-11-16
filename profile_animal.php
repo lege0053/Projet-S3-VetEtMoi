@@ -12,27 +12,14 @@ if ((!isset($_GET["id"])) || !ctype_digit($_GET["id"])) {
     header("Location: listeAnimal.php");
 }
 
-$animalId = $_GET['animalId'];
+$animalId = $_GET['id'];
 
-$stmt = MyPDO::getInstance()->prepare(
-    <<<SQL
-SELECT name as "name", DATE_FORMAT(birthDay, "%d/%c/%Y") as "birthDay"
-FROM Animal
-WHERE animalId = ?;
-SQL
-);
-$stmt->execute([$animalId]);
-$rep = $stmt->fetchAll();
+$animal = Animal::createFromId($animalId);
 
-if ($rep){
-    foreach ($rep as $reponse) {
-        $name = $reponse['name'];
-        $birthDay = $reponse["birthDay"];
-    }
-}
+$age = date_diff(date_create($animal->getBirthDay()), date_create("now"))->format("%y ans %m mois");
 
 
-$webPage = new WebPage("Profil de {$name}");
+$webPage = new WebPage("Profil de {$animal->getName()}");
 
 //test
     $futurRDV = "Mercredi 2 Octobre";
@@ -41,15 +28,15 @@ $webPage = new WebPage("Profil de {$name}");
 
 $html= <<< HTML
 <div class="d-flex justify-content-center">
-    <h3 style="font-weight: bold;">{$webPage->getIcon('cat', 35)}Le profil de {$name}</h3>
+    <h3 style="font-weight: bold;">{$webPage->getIcon('cat', 35)}Le profil de {$animal->getName()}</h3>
 </div>
 
-<div class="d-flex flex-row pt-2 pb-2 pr-5 pl-5" style="background-color: #DDDDDD; border-radius: 10px">
-    <img src="img/rounded_dog.png" class="mx-auto w-25" alt="">
+<div class="d-flex flex-row justify-content-center" style="background-color: #DDDDDD; border-radius: 10px">
+    {$webPage->getImgCarre("dog", "", 300)}
     <div class="d-flex flex-column justify-content-left">
         <div class="d-flex flex-column justify-content-left"> 
             <a style="color: #02897A; font-weight: bold;">Nom
-            <a style="color: #262626; font-weight: bold;">{$name}
+            <a style="color: #262626; font-weight: bold;">{$animal->getName()}
         </div>
         <div class="d-flex flex-column justify-content-left">
             <a style="color: #02897A; font-weight: bold;">Age
@@ -57,7 +44,7 @@ $html= <<< HTML
         </div>
         <div class="d-flex flex-column justify-content-left">
             <a style="color: #02897A; font-weight: bold;">Date de Naissance
-            <a style="color: #262626; font-weight: bold;">{$birthDay}
+            <a style="color: #262626; font-weight: bold;">{$animal->getBirthDay()}
         </div>
     </div>
     <div class="d-flex flex-column justify-content-left">
