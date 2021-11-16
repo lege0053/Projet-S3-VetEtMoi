@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-class Spiecie
+class Species
 {
     private string $speciesName;
     private int $speciesId;
@@ -10,7 +10,7 @@ class Spiecie
     {
         $req=MyPDO::getInstance()->prepare(<<<SQL
         SELECT *
-        FROM SPECIES
+        FROM Species
         WHERE speciesId=?
         SQL);
 
@@ -28,7 +28,7 @@ class Spiecie
      * Retourne le nom de la race.
      * @return string
      */
-    public function getSpeciesName() {
+    public function getSpeciesName() : string {
         return $this->speciesName;
     }
 
@@ -36,7 +36,7 @@ class Spiecie
      * Retourne l'id de l'espèce de la race.
      * @return int
      */
-    public function getSpeciesId() {
+    public function getSpeciesId() : int {
         return $this->speciesId;
     }
 
