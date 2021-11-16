@@ -269,4 +269,12 @@ class Animal
         $this->genderId = $genderId;
     }
 
+    /**
+     * @return string
+     */
+    public function getNameRace() {
+        $race = Race::createFromId($this->getRaceID());
+        return $race->getRaceName();
+    }
+
 }
