@@ -49,7 +49,7 @@ CSS
 
 $user = $auth->getUser();
 $rdvList = $user->getMeetings();
-$rdv = "<span>Vous n'avez aucun rendez-vous</span>";
+$rdvHTML = "<span>Vous n'avez aucun rendez-vous</span>";
 if($rdvList){
     $rdvs = "";
     foreach($rdvList as $rdv){
