@@ -33,9 +33,7 @@ HTML);
     foreach ($rep as $animal) {
 
         /**On récupère la race de l'animal**/
-        $raceId = $animal['raceId'];
-        $race = Race::createFromId($raceId);
-        $speciesId = $race->getSpeciesId();
+        $animal = Animal::createFromId($animal['animalId']);
 
 
         /**On affiche l'animal**/

@@ -272,9 +272,18 @@ class Animal
     /**
      * @return string
      */
-    public function getNameRace() {
+    public function getNameRace(): string {
         $race = Race::createFromId($this->getRaceID());
         return $race->getRaceName();
+    }
+
+    /**
+     * @return string
+     */
+    public function getNameSpecie(): string {
+        $race = Race::createFromId($this->raceID);
+        $specie = Spiecie::createFromId($race->getSpeciesId());
+        return $specie->getSpeciesName();
     }
 
 }
