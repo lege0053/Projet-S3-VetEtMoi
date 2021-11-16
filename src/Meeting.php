@@ -8,7 +8,7 @@ class Meeting
     private int $meetingId;
     private string $meetingDate;
     private int $isPayed;
-    private ? double $price;
+    private ? \double $price;
     private string $userId;
     private string $animalId;
 
