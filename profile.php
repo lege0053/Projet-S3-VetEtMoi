@@ -78,7 +78,6 @@ if($rdvList){
         </div>
 
     HTML;
-
 }
 
 $webPage->appendContent(<<<HTML

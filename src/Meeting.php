@@ -12,6 +12,7 @@ class Meeting
     private ? double $price;
     private string $userId;
     private string $animalId;
+    private string $vetoId;
 
     /**
      * @param int $meetingId
@@ -78,6 +79,14 @@ class Meeting
     public function getAnimal() : Animal
     {
         return Animal::createFromId($this->animalId);
+    }
+
+    /**
+     * @return string
+     */
+    public function getVetoId(): string
+    {
+        return $this->vetoId;
     }
 
     public function getTimeSlots() : array
