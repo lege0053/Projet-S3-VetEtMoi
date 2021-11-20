@@ -1,0 +1,29 @@
+<?php
+declare(strict_types=1);
+
+include_once "../autoload.php";
+
+$auth = new SecureUserAuthentication();
+Session::start();
+if(isset($_POST['meetingId']) && !empty($_POST['meetingId']) && $auth->isUserConnected()){
+    $user = $auth->getUser();
+    $meetingId = $_POST['meetingId'];
+    $meeting = Meeting::createFromId($meetingId);
+
+    if($meeting->getUserId() == $user->getUserId()){
+
+        $pdo = MyPDO::getInstance();
+        $rq1 = $pdo->prepare(<<<SQL
+            DELETE FROM Concern
+            WHERE meetingId = :meetingId
+        SQL);
+        $rq1->execute(['meetingId' => $meetingId]);
+
+        $rq2 = $pdo->prepare(<<< SQL
+            DELETE FROM Meeting
+            WHERE meetingId = :meetingId
+        SQL);
+        $rq2->execute(['meetingId' => $meetingId]);
+        header('Location: ../profile.php?success=delete_meeting');
+    } else header('Location: ../accueil.php?err=userid');
+} else header('Location: ../accueil.php?err=meetid');

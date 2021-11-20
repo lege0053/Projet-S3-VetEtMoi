@@ -55,11 +55,17 @@ if($rdvList){
     foreach($rdvList as $rdv){
         $animal = $rdv->getAnimal();
         $id = $animal->getAnimalId();
-        $date = ucwords(utf8_encode(strftime("%A %d %b %Y - %H:%M", strtotime($rdv->getMeetingDate()))));
+        $date = ucwords(utf8_encode(strftime("%A %d %b %Y - %H:%M", strtotime($rdv->getDateTime()))));
         $rdvs .= "<div class='rdv-item'>
                     <span>{$date}</span>
                     <span>{$animal->getName()}</span>
-                    {$webPage->getHTMLButton(false, "Modifier", "profile_animal.php?id=$id", "12px", "25px", "18px")}
+                    <div style='display: flex;'>
+                        {$webPage->getHTMLButton(false, "Modifier", "profile_animal.php?id=$id", "12px", "25px", "18px")}
+                        <form action='trmt/delete_meeting_trmt.php' method='post' name='delete_meeting_{$rdv->getMeetingId()}' style='margin: 0; padding: 0;'>
+                            <input type='text' name='meetingId' value='{$rdv->getMeetingId()}' hidden>
+                            {$webPage->getHTMLButton(true, "Supprimer", "", "12px", "25px", "18px")}
+                        </form>
+                    </div>
                   </div>";
     }
     $rdvHTML = <<< HTML
