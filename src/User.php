@@ -16,6 +16,7 @@ class User
     private string $phone;
     private string $email;
     private int $isAdmin;
+    private int $isVeto;
     private string $comment;
 
     public function __construct(array $data)
@@ -29,6 +30,7 @@ class User
         $this->phone = $data['phone'] ?? '';
         $this->email = $data['email'] ?? '';
         $this->isAdmin = (int)($data['isAdmin']) ?? 0;
+        $this->isVeto = (int)($data['isVeto']) ?? 0;
         $this->comment = $data['comment'] ?? '';
     }
 
@@ -119,9 +121,17 @@ class User
     /**
      * @return bool
      */
-    public function isAdmin()
+    public function isAdmin(): bool
     {
         return $this->isAdmin == 1;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isVeto(): bool
+    {
+        return $this->isVeto == 1;
     }
 
     /**
