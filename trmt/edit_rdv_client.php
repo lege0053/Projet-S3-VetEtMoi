@@ -6,20 +6,22 @@ $auth = new SecureUserAuthentication();
 if ($auth->isUserConnected()) {
     $user = $auth->getUser();
 
-    if (isset($_POST['meetingId'], $_POST['meetingDate'], $_POST['animalId'])
-        && !empty($_POST['meetingId']) && !empty($_POST['meetingDate']) && !empty($_POST['animalId'])) {
+    if (isset($_POST['meetingId'], $_POST['meetingDate'], $_POST['animalId'], $_POST['vetoId'])
+        && !empty($_POST['meetingId']) && !empty($_POST['meetingDate']) && !empty($_POST['animalId'] && !empty($_POST['vetoId']))) {
         $meetingId = WebPage::escapeString($_POST['meetingId']);
         $meetingDate = WebPage::escapeString($_POST['meetingDate']);
         $animalId = WebPage::escapeString($_POST['animalId']);
+        $vetoId = WebPage::escapeString($_POST['vetoId']);
 
         $req2 = MyPDO::getInstance()->prepare(<<<SQL
             UPDATE MEETING
             SET meetingDate = ?,
-                animalId = ?
+                animalId = ?,
+                vetoId = ?
             WHERE meetingId = ?;
         SQL
         );
-        $req2->execute([$meetingDate, $animalId, $meetingId]);
+        $req2->execute([$meetingDate, $animalId, $vetoId, $meetingId]);
         header('Location: ../profile.php');
     }else header('Location: ../prisederdv.php?err_infos');
 }else header('Location: ../connexion.php');
