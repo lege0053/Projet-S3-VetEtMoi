@@ -286,19 +286,6 @@ class Animal
         return $specie->getSpeciesName();
     }
 
-    public function getNameImgCarre(): string {
-        $name = "nac";
-        $speciesId = Race::createFromId($this->getRaceID())->getSpeciesId();
-        if ($speciesId == 1)
-        {
-            $name = 'dog';
-        } elseif ($speciesId == 2)
-        {
-            $name="cat";
-        }
-        return $name;
-    }
-
     public function getGenderName(): string
     {
         if($this->genderId == 1)

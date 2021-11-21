@@ -34,7 +34,7 @@ $html= <<< HTML
 <div class="d-flex flex-row justify-content-center">
     <div class="d-flex row p-3" style="background-color: #DDDDDD;border-radius: 15px; width:70%">
         <div class="d-flex flex-row">
-            {$webPage->getImgCarre("{$animal->getNameImgCarre()}", "{$animal->getName()}", 300)}
+            {$webPage->getImgCarre("{$animal->getSpecieName()}", "{$animal->getName()}", 300)}
             <div class="d-flex flex-column" style="margin-left: 20px">
                 <h3>INFORMATIONS</h3>
                 <div class="d-flex flex-row">
