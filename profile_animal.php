@@ -32,13 +32,13 @@ $html= <<< HTML
 </div>
 
 <div class="d-flex flex-row justify-content-center">
-    <div class="d-flex row p-3" style="background-color: #DDDDDD;border-radius: 15px; width:70%">
+    <div class="d-flex row p-3" style="background-color: #DDDDDD;border-radius: 15px;">
         <div class="d-flex flex-row">
             {$webPage->getImgCarre("{$animal->getSpecieName()}", "{$animal->getName()}", 300)}
             <div class="d-flex flex-column" style="margin-left: 20px">
                 <h3>INFORMATIONS</h3>
                 <div class="d-flex flex-row">
-                    <div class="d-flex flex-column" style="margin-right: 60px; font-size: 19px;">
+                    <div class="d-flex flex-column" style="margin-right: 50px; font-size: 19px;">
                             <a style="color: #02897A; font-weight: bold;">Espèce
                             <a style="color: #262626; font-weight: bold; margin-bottom: 20px;">{$animal->getSpecieName()}
                             <a style="color: #02897A; font-weight: bold;">Nom
