@@ -1,5 +1,5 @@
 document.getElementById('tab').addEventListener("change", function(){
-    charge('timeslot.php','','',this.options[this.selectedIndex].value)
+    charge('json/getTimeSlotByDateAndVetoId.php','','',this.options[this.selectedIndex].value)
 })
 
 function charge(url, lowDate, upDate, vetoId)

@@ -7,6 +7,8 @@ if(!SecureUserAuthentication::isUserConnected())
     header("Location: connexion.php");
 
 $webPage = new WebPage("Profil");
+$webPage->appendJsUrl("js/meetingUtils.js");
+
 setlocale(LC_ALL, 'fr_FR', 'French_France', 'French');
 date_default_timezone_set('Europe/Paris');
 
@@ -53,19 +55,21 @@ $rdvHTML = "<span>Vous n'avez aucun rendez-vous</span>";
 if($rdvList){
     $rdvs = "";
     foreach($rdvList as $rdv){
+        $meetingId = $rdv->getMeetingId();
         $animal = $rdv->getAnimal();
         $id = $animal->getAnimalId();
         $date = ucwords(utf8_encode(strftime("%A %d %b %Y - %H:%M", strtotime($rdv->getDateTime()))));
         $rdvs .= "<div class='rdv-item'>
                     <span>{$date}</span>
                     <span>{$animal->getName()}</span>
-                    <div style='display: flex;'>
+                    <input type='button' class='button' onclick='showEditMeetingPopup(\"$meetingId\");' value='Modifier' style='padding: 12px 25px; font-size: 18px; '>
+                    <!--<div style='display: flex;'>
                         {$webPage->getHTMLButton(false, "Modifier", "profile_animal.php?id=$id", "12px", "25px", "18px")}
                         <form action='trmt/delete_meeting_trmt.php' method='post' name='delete_meeting_{$rdv->getMeetingId()}' style='margin: 0; padding: 0;'>
                             <input type='text' name='meetingId' value='{$rdv->getMeetingId()}' hidden>
                             {$webPage->getHTMLButton(true, "Supprimer", "", "12px", "25px", "18px")}
                         </form>
-                    </div>
+                    </div>-->
                   </div>";
     }
     $rdvHTML = <<< HTML
