@@ -19,10 +19,12 @@ $webPage->appendCss(<<<CSS
         padding: 0px 0px 0px 25px;
         margin: 10px;
         display: flex;
-        justify-content: space-between;
-        flex-grow: 1;
         align-items: center;
     }
+    .rdv-item span {
+        flex: 1;
+    }
+    
     .rdv-head{
         background-color: #C9C9C9;
         border-radius: 10px;
@@ -34,16 +36,20 @@ $webPage->appendCss(<<<CSS
         height: 50px;
         font-size: 1.3em;
     }
+    
     .rdv-head span{
-        flex-grow: 1;
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
-    .rdv{
+    .rdv {
         display: flex;
         flex-direction: column;
-        width: 800px;
+        width: 900px;
         background: #DDDDDD;
         margin: 0;
-        padding: 0;
+        padding: 25px;
         border-radius: 20px;
     }
 CSS
@@ -61,8 +67,10 @@ if($rdvList){
         $date = ucwords(utf8_encode(strftime("%A %d %b %Y - %H:%M", strtotime($rdv->getDateTime()))));
         $rdvs .= "<div class='rdv-item'>
                     <span>{$date}</span>
-                    <span>{$animal->getName()}</span>
-                    <input type='button' class='button' onclick='showEditMeetingPopup(\"$meetingId\");' value='Modifier' style='padding: 12px 25px; font-size: 18px; '>
+                    <span style='display: flex; justify-content: center;'>{$animal->getName()}</span>
+                    <span style='display: flex; justify-content: end;'>
+                        <input type='button' class='button' onclick='showEditMeetingPopup(\"$meetingId\");' value='Modifier' style='padding: 12px 25px; font-size: 18px; '>
+                    </span>
                     <!--<div style='display: flex;'>
                         {$webPage->getHTMLButton(false, "Modifier", "profile_animal.php?id=$id", "12px", "25px", "18px")}
                         <form action='trmt/delete_meeting_trmt.php' method='post' name='delete_meeting_{$rdv->getMeetingId()}' style='margin: 0; padding: 0;'>
@@ -77,6 +85,7 @@ if($rdvList){
             <div class="rdv-head">
                 <span>Date</span>
                 <span>Nom de l'animal</span>
+                <span></span>
             </div>
             $rdvs
         </div>
