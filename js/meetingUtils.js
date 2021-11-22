@@ -73,6 +73,13 @@ function showEditMeetingPopup(meetingId) {
 }
 
 
+/*
+ *
+ *
+ * Merci StackOverFlow pour le lock scroll
+ *
+ */
+
 var keys = {37: 1, 38: 1, 39: 1, 40: 1};
 
 function preventDefault(e) {
