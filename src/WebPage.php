@@ -281,21 +281,21 @@ HTML;
 
     private function getFooter() : string {
         return <<<HTML
-            <footer id="footer" style="background-color: #242424; color: #E2E2E2">
+            <footer id="footer">
               <div class="container">
                 <div class="row justify-content-center">
                   <div class="col-md-3 col-sm-6">
                     <!--Column1-->
                     <div class="mt-5 mb-5">
-                      <h4>Nous Contacter</h4>
+                      <h4 style="color:#E2E2E2">Nous Contacter</h4>
                       <ul class="list-unstyled">
-                        <li><a href="tel:+33325563596" style="text-decoration: none; color: #02897A">03 25 56 35 96</a> </li>
-                        <li>contact@vetetmoi.fr</li>
+                        <li><a href="tel:+33325563596" style="text-decoration: none; color: #E2E2E2">03 25 56 35 96</a> </li>
+                        <li style="color:#E2E2E2">contact@vetetmoi.fr</li>
                       </ul>
                     </div>
                   </div>
                     <div class="mt-5 mb-5">
-                        <h4>Nos Réseaux</h4>
+                        <h4 style="color:#E2E2E2">Nos Réseaux</h4>
                         <a href="#">{$this->getIcon("instagram")}</a>
                         <a href="#">{$this->getIcon("youtube")}</a>
                         <a href="#">{$this->getIcon("twitter")}</a></li>
@@ -303,7 +303,7 @@ HTML;
                 </div>
                 <div class="row">
                     <div class="col-md-12" style="border-top: 1px solid #E2E2E2; padding: 10px;font-size: 12px;">
-                        <p class="text-center">&copy; Copyright 2021 - Vet&Moi.  Tous droits réservés.</p>
+                        <p class="text-center" style="color:#E2E2E2">&copy; Copyright 2021 - Vet&Moi.  Tous droits réservés.</p>
                     </div>
                 </div>
               </div>
