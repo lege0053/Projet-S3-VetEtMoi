@@ -9,7 +9,7 @@ class Meeting
     private string $meetingId;
     private string $meetingDate;
     private int $isPayed;
-    private ? double $price;
+    private ? float $price;
     private string $userId;
     private string $animalId;
     private string $vetoId;
