@@ -4,8 +4,8 @@ declare(strict_types=1);
 include_once "../src/Meeting.php";
 
 header('Content-type: application/json');
-if(isset($_POST['meetingId']) && !empty($_POST['meetingId'])) {
-    $meetingId = $_POST['meetingId'];
+if(isset($_GET['meetingId']) && !empty($_GET['meetingId'])) {
+    $meetingId = $_GET['meetingId'];
 
     $rq = MyPDO::getInstance()->prepare(<<<SQL
         SELECT * FROM TimeSlot

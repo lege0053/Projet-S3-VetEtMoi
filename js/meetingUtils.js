@@ -40,6 +40,17 @@ hiddenInputMeetingId.id = "hiddenInputMeetingId"
 hiddenInputMeetingId.type = "text";
 hiddenInputMeetingId.hidden = true;
 
+var cancelEdit = document.createElement("input");
+cancelEdit.id = "cancelButton"
+cancelEdit.type = "submit";
+cancelEdit.className = "button";
+cancelEdit.value = "Annuler la modification";
+cancelEdit.style.padding = "12px 25px";
+cancelEdit.style.fontSize = "18px";
+cancelEdit.onclick = function(){
+    hideEditMeetingPopup();
+}
+
 var continueButton = document.createElement("input");
 continueButton.id = "continueButton"
 continueButton.type = "submit";
@@ -69,7 +80,7 @@ deleteButton.onmouseleave = function(){
 deleteButton.onclick = function() {
     let ajaxRequest = new AjaxRequest(
         {
-            url: "api/deleteMeeting.php",
+            url: "trmt/deleteMeeting.php",
             method: 'post',
             handleAs: 'json',
             parameters: {
@@ -81,8 +92,7 @@ deleteButton.onclick = function() {
                 if (res) {
                     if (res['success']) {
                         clearPopupContainer();
-                        if(res['success'] == 'success_delete_meeting')
-                            successTitle.innerText = "Rendez-vous supprimé avec succès";
+                        successTitle.innerText = translate(res['success']);
                         editor.appendChild(successTitle);
                         editor.appendChild(continueButton);
                     } else if (res['error']) {
@@ -107,6 +117,7 @@ function hideEditMeetingPopup() {
     clearPopupContainer();
     editor.appendChild(editTitle);
     editor.appendChild(hiddenInputMeetingId);
+    editor.appendChild(cancelEdit);
     editor.appendChild(deleteButton);
 
     document.getElementById("hiddenInputMeetingId").value = "";
@@ -129,6 +140,7 @@ window.onload = function() {
     popup.appendChild(editor);
     editor.appendChild(editTitle);
     editor.appendChild(hiddenInputMeetingId);
+    editor.appendChild(cancelEdit);
     editor.appendChild(deleteButton);
     document.body.appendChild(popup);
 
