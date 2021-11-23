@@ -8,14 +8,13 @@ if(isset($_POST['meetingId']) && !empty($_POST['meetingId'])) {
     $meetingId = $_POST['meetingId'];
 
     $rq = MyPDO::getInstance()->prepare(<<<SQL
-        SELECT * FROM TimeSlot
-        WHERE timeSlotId IN (SELECT timeSlotId FROM Concern
-                            WHERE meetingId = :meetingId);
+        SELECT * FROM Meeting
+        WHERE meetingId = :meetingId
     SQL);
     $rq->execute(['meetingId' => $meetingId]);
     echo json_encode($rq->fetchAll());
 
 } else
     echo <<<JSON
-        "error": "no_meeting_id"
+        {"error": "no_meeting_id"}
     JSON;

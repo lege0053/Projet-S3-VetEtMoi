@@ -20,6 +20,7 @@ edSt.backgroundColor = "#DDDDDD";
 edSt.display = 'flex';
 edSt.flexDirection = 'column';
 edSt.alignItems = 'center';
+edSt.gap = '20px';
 
 var editTitle = document.createElement("span");
 editTitle.innerText = "Modifier le Rendez-Vous";
@@ -54,7 +55,7 @@ var deleteButton = document.createElement("input");
 deleteButton.id = "deleteMeetingButton"
 deleteButton.type = "submit";
 deleteButton.className = "button";
-deleteButton.value = "Supprimer";
+deleteButton.value = "Annuler le rendez-vous";
 deleteButton.style.padding = "12px 25px";
 deleteButton.style.fontSize = "18px";
 deleteButton.style.backgroundColor = "#C20D0D";
@@ -68,7 +69,7 @@ deleteButton.onmouseleave = function(){
 deleteButton.onclick = function() {
     let ajaxRequest = new AjaxRequest(
         {
-            url: "json/deleteMeeting.php",
+            url: "api/deleteMeeting.php",
             method: 'post',
             handleAs: 'json',
             parameters: {
@@ -82,54 +83,6 @@ deleteButton.onclick = function() {
                         clearPopupContainer();
                         if(res['success'] == 'success_delete_meeting')
                             successTitle.innerText = "Rendez-vous supprimé avec succès";
-                        editor.appendChild(successTitle);
-                        editor.appendChild(continueButton);
-                    } else if (res['error']) {
-                        clearPopupContainer();
-                        editor.appendChild(errorTitle);
-                        editor.appendChild(continueButton);
-                    }
-                }
-            },
-            onError: function (status, message) {
-                clearPopupContainer();
-                editor.appendChild(errorTitle);
-                editor.appendChild(continueButton);
-            }
-        });
-}
-
-var deleteButton = document.createElement("input");
-deleteButton.id = "deleteMeetingButton"
-deleteButton.type = "submit";
-deleteButton.className = "button";
-deleteButton.value = "Supprimer";
-deleteButton.style.padding = "12px 25px";
-deleteButton.style.fontSize = "18px";
-deleteButton.style.backgroundColor = "#C20D0D";
-deleteButton.style.transition = "0.2s background-color ease-in-out";
-deleteButton.onmouseover = function() {
-    this.style.backgroundColor = "#810000";
-}
-deleteButton.onmouseleave = function(){
-    this.style.backgroundColor = "#C20D0D";
-}
-deleteButton.onclick = function() {
-    let ajaxRequest = new AjaxRequest(
-        {
-            url: "json/deleteMeeting.php",
-            method: 'post',
-            handleAs: 'json',
-            parameters: {
-                meetingId: hiddenInputMeetingId.value
-            },
-            onSuccess: function (res) {
-                console.log("Success ??");
-                console.log(res);
-                if (res) {
-                    if (res['success']) {
-                        clearPopupContainer();
-                        successTitle.innerText = translate(res['success']);
                         editor.appendChild(successTitle);
                         editor.appendChild(continueButton);
                     } else if (res['error']) {

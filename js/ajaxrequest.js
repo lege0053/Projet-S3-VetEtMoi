@@ -115,7 +115,7 @@ function AjaxRequest(config) {
         if (requestThis.transport.readyState == 4 || requestThis.transport.readyState == "complete") {
             // On success result (Response code == 200)
             if (requestThis.transport.status == 200) {
-                // Check response expected mime type ('text', 'json' or 'xml')
+                // Check response expected mime type ('text', 'api' or 'xml')
                 let result = null;
                 switch (requestThis.handleAs) {
                     case "text":
