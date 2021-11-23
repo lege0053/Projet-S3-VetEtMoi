@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 include_once "../src/MyPDO.php";
 
+header('Content-type: application/json');
 if(isset($_GET['vetoId'], $_GET['lowerDate'], $_GET['upperDate'])
     && !empty($_GET['vetoId']) && !empty($_GET['lowerDate']) && !empty($_GET['upperDate'])){
 
