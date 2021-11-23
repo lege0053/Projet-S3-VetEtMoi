@@ -189,6 +189,29 @@ class Animal
         return $return;
     }
 
+    public function getLastMeeting() {
+        $req=MyPDO::getInstance()->prepare(<<<SQL
+        SELECT *
+        FROM Meeting
+        WHERE animalId=?
+        AND meetingDate < CURRENT_DATE
+        SQL);
+
+        $req->setFetchMode(PDO::FETCH_CLASS, Meeting::class);
+        $req->execute([$this->animalId]);
+        $return=$req->fetchAll();
+        if(!$return)
+        {
+            throw new InvalidArgumentException("No meeting for this animal.");
+        }
+        return $return;
+
+    }
+
+    public function getNextMeeting() {
+
+    }
+
     /**
      * @return int
      */

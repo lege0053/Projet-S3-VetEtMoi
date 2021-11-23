@@ -32,6 +32,7 @@ HTML);
     /**Pour chaque animal du client**/
     foreach ($rep as $animal) {
         $animal = Animal::createFromId($animal['animalId']);
+
         /**On affiche l'animal**/
         $webPage->appendContent(<<< HTML
 <div class="d-flex flex-row justify-content-center">

@@ -32,40 +32,28 @@ $html= <<< HTML
 </div>
 
 <div class="d-flex flex-row justify-content-center">
-    <div class="d-flex row p-3" style="background-color: #DDDDDD;border-radius: 15px;">
-        <div class="d-flex flex-row">
-            {$webPage->getImgCarre("{$animal->getSpecieName()}", "{$animal->getName()}", 300)}
-            <div class="d-flex flex-column" style="margin-left: 20px">
-                <h3>INFORMATIONS</h3>
-                <div class="d-flex flex-row">
-                    <div class="d-flex flex-column" style="margin-right: 50px; font-size: 19px;">
-                            <a style="color: #02897A; font-weight: bold;">Espèce
-                            <a style="color: #262626; font-weight: bold; margin-bottom: 20px;">{$animal->getSpecieName()}
-                            <a style="color: #02897A; font-weight: bold;">Nom
-                            <a style="color: #262626; font-weight: bold;margin-bottom: 20px;">{$animal->getName()}
-                            <a style="color: #02897A; font-weight: bold;">Genre
-                            <a style="color: #262626; font-weight: bold;">{$animal->getGenderName()}
-                    </div>
-                            <div class="d-flex flex-column" style="margin-right: 110px; font-size: 19px;">
-                            <a style="color: #02897A; font-weight: bold;">Race
-                            <a style="color: #262626; font-weight: bold; margin-bottom: 20px;">{$animal->getNameRace()}
-                            <a style="color: #02897A; font-weight: bold;">Age
-                            <a style="color: #262626; font-weight: bold;margin-bottom: 20px;">{$age}
-                            <a style="color: #02897A; font-weight: bold;">Date de Naissance
-                            <a style="color: #262626; font-weight: bold;">{$animal->getBirthDay()}
-                    </div>
+    <div class="d-flex row p-3 align-items-center" style="background-color: #DDDDDD;border-radius: 15px;">
+        {$webPage->getImgCarre("{$animal->getSpecieName()}", "{$animal->getName()}", 300)}
+        <div class="d-flex flex-column pl-3 pr-3">
+            <h3>INFORMATIONS</h3>
+            <div class="d-flex flex-row">
+                <div class="d-flex flex-column pr-5" style="font-size: 19px;">
+                    <a style="color: #02897A; font-weight: bold;">Espèce
+                    <a style="color: #262626; font-weight: bold; margin-bottom: 20px;">{$animal->getSpecieName()}
+                    <a style="color: #02897A; font-weight: bold;">Nom
+                    <a style="color: #262626; font-weight: bold;margin-bottom: 20px;">{$animal->getName()}
+                    <a style="color: #02897A; font-weight: bold;">Genre
+                    <a style="color: #262626; font-weight: bold;">{$animal->getGenderName()}
+                </div>
+                <div class="d-flex flex-column" style="font-size: 19px;">
+                    <a style="color: #02897A; font-weight: bold;">Race
+                    <a style="color: #262626; font-weight: bold; margin-bottom: 20px;">{$animal->getNameRace()}
+                    <a style="color: #02897A; font-weight: bold;">Age
+                    <a style="color: #262626; font-weight: bold;margin-bottom: 20px;">{$age}
+                    <a style="color: #02897A; font-weight: bold;">Date de Naissance
+                    <a style="color: #262626; font-weight: bold;">{$animal->getBirthDay()}
                 </div>
             </div>
-            <div class="d-flex flex-column">
-                <h3>RENDEZ-VOUS</h3>
-                <div class="d-flex flex-column" style="font-size: 19px;">
-                    <a style="color: #02897A; font-weight: bold;">Prochain rendez-vous
-                    <a style="color: #262626; font-weight: bold;">{$futurRDV}
-                    <a style="color: #262626; font-weight: bold;margin-bottom: 20px;">11:00
-                    <a style="color: #02897A; font-weight: bold;">Dernier rendez-vous
-                    <a style="color: #262626; font-weight: bold;">{$dernierRDV}
-            </div>
-            </div> 
         </div>
     </div>
 </div>
