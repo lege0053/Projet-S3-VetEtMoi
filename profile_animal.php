@@ -67,14 +67,14 @@ CSS
 );
 
 //Meeting
-$rdvList = $animal->getAllMeetings();
-$rdvHTML = "<span>Vous n'avez aucun rendez-vous</span>";
-if($rdvList){
-    $rdvs = "";
-    foreach($rdvList as $rdv){
-        $meetingId = $rdv->getMeetingId();
-        $date = ucwords(utf8_encode(strftime("%A %d %b %Y - %H:%M", strtotime($rdv->getDateTime()))));
-        $rdvs .= "<div class='rdv-item'>
+try {
+    $rdvList = $animal->getAllMeetings();
+    if($rdvList){
+        $rdvs = "";
+        foreach($rdvList as $rdv){
+            $meetingId = $rdv->getMeetingId();
+            $date = ucwords(utf8_encode(strftime("%A %d %b %Y - %H:%M", strtotime($rdv->getDateTime()))));
+            $rdvs .= "<div class='rdv-item'>
                     <span>{$date}</span>
                     <span style='display: flex; justify-content: end;'>
                         <input type='button' class='button' onclick='showEditMeetingPopup(\"$meetingId\");' value='Modifier' style='padding: 12px 25px; font-size: 18px; '>
@@ -87,8 +87,8 @@ if($rdvList){
                         </form>
                     </div>-->
                   </div>";
-    }
-    $rdvHTML = <<< HTML
+        }
+        $rdvHTML = <<< HTML
         <div class="rdv">
             <div class="rdv-head">
                 <span>Date</span>    
@@ -99,7 +99,11 @@ if($rdvList){
         </div>
 
     HTML;
+    }
+} catch (Exception $e) {
+$rdvHTML = "<span>Vous n'avez aucun rendez-vous</span>";
 }
+
 
 
 $html= <<< HTML
