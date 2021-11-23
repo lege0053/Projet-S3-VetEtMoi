@@ -23,11 +23,11 @@ else
     SELECT speciesId, speciesName
     FROM Species
 SQL);
+    $reqSpecies->execute();
     $reqSpecies=$reqSpecies->fetchAll();
-    $optionSpecies="";
     foreach($reqSpecies as $species)
     {
-        $optionSpecies.="<option value='{$species['speciesId']}'>{$species['speciesName']}</option>";
+        $conditionalSelect.="<option value='{$species['speciesId']}'>{$species['speciesName']}</option>";
     }
     $conditionalSelect.="</select>";
 }
@@ -38,6 +38,7 @@ SELECT lastName, firstName, userId
 FROM Users
 WHERE isVeto=1
 SQL);
+$reqVeto->execute();
 $reqVeto=$reqVeto->fetchAll();
 $optionsVeto="";
 foreach($reqVeto as $veto)
@@ -45,16 +46,18 @@ foreach($reqVeto as $veto)
     $optionsVeto.="<option value='{$veto['userId']}'>{$veto['lastName']}{$veto['lastName']}</option>";
 }
 
+$submitButton=$webPage->getHTMLButton(true, 'Valider');
+
 $html= <<< HTML
 <div class="d-flex justify-content-center">
-    <h3 style="font-weight: bold;"></h3>
+    <h3 style="font-weight: bold;">$h3</h3>
 </div>
 <div>
     <form action="./trmt/prisederdv_trmt.php" method="post">
         <select name="veto" id="veto" required>$optionsVeto</select>
         $conditionalSelect
         <!--AjouterTableau-->
-    <button type="submit"></button>
+        $submitButton
     </form>
 </div>
 HTML;
