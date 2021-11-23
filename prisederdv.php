@@ -51,7 +51,7 @@ $html= <<< HTML
 </div>
 <div>
     <form action="./trmt/prisederdv_trmt.php" method="post">
-        <select name="veto" required>$optionsVeto</select>
+        <select name="veto" id="veto" required>$optionsVeto</select>
         $conditionalSelect
         <!--AjouterTableau-->
     <button type="submit"></button>

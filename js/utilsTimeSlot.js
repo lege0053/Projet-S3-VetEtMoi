@@ -1,4 +1,4 @@
-document.getElementById('tab').addEventListener("change", function(){
+document.getElementById('veto').addEventListener("change", function(){
     charge('json/getTimeSlotByDateAndVetoId.php','','',this.options[this.selectedIndex].value)
 })
 
