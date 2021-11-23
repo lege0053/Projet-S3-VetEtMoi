@@ -9,7 +9,7 @@ if(isset($_GET['vetoId']) && !empty($_GET['vetoId'])){
 
     $vetoId = $_GET['vetoId'];
     $rq = MyPDO::getInstance()->prepare(<<<SQL
-        SELECT * FROM Users
+        SELECT userId FROM Users
         WHERE userId = :userId
         AND isVeto = 1
     SQL);
