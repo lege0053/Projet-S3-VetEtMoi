@@ -57,7 +57,7 @@ $webPage->appendCss(<<<CSS
     .rdv {
         display: flex;
         flex-direction: column;
-        width: 700px;
+        width: 760px;
         background: #DDDDDD;
         margin: 0;
         padding: 25px;
