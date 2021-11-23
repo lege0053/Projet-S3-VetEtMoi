@@ -57,7 +57,7 @@ $webPage->appendCss(<<<CSS
     .rdv {
         display: flex;
         flex-direction: column;
-        width: 900px;
+        width: 700px;
         background: #DDDDDD;
         margin: 0;
         padding: 25px;
@@ -91,9 +91,9 @@ if($rdvList){
     $rdvHTML = <<< HTML
         <div class="rdv">
             <div class="rdv-head">
-                <span>Date</span>
-                <span></span>           
+                <span>Date</span>    
                 <span></span>  
+                <span></span> 
             </div>
             $rdvs
         </div>
@@ -134,7 +134,7 @@ HTML;
 $webPage->appendContent(<<<HTML
     <div class="d-flex flex-column">
         <div class="d-flex justify-content-center">
-            <h1 class="title pb-2" style="font-weight: bold;">{$webPage->getIcon('cat', 35)}Le profil de {$animal->getName()}</h1>
+            <h1 class="title pb-2" style="font-weight: bold;">{$webPage->getIcon('cat', 40)}Le profil de {$animal->getName()}</h1>
         </div>
             $html
         <div class="d-flex flex-column justify-content-center align-items-center pt-5">
