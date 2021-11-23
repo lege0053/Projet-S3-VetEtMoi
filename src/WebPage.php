@@ -170,6 +170,8 @@ class WebPage
                 <link rel="icon" type="image/png" href="img/logo.png">
                 <link rel="stylesheet" type="text/css" href="css/general.css">
                 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+                <script defer type='text/javascript' src='js/ajaxrequest.js'></script>
+                <script defer type='text/javascript' src='js/translateList.js'></script>
                 <title>{$this->title}</title>
                 {$this->head()}
             </head>

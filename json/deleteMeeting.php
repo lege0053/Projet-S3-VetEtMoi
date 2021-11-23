@@ -26,7 +26,7 @@ if(isset($_POST['meetingId']) && !empty($_POST['meetingId']) && $auth->isUserCon
         SQL);
         $rq2->execute(['meetingId' => $meetingId]);*/
         echo <<<JSON
-                {"success": "delete_meeting_complete"}
+                {"success": "success_delete_meeting"}
             JSON;
 
     } else echo <<<JSON
