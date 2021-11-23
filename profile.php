@@ -8,6 +8,7 @@ if(!SecureUserAuthentication::isUserConnected())
 
 $webPage = new WebPage("Profil");
 $webPage->appendJsUrl("js/meetingUtils.js");
+$webPage->appendJsUrl("js/ajaxrequest.js");
 
 setlocale(LC_ALL, 'fr_FR', 'French_France', 'French');
 date_default_timezone_set('Europe/Paris');
