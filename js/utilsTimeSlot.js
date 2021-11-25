@@ -1,5 +1,5 @@
 document.getElementById('veto').addEventListener("change", function(){
-    charge('api/getTimeSlotByDateAndVetoId.php','','',this.options[this.selectedIndex].value)
+    charge('api/getVetoAvailableTimeSlot.php','','',this.options[this.selectedIndex].value)
 })
 
 function charge(url, lowDate, upDate, vetoId)
