@@ -13,7 +13,7 @@ if(isset($_POST['animal'])){
     $animalId=$_POST['animal'];
     $nom=Animal::createFromId($animalId)->getName();
     $h3="Prendre Rendez-Vous pour $nom";
-    $conditionalSelect="";
+    $conditionalSelect="<input type='hidden' name='animal' value=$animalId></input>";
 }
 else
 {
