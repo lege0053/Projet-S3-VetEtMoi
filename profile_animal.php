@@ -20,7 +20,7 @@ $age = date_diff(date_create($animal->getBirthDay()), date_create("now"))->forma
 
 $webPage = new WebPage("Profil de {$animal->getName()}");
 $webPage->appendJsUrl("js/meetingUtils.js");
-$webPage->appendJsUrl("js/ajaxrequest.js");
+
 setlocale(LC_ALL, 'fr_FR', 'French_France', 'French');
 date_default_timezone_set('Europe/Paris');
 $webPage->appendCss(<<<CSS
@@ -74,18 +74,11 @@ try {
         foreach($rdvList as $rdv){
             $meetingId = $rdv->getMeetingId();
             $date = ucwords(utf8_encode(strftime("%A %d %b %Y - %H:%M", strtotime($rdv->getDateTime()))));
-            $rdvs .= "<div class='rdv-item'>
+            $rdvs .= "<div id='meeting-$meetingId' class='rdv-item'>
                     <span>{$date}</span>
                     <span style='display: flex; justify-content: end;'>
                         <input type='button' class='button' onclick='showEditMeetingPopup(\"$meetingId\");' value='Modifier' style='padding: 12px 25px; font-size: 18px; '>
                     </span>
-                    <!--<div style='display: flex;'>
-                        {$webPage->getHTMLButton(false, "Modifier", "profile_animal.php?id=$animalId", "12px", "25px", "18px")}
-                        <form action='trmt/delete_meeting_trmt.php' method='post' name='delete_meeting_{$rdv->getMeetingId()}' style='margin: 0; padding: 0;'>
-                            <input type='text' name='meetingId' value='{$rdv->getMeetingId()}' hidden>
-                            {$webPage->getHTMLButton(true, "Supprimer", "", "12px", "25px", "18px")}
-                        </form>
-                    </div>-->
                   </div>";
         }
         $rdvHTML = <<< HTML

@@ -71,13 +71,6 @@ if($rdvList){
                     <span style='display: flex; justify-content: end;'>
                         <input type='button' class='button' onclick='showEditMeetingPopup(\"$meetingId\");' value='Modifier' style='padding: 12px 25px; font-size: 18px; '>
                     </span>
-                    <!--<div style='display: flex;'>
-                        {$webPage->getHTMLButton(false, "Modifier", "profile_animal.php?id=$id", "12px", "25px", "18px")}
-                        <form action='trmt/delete_meeting_trmt.php' method='post' name='delete_meeting_{$rdv->getMeetingId()}' style='margin: 0; padding: 0;'>
-                            <input type='text' name='meetingId' value='{$rdv->getMeetingId()}' hidden>
-                            {$webPage->getHTMLButton(true, "Supprimer", "", "12px", "25px", "18px")}
-                        </form>
-                    </div>-->
                   </div>";
     }
     $rdvHTML = <<< HTML
