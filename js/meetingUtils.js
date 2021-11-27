@@ -1,6 +1,6 @@
-
+//////////////////////
 // Popup Background //
-
+//////////////////////
 var popupBackground = document.createElement("div");
 popupBackground.id = "popupBackground";
 var st = popupBackground.style;
@@ -14,10 +14,9 @@ st.justifyContent = 'center';
 st.alignItems = 'center';
 popupBackground.hidden = true;
 
-////////////////
-
+///////////
 // Popup //
-
+///////////
 var popup = document.createElement("div");
 popup.id = "popup";
 var edSt = popup.style;
@@ -29,19 +28,16 @@ edSt.flexDirection = 'column';
 edSt.alignItems = 'center';
 edSt.gap = '20px';
 
-////////////////
-
+///////////
 // Title //
-
+///////////
 var title = document.createElement("span");
 title.innerText = "Modifier le Rendez-Vous";
 title.style.fontSize = "28px";
 
-////////////////
-
+///////////////////
 // Cancel Button //
-
-
+///////////////////
 var cancelEdit = document.createElement("input");
 cancelEdit.id = "cancelButton"
 cancelEdit.type = "submit";
@@ -53,10 +49,9 @@ cancelEdit.onclick = function(){
     onExitPopup();
 }
 
-/////////////////
-
+/////////////////////
 // Continue Button //
-
+/////////////////////
 var continueButton = document.createElement("input");
 continueButton.id = "continueButton"
 continueButton.type = "submit";
@@ -68,10 +63,9 @@ continueButton.onclick = function(){
     onExitPopup();
 }
 
-////////////////
-
+/////////////////////////////////////////////
 // Hidden Input with Meeting Id For DELETE //
-
+/////////////////////////////////////////////
 var hiddenInputMeetingId = document.createElement("input");
 hiddenInputMeetingId.name = "meetingId";
 hiddenInputMeetingId.id = "hiddenInputMeetingId"
@@ -80,18 +74,17 @@ hiddenInputMeetingId.type = "text";
 hiddenInputMeetingId.hidden = true;
 
 ////////////////
-
 // Bottom Div //
-
+////////////////
 var actionListDiv = document.createElement("div");
 actionListDiv.id = "actionListDiv";
 actionListDiv.style.display = "flex";
 actionListDiv.style.columnGap = "10px";
 
-/////////////////
 
+/////////////////////
 // End Edit Button //
-
+/////////////////////
 var editButton = document.createElement("input");
 editButton.id = "editMeetingButton";
 editButton.type = "submit";
@@ -100,10 +93,9 @@ editButton.value = "Modifier le rendez-vous";
 editButton.style.padding = "12px 25px";
 editButton.style.fontSize = "18px";
 
-////////////////
-
+///////////////////
 // Delete Button //
-
+///////////////////
 var deleteButton = document.createElement("input");
 deleteButton.id = "deleteMeetingButton";
 deleteButton.type = "submit";
@@ -158,11 +150,9 @@ deleteButton.onclick = function() {
     this.style.backgroundColor = "#C20D0D";
 }
 
-////////////////
-
+///////////////
 // Functions //
-
-
+///////////////
 window.onload = function() {
     appendOriginalElement();
     document.onclick = function(e){
