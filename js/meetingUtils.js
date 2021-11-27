@@ -18,6 +18,7 @@ popupBackground.hidden = true;
 
 // Popup //
 
+
 var popup = document.createElement("div");
 popup.id = "popup";
 var edSt = popup.style;
