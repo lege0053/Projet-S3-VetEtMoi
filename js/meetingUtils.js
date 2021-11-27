@@ -50,7 +50,7 @@ cancelEdit.value = "Annuler la modification";
 cancelEdit.style.padding = "12px 25px";
 cancelEdit.style.fontSize = "18px";
 cancelEdit.onclick = function(){
-    hideEditMeetingPopup();
+    onExitPopup();
 }
 
 ////////////////
@@ -65,7 +65,7 @@ continueButton.value = "Continuer";
 continueButton.style.padding = "12px 25px";
 continueButton.style.fontSize = "18px";
 continueButton.onclick = function(){
-    hideEditMeetingPopup();
+    onExitPopup();
 }
 
 ////////////////
@@ -75,18 +75,40 @@ continueButton.onclick = function(){
 var hiddenInputMeetingId = document.createElement("input");
 hiddenInputMeetingId.name = "meetingId";
 hiddenInputMeetingId.id = "hiddenInputMeetingId"
+hiddenInputMeetingId.value = "";
 hiddenInputMeetingId.type = "text";
 hiddenInputMeetingId.hidden = true;
+
+////////////////
+
+// Bottom Div //
+
+var actionListDiv = document.createElement("div");
+actionListDiv.id = "actionListDiv";
+actionListDiv.style.display = "flex";
+actionListDiv.style.columnGap = "10px";
+
+/////////////////
+
+// End Edit Button //
+
+var editButton = document.createElement("input");
+editButton.id = "editMeetingButton";
+editButton.type = "submit";
+editButton.className = "button";
+editButton.value = "Modifier le rendez-vous";
+editButton.style.padding = "12px 25px";
+editButton.style.fontSize = "18px";
 
 ////////////////
 
 // Delete Button //
 
 var deleteButton = document.createElement("input");
-deleteButton.id = "deleteMeetingButton"
+deleteButton.id = "deleteMeetingButton";
 deleteButton.type = "submit";
 deleteButton.className = "button";
-deleteButton.value = "Annuler le rendez-vous";
+deleteButton.value = "Supprimer le rendez-vous";
 deleteButton.style.padding = "12px 25px";
 deleteButton.style.fontSize = "18px";
 deleteButton.style.backgroundColor = "#C20D0D";
@@ -140,15 +162,20 @@ deleteButton.onclick = function() {
 
 // Functions //
 
-function hideEditMeetingPopup() {
-    document.getElementById("popupBackground").hidden = true;
-    clearPopupContainer();
-    popup.appendChild(title);
-    popup.appendChild(hiddenInputMeetingId);
-    popup.appendChild(cancelEdit);
-    popup.appendChild(deleteButton);
 
-    document.getElementById("hiddenInputMeetingId").value = "";
+window.onload = function() {
+    appendOriginalElement();
+    document.onclick = function(e){
+        if(e.target.id == 'popupBackground') {
+            onExitPopup();
+        }
+    }
+}
+
+function onExitPopup() {
+    hideEditMeetingPopup();
+    clearPopupContainer();
+    appendOriginalElement();
     enableScroll();
 }
 
@@ -164,20 +191,21 @@ function clearPopupContainer() {
     popup.querySelectorAll('*').forEach(n => n.remove());
 }
 
+function hideEditMeetingPopup() {
+    document.getElementById("popupBackground").hidden = true;
+}
 
-window.onload = function() {
+function appendOriginalElement() {
     popupBackground.appendChild(popup);
+    actionListDiv.appendChild(editButton);
+    actionListDiv.appendChild(deleteButton);
+
     popup.appendChild(title);
     popup.appendChild(hiddenInputMeetingId);
     popup.appendChild(cancelEdit);
-    popup.appendChild(deleteButton);
-    document.body.appendChild(popupBackground);
+    popup.appendChild(actionListDiv);
 
-    document.onclick = function(e){
-        if(e.target.id == 'popupBackground') {
-            hideEditMeetingPopup();
-        }
-    }
+    document.body.appendChild(popupBackground);
 }
 
 /*
