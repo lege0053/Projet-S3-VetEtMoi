@@ -1,6 +1,9 @@
-var popup = document.createElement("div");
-popup.id = "popup";
-var st = popup.style;
+
+// Popup Background //
+
+var popupBackground = document.createElement("div");
+popupBackground.id = "popupBackground";
+var st = popupBackground.style;
 st.width = '100%';
 st.height = '100%';
 st.backgroundColor = 'rgba(0,0,0, 0.4)';
@@ -9,11 +12,15 @@ st.position = 'fixed';
 st.display = 'flex';
 st.justifyContent = 'center';
 st.alignItems = 'center';
-popup.hidden = true;
+popupBackground.hidden = true;
 
-var editor = document.createElement("div");
-editor.id = "editor";
-var edSt = editor.style;
+////////////////
+
+// Popup //
+
+var popup = document.createElement("div");
+popup.id = "popup";
+var edSt = popup.style;
 edSt.padding = '20px 50px';
 edSt.borderRadius = '20px';
 edSt.backgroundColor = "#DDDDDD";
@@ -22,23 +29,18 @@ edSt.flexDirection = 'column';
 edSt.alignItems = 'center';
 edSt.gap = '20px';
 
-var editTitle = document.createElement("span");
-editTitle.innerText = "Modifier le Rendez-Vous";
-editTitle.style.fontSize = "28px";
+////////////////
 
-var successTitle = document.createElement("span");
-successTitle.innerText = "";
-successTitle.style.fontSize = "28px";
+// Title //
 
-var errorTitle = document.createElement("span");
-errorTitle.innerText = "Une erreur est survenue";
-errorTitle.style.fontSize = "28px";
+var title = document.createElement("span");
+title.innerText = "Modifier le Rendez-Vous";
+title.style.fontSize = "28px";
 
-var hiddenInputMeetingId = document.createElement("input");
-hiddenInputMeetingId.name = "meetingId";
-hiddenInputMeetingId.id = "hiddenInputMeetingId"
-hiddenInputMeetingId.type = "text";
-hiddenInputMeetingId.hidden = true;
+////////////////
+
+// Cancel Button //
+
 
 var cancelEdit = document.createElement("input");
 cancelEdit.id = "cancelButton"
@@ -51,6 +53,10 @@ cancelEdit.onclick = function(){
     hideEditMeetingPopup();
 }
 
+////////////////
+
+// Continue Button //
+
 var continueButton = document.createElement("input");
 continueButton.id = "continueButton"
 continueButton.type = "submit";
@@ -61,6 +67,20 @@ continueButton.style.fontSize = "18px";
 continueButton.onclick = function(){
     hideEditMeetingPopup();
 }
+
+////////////////
+
+// Hidden Input with Meeting Id For DELETE //
+
+var hiddenInputMeetingId = document.createElement("input");
+hiddenInputMeetingId.name = "meetingId";
+hiddenInputMeetingId.id = "hiddenInputMeetingId"
+hiddenInputMeetingId.type = "text";
+hiddenInputMeetingId.hidden = true;
+
+////////////////
+
+// Delete Button //
 
 var deleteButton = document.createElement("input");
 deleteButton.id = "deleteMeetingButton"
@@ -91,61 +111,68 @@ deleteButton.onclick = function() {
                 console.log(res);
                 if (res) {
                     if (res['success']) {
+                        let meetingId = document.getElementById("hiddenInputMeetingId").value;
+                        document.getElementById("meeting-" + meetingId).remove();
+
                         clearPopupContainer();
-                        successTitle.innerText = translate(res['success']);
-                        editor.appendChild(successTitle);
-                        editor.appendChild(continueButton);
+
+                        title.innerText = translate(res['success']);
+                        popup.appendChild(title);
+                        popup.appendChild(continueButton);
                     } else if (res['error']) {
                         clearPopupContainer();
-                        editor.appendChild(errorTitle);
-                        editor.appendChild(continueButton);
+                        popup.appendChild(title);
+                        popup.appendChild(continueButton);
                     }
                 }
             },
             onError: function (status, message) {
                 clearPopupContainer();
-                editor.appendChild(errorTitle);
-                editor.appendChild(continueButton);
+                popup.appendChild(title);
+                popup.appendChild(continueButton);
             }
         });
 }
 
+////////////////
 
+// Functions //
 
 function hideEditMeetingPopup() {
-    document.getElementById("popup").hidden = true;
+    document.getElementById("popupBackground").hidden = true;
     clearPopupContainer();
-    editor.appendChild(editTitle);
-    editor.appendChild(hiddenInputMeetingId);
-    editor.appendChild(cancelEdit);
-    editor.appendChild(deleteButton);
+    popup.appendChild(title);
+    popup.appendChild(hiddenInputMeetingId);
+    popup.appendChild(cancelEdit);
+    popup.appendChild(deleteButton);
 
     document.getElementById("hiddenInputMeetingId").value = "";
     enableScroll();
 }
 
 function showEditMeetingPopup(meetingId) {
-    document.getElementById("popup").hidden = false;
+    title.innerText = "Modifier le Rendez-Vous";
+    document.getElementById("popupBackground").hidden = false;
     document.getElementById("hiddenInputMeetingId").value = meetingId;
     disableScroll();
 }
 
 function clearPopupContainer() {
-    let editor = document.getElementById("editor");
-    editor.querySelectorAll('*').forEach(n => n.remove());
+    let popup = document.getElementById("popup");
+    popup.querySelectorAll('*').forEach(n => n.remove());
 }
 
 
 window.onload = function() {
-    popup.appendChild(editor);
-    editor.appendChild(editTitle);
-    editor.appendChild(hiddenInputMeetingId);
-    editor.appendChild(cancelEdit);
-    editor.appendChild(deleteButton);
-    document.body.appendChild(popup);
+    popupBackground.appendChild(popup);
+    popup.appendChild(title);
+    popup.appendChild(hiddenInputMeetingId);
+    popup.appendChild(cancelEdit);
+    popup.appendChild(deleteButton);
+    document.body.appendChild(popupBackground);
 
     document.onclick = function(e){
-        if(e.target.id == 'popup') {
+        if(e.target.id == 'popupBackground') {
             hideEditMeetingPopup();
         }
     }
