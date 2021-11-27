@@ -10,7 +10,7 @@ $orderBy = " ORDER BY dateNews";
 $vetoId = "";
 if(isset($_GET['vetoId']) && !empty($_GET['vetoId'])){
     $vetoId = $_GET['vetoId'];
-    $whereSequence = " WHERE vetoId = :vetoId";
+    $whereSequence = " WHERE userId = :vetoId";
 }
 
 $rq = MyPDO::getInstance()->prepare($req.$whereSequence.$orderBy);
