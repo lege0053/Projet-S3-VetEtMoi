@@ -15,6 +15,4 @@ if(isset($_POST['meetingId']) && !empty($_POST['meetingId'])) {
     echo json_encode($rq->fetchAll());
 
 } else
-    echo <<<JSON
-        {"error": "no_meeting_id"}
-    JSON;
+    echo json_encode(['error' => 'no_meeting_id']);
