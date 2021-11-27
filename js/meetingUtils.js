@@ -94,6 +94,7 @@ deleteButton.style.transition = "0.2s background-color ease-in-out";
 deleteButton.onmouseover = function() {
     this.style.backgroundColor = "#810000";
 }
+
 deleteButton.onmouseleave = function(){
     this.style.backgroundColor = "#C20D0D";
 }
@@ -132,6 +133,7 @@ deleteButton.onclick = function() {
                 popup.appendChild(continueButton);
             }
         });
+    this.style.backgroundColor = "#C20D0D";
 }
 
 ////////////////
