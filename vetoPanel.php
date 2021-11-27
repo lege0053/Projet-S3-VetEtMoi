@@ -12,6 +12,17 @@ if(!$user->isVeto())
 
 $webPage = new WebPage("Panel Vétérinaire");
 
+$content = <<<HTML
+
+    <div style="width: 100%; display: flex; justify-content: center;">
+        <span class="title">Panel Vétérinaire</span>
+        
+    </div>
+
+HTML;
+
+$webPage->appendContent($content);
+
 
 
 echo $webPage->toHTML();
