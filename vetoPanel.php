@@ -15,7 +15,10 @@ $webPage = new WebPage("Panel Vétérinaire");
 $content = <<<HTML
 
     <div style="width: 100%; display: flex; justify-content: center;">
-        <span class="title">Panel Vétérinaire</span>
+    <div class="main-ui-class">
+            <span class="title">Panel Vétérinaire</span>
+            
+    </div>
         
     </div>
 
