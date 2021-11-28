@@ -136,7 +136,7 @@ $webPage->appendContent(<<<HTML
             <h1 class="title pb-2" style="font-weight: bold;">{$webPage->getIcon('cat', 40)}Le profil de {$animal->getName()}</h1>
         </div>
             $html
-        <div class="d-flex flex-column justify-content-center align-items-center pt-5">
+        <div class="d-flex flex-column justify-content-center align-items-center" style="padding-top: 100px;">
             <h1 class="title">Prochain Rendez-Vous</h1>
             $rdvHTML
         </div>
