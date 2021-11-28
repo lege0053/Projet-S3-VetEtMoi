@@ -57,7 +57,7 @@ $webPage->appendCss(<<<CSS
     .rdv {
         display: flex;
         flex-direction: column;
-        width: 760px;
+        width: 870px;
         background: #DDDDDD;
         margin: 0;
         padding: 25px;
@@ -74,8 +74,10 @@ try {
         foreach($rdvList as $rdv){
             $meetingId = $rdv->getMeetingId();
             $date = ucwords(utf8_encode(strftime("%A %d %b %Y - %H:%M", strtotime($rdv->getDateTime()))));
+            $veto = $rdv->getVetoName();
             $rdvs .= "<div id='meeting-$meetingId' class='rdv-item'>
                     <span>{$date}</span>
+                    <span style='display: flex; justify-content: center;'>{$veto}</span>
                     <span style='display: flex; justify-content: end;'>
                         <input type='button' class='button' onclick='showEditMeetingPopup(\"$meetingId\");' value='Modifier' style='padding: 12px 25px; font-size: 18px; '>
                     </span>
@@ -85,7 +87,7 @@ try {
         <div class="rdv">
             <div class="rdv-head">
                 <span>Date</span>    
-                <span></span>  
+                <span>Vétérinaire</span>  
                 <span></span> 
             </div>
             $rdvs
@@ -103,7 +105,7 @@ $html= <<< HTML
 <div class="d-flex flex-row justify-content-center">
     <div class="d-flex row p-3 align-items-center" style="background-color: #DDDDDD;border-radius: 15px;">
         {$webPage->getImgCarre("{$animal->getSpecieName()}", "{$animal->getName()}", 300)}
-        <div class="d-flex flex-column pl-3 pr-3">
+        <div class="d-flex flex-column pl-4" style="padding-right: 60px;">
             <h3>INFORMATIONS</h3>
             <div class="d-flex flex-row">
                 <div class="d-flex flex-column pr-5" style="font-size: 19px;">
