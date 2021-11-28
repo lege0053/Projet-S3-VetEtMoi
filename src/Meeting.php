@@ -89,6 +89,13 @@ class Meeting
         return $this->vetoId;
     }
 
+    public function getVetoName():string
+    {
+        $veto = new User(['userId'=>$this->vetoId, 'isVeto'=>1, 'isAdmin'=>1]);
+        $veto->flush();
+        return "{$veto->getLastName()} {$veto->getFirstName()}";
+    }
+
     public function getTimeSlots() : array
     {
         $rq = MyPDO::getInstance()->prepare(<<<SQL
