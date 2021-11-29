@@ -118,7 +118,7 @@ foreach ($horaires as $horaire)
 }
 $planning.= <<< HTML
     </tbody>
-</table>
+    </table>
 </div>
 HTML;
 //FIN PLANNING
@@ -126,12 +126,14 @@ HTML;
 $html= <<< HTML
 <div class="d-flex flex-column justify-content-center">
     <h3 style="font-weight: bold; align-self: center">$h3</h3>
-    <form action="./trmt/prisederdv_trmt.php" method="post">
-        <select name="veto" id="veto" required>$optionsVeto</select>
-        $conditionalSelect
-        $planning
-        $submitButton
-    </form>
+    <div class="d-flex justify-content-center">
+        <form action="./trmt/prisederdv_trmt.php" method="post">
+            <select name="veto" id="veto" required>$optionsVeto</select>
+            $conditionalSelect
+            $planning
+            <div class="d-flex justify-content-center p-4">$submitButton</div>
+        </form>
+    </div>
 </div>
 HTML;
 
