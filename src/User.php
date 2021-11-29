@@ -174,7 +174,7 @@ class User
         $pdo = MyPDO::getInstance()->prepare(<<<SQL
             SELECT * FROM Meeting
             WHERE userId = :userId AND meetingDate > CAST(CURRENT_TIMESTAMP AS DATE)
-            AND animalId NOT NULL
+            AND animalId IS NOT NULL
             ORDER by meetingDate;
         SQL);
         $pdo->execute(['userId' => $this->userId]);
