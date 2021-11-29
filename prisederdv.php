@@ -18,7 +18,10 @@ if(isset($_POST['animal'])){
 else
 {
     $h3="Prendre Rendez-Vous pour votre nouvel animal : ";
-    $conditionalSelect="<select name='species' required>";
+    $conditionalSelect=<<<HTML
+<label for="species-select">Indiquez l'espèce de votre animal:</label>
+<select name='species' required>";
+HTML;
     $reqSpecies=MyPDO::getInstance()->prepare(<<<SQL
     SELECT speciesId, speciesName
     FROM Species
@@ -27,10 +30,7 @@ SQL);
     $reqSpecies=$reqSpecies->fetchAll();
     foreach($reqSpecies as $species)
     {
-        $conditionalSelect.=<<<HTML
-        <label for="species-animal-select">Indiquez l'espèce de votre animal:</label>
-        <option name="species-animal" value='{$species['speciesId']}'>{$species['speciesName']}</option>";
-        HTML;
+        $conditionalSelect.="<option name='speciesl' value='{$species['speciesId']}'>{$species['speciesName']}</option>";
     }
     $conditionalSelect.="</select>";
 }
@@ -131,9 +131,9 @@ $html= <<< HTML
     <h3 style="font-weight: bold; align-self: center">$h3</h3>
     <div class="d-flex justify-content-center">
         <form action="./trmt/prisederdv_trmt.php" method="post">
+            $conditionalSelect
             <label for="veto-select">Choisissez un vétérinaire:</label>
             <select name="veto" id="veto" required>$optionsVeto</select>
-            $conditionalSelect
             $planning
             <div class="d-flex justify-content-center p-4">$submitButton</div>
         </form>
