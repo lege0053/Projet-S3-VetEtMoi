@@ -8,11 +8,11 @@ if(!SecureUserAuthentication::isUserConnected()){
     header("Location: connexion.php");
 }
 
-if ((!isset($_GET["id"])) || !ctype_digit($_GET["id"])) {
+if ((!isset($_POST["animalId"])) || !ctype_digit($_POST["animalId"])) {
     header("Location: listeAnimal.php");
 }
 
-$animalId = $_GET['id'];
+$animalId = $_POST['animalId'];
 
 $animal = Animal::createFromId($animalId);
 
@@ -96,7 +96,7 @@ try {
     HTML;
     }
 } catch (Exception $e) {
-$rdvHTML = "<span>Vous n'avez aucun rendez-vous</span>";
+$rdvHTML = "<span>Aucun rendez-vous à venir</span>";
 }
 
 

@@ -75,8 +75,11 @@ if ($rep){
             </div>
         </div>
         <div class="d-flex flex-column justify-content-center" style="width: 30%;">
-            <a class='button' style="display: flex; justify-content: center; padding: 13px;margin-bottom: 10px;" href="profile_animal.php?id={$animal->getAnimalId()}">Info sur {$animal->getName()}</a>
-            <form action="prisederdv.php" method="post">
+            <a></a>
+             <form action="profile_animal.php" method="post" style="margin-bottom: 10px;">
+                <button class="buttonLstAnimals" type="submit" name="animalId" value="{$animal->getAnimalId()}">Info sur {$animal->getName()}</button>
+            </form>
+            <form action="prisederdv.php" method="post" style="margin-top: 10px;">
                 <button class="buttonLstAnimals" type="submit" name="animal" value="{$animal->getAnimalId()}">Rendez-vous</button>
             </form>
         </div>
