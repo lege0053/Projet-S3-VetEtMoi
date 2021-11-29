@@ -3,16 +3,46 @@ declare(strict_types=1);
 
 require "autoload.php";
 
-$webPage = new WebPage("Prise de Rendez-Vous");
 $auth = new SecureUserAuthentication();
-if(!SecureUserAuthentication::isUserConnected()){
+if(!SecureUserAuthentication::isUserConnected())
     header("Location: connexion.php");
-}
 
-if(isset($_POST['animal'])){
-    $animalId=$_POST['animal'];
-    $nom=Animal::createFromId($animalId)->getName();
-    $h3="Prendre Rendez-Vous pour $nom";
+$webPage = new WebPage("Prise de Rendez-Vous");
+$webPage->appendCss(<<<CSS
+    table {
+      border-collapse: collapse;
+      letter-spacing: 1px;
+      font-size: 0.8rem;
+    }
+
+    td, th {
+      padding: 10px 20px;
+      text-align: center;
+    }
+    
+    th {
+        font-weight: bold;
+    }
+    
+    .buttonHr {
+        border: none;
+        border-radius: 10px;
+        padding: 20px;
+        font: inherit;
+        line-height: 1;
+        width: 150px;
+    }
+    
+    .buttonHr:hover,
+    .buttonHr:focus {
+        transform: translateY(-0.25em);
+    }
+CSS);
+
+if(isset($_POST['animal'])) {
+    $animalId = $_POST['animal'];
+    $animal = Animal::createFromId($animalId);
+    $h3="Prendre Rendez-Vous pour {$animal->getName()}";
     $conditionalSelect="<input type='hidden' name='animal' value=$animalId></input>";
 }
 else
@@ -53,37 +83,6 @@ $submitButton=$webPage->getHTMLButton(true, 'Valider');
 
 //PLANNING
 $planning = <<<HTML
-<style>
-    table {
-      border-collapse: collapse;
-      letter-spacing: 1px;
-      font-size: 0.8rem;
-    }
-
-    td, th {
-      padding: 10px 20px;
-      text-align: center;
-    }
-    
-    th {
-    font-weight: bold;
-    }
-    
-    .buttonHr {
-    border: none;
-    border-radius: 10px;
-    padding: 20px;
-    font: inherit;
-    line-height: 1;
-    width: 150px;
-    }
-    
-    .buttonHr:hover,
-    .buttonHr:focus {
-    transform: translateY(-0.25em);
-    }
-</style>
-
 <div class="d-flex flex-column">
     <div class="d-flex justify-content-center" style="background-color: #242424; color: white; padding-top: 10px; padding-bottom: 10px; border-radius: 10px;">Du 01/10/2021 au 06/10/2021</div>
     <table>
