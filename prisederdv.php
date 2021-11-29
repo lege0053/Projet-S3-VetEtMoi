@@ -81,8 +81,7 @@ $planning = <<<HTML
     .buttonHr:hover,
     .buttonHr:focus {
     transform: translateY(-0.25em);
-    
-}
+    }
 </style>
 
 <div class="d-flex flex-column">

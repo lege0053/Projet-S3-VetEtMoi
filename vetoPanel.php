@@ -14,12 +14,11 @@ $webPage = new WebPage("Panel Vétérinaire");
 
 $content = <<<HTML
 
-    <div style="width: 100%; display: flex; justify-content: center;">
-    <div class="main-ui-class">
+    <div style="width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <div class="main-ui-class">
             <span class="title">Panel Vétérinaire</span>
             
-    </div>
-        
+        </div>
     </div>
 
 HTML;
