@@ -68,7 +68,7 @@ CSS
 
 //Meeting
 try {
-    $rdvList = $animal->getAllMeetings();
+    $rdvList = $animal->getNextMeetings();
     if($rdvList){
         $rdvs = "";
         foreach($rdvList as $rdv){

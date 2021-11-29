@@ -177,6 +177,7 @@ class Animal
         SELECT *
         FROM Meeting
         WHERE animalId=?
+        ORDER BY meetingDate
         SQL);
 
         $req->setFetchMode(PDO::FETCH_CLASS, Meeting::class);
@@ -199,7 +200,7 @@ class Animal
         SELECT * FROM Meeting
         WHERE animalId=?
         AND meetingDate < CURRENT_DATE
-        ORDER BY 'meetingDate' DESC
+        ORDER BY meetingDate DESC
         LIMIT 1
         SQL);
 
@@ -220,7 +221,32 @@ class Animal
     }
 
     /**
-     * Renvoi le prochain rendez-vous.
+     * Renvoie LES prochains meetings.
+     * @return array
+     * @throws Exception
+     */
+    public function getNextMeetings(): array
+    {
+        $req=MyPDO::getInstance()->prepare(<<<SQL
+        SELECT *
+        FROM Meeting
+        WHERE animalId=?
+        AND meetingDate > CURRENT_DATE 
+        ORDER BY meetingDate
+        SQL);
+
+        $req->setFetchMode(PDO::FETCH_CLASS, Meeting::class);
+        $req->execute([$this->animalId]);
+        $return=$req->fetchAll();
+        if(!$return)
+        {
+            throw new InvalidArgumentException("No meeting for this animal.");
+        }
+        return $return;
+    }
+
+    /**
+     * Renvoi LE prochain rendez-vous.
      * @return string
      * @throws Exception
      */
@@ -229,7 +255,7 @@ class Animal
         SELECT * FROM Meeting
         WHERE animalId=?
         AND meetingDate > CURRENT_DATE
-        ORDER BY 'meetingDate' DESC
+        ORDER BY meetingDate
         LIMIT 1
         SQL);
 
