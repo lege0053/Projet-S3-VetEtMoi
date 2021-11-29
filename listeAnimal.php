@@ -35,6 +35,23 @@ HTML);
 
         /**On affiche l'animal**/
         $webPage->appendContent(<<< HTML
+<style>
+.buttonLstAnimals{
+    font-weight: bold;
+    letter-spacing: 0.02em;
+    background-color: #02897A;
+    color: white;
+    border-radius: 10px;
+    transition: 0.2s background-color ease-in-out;
+    padding: 13px; 
+    width: 100%;
+    border:none;
+}
+
+.buttonLstAnimals:hover {
+    background-color: #055945;
+}
+</style>
 <div class="d-flex flex-row justify-content-center">
     <div class="d-flex justify-content-space-between row w-50 p-3" style="background-color: #DDDDDD;border-radius: 15px;">
         <div class="d-flex flex-row">
@@ -49,7 +66,9 @@ HTML);
         </div>
         <div class="d-flex flex-column justify-content-center" style="width: 30%;">
             <a class='button' style="display: flex; justify-content: center; padding: 13px;margin-bottom: 10px;" href="profile_animal.php?id={$animal->getAnimalId()}">Info sur {$animal->getName()}</a>
-            <a class='button' style="display: flex; justify-content: center;padding: 13px; margin-top: 10px;" href="prisederdv.php?id={$animal->getAnimalId()}">Rendez-Vous</a>
+            <form action="prisederdv.php" method="post">
+                <button class="buttonLstAnimals" type="submit" name="animal" value="{$animal->getAnimalId()}">Rendez-vous</button>
+            </form>
         </div>
     </div>
 </div>
