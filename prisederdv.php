@@ -39,47 +39,15 @@ $webPage->appendCss(<<<CSS
     }
 CSS);
 
-if(isset($_POST['animal'])) {
-    $animalId = $_POST['animal'];
-    $animal = Animal::createFromId($animalId);
-    $h3="Prendre Rendez-Vous pour {$animal->getName()}";
-    $conditionalSelect="<input type='hidden' name='animal' value=$animalId></input>";
-}
-else
-{
-    $h3="Prendre Rendez-Vous pour votre nouvel animal : ";
-    $conditionalSelect=<<<HTML
-<label for="species-select">Indiquez l'espèce de votre animal:</label>
-<select name='species' required>";
-HTML;
-    $reqSpecies=MyPDO::getInstance()->prepare(<<<SQL
-    SELECT speciesId, speciesName
-    FROM Species
-SQL);
-    $reqSpecies->execute();
-    $reqSpecies=$reqSpecies->fetchAll();
-    foreach($reqSpecies as $species)
-    {
-        $conditionalSelect.="<option name='speciesl' value='{$species['speciesId']}'>{$species['speciesName']}</option>";
-    }
-    $conditionalSelect.="</select>";
+$hiddenAnimalId = "";
+if(isset($_POST['animalId']) && !empty($_POST['animalId'])) {
+    $animalId = $_POST['animalId'];
+    $hiddenAnimalId = "<input id='hiddenAnimalId' type='text' value='$animalId' hidden>";
 }
 
-
-$reqVeto=MyPDO::getInstance()->prepare(<<<SQL
-SELECT lastName, firstName, userId
-FROM Users
-WHERE isVeto=1
-SQL);
-$reqVeto->execute();
-$reqVeto=$reqVeto->fetchAll();
-$optionsVeto="";
-foreach($reqVeto as $veto)
-{
-    $optionsVeto.="<option value='{$veto['userId']}'>{$veto['lastName']}{$veto['lastName']}</option>";
-}
-
-$submitButton=$webPage->getHTMLButton(true, 'Valider');
+$animalsSelect = "<select id='animalId' name='animalId'><option value=''>Nouvel Animal</option></select>";
+$speciesSelect = "<select id='speciesId' name='speciesId'><option value=''>Veuillez choisir une espèce</option></select>";
+$vetosSelect = "<select id='vetoId' name='vetoId'><option value=''>Vétérinaire</option></select>";
 
 //PLANNING
 $planning = <<<HTML
@@ -125,17 +93,32 @@ HTML;
 //FIN PLANNING
 
 $html= <<< HTML
-<div class="d-flex flex-column justify-content-center">
-    <h3 style="font-weight: bold; align-self: center">$h3</h3>
-    <div class="d-flex justify-content-center">
-        <form action="./trmt/prisederdv_trmt.php" method="post">
-            $conditionalSelect
-            <label for="veto-select">Choisissez un vétérinaire:</label>
-            <select name="veto" id="veto" required>$optionsVeto</select>
-            $planning
-            <div class="d-flex justify-content-center p-4">$submitButton</div>
-        </form>
+<div class="d-flex flex-column justify-content-center align-items-center">
+    <span class="title main-ui-class" style="margin-top: 50px; margin-bottom: 30px;">Prise de Rendez-Vous</span>
+    <div class="d-flex justify-content-center align-items-center" style="margin: 1em; column-gap: 2em;">
+        <div class="d-flex flex-column">
+            <span style="font-size: 1.25em;">Animal</span>
+            $animalsSelect
+        </div>
+        <div class="d-flex flex-column">
+            <span style="font-size: 1.25em;">Espèce</span>
+            $speciesSelect
+        </div>
+        <div class="d-flex flex-column">
+            <span style="font-size: 1.25em;">Vétérinaire</span>
+            $vetosSelect
+        </div>
+        <div class="d-flex flex-column">
+            <span style="font-size: 1.25em;">Lieu</span>
+            <div class="d-flex justify-content-center align-items-center" style="column-gap: 0.25em">
+                <input type="radio" id="clinique" name="timeSlotTypeId" value="1" checked><label style="margin: 0; padding: 0;" for="clinique">Clinique</label>
+            </div>
+            <div class="d-flex justify-content-center align-items-center" style="column-gap: 0.25em">
+                <input type="radio" id="domicile" name="timeSlotTypeId" value="2"><label for="domicile" style="margin: 0; padding: 0;">Domicile</label>
+            </div>
+        </div>
     </div>
+    $planning
 </div>
 HTML;
 
