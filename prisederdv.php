@@ -27,7 +27,10 @@ SQL);
     $reqSpecies=$reqSpecies->fetchAll();
     foreach($reqSpecies as $species)
     {
-        $conditionalSelect.="<option value='{$species['speciesId']}'>{$species['speciesName']}</option>";
+        $conditionalSelect.=<<<HTML
+        <label for="species-animal-select">Indiquez l'espèce de votre animal:</label>
+        <option name="species-animal" value='{$species['speciesId']}'>{$species['speciesName']}</option>";
+        HTML;
     }
     $conditionalSelect.="</select>";
 }
@@ -128,6 +131,7 @@ $html= <<< HTML
     <h3 style="font-weight: bold; align-self: center">$h3</h3>
     <div class="d-flex justify-content-center">
         <form action="./trmt/prisederdv_trmt.php" method="post">
+            <label for="veto-select">Choisissez un vétérinaire:</label>
             <select name="veto" id="veto" required>$optionsVeto</select>
             $conditionalSelect
             $planning
