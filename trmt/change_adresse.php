@@ -18,9 +18,10 @@ if($auth->isUserConnected()){
             SET cp= :cp,
                 city= :city,
                 rue= :rue
-
+            WHERE userId = :userId;
         SQL);
         $req->execute(['userId' => $user->getUserId(), 'cp' => $cp, 'city' => $city, 'rue' => $rue]);
+        $user->flush();
         header('Location: ../profile.php');
     } else header('Location: ../profile_change_adresse.php?err_infos');
 } else header('Location: ../connexion.php');
