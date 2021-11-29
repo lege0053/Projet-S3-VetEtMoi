@@ -21,7 +21,7 @@ $html= <<< HTML
             <br>
             <h4 style="font-weight: bold;">Prenez rendez-vous n'importe quand !</h4>
             <br>
-            {$webPage->getHTMLButton(false, "Prenez rendez-vous", "listeAnimal.php", "15px", "15px", "17px")}
+            {$webPage->getHTMLButton(false, "Prenez rendez-vous", "prisederdv.php", "15px", "15px", "17px")}
         </div>
         <img src="img/animal/dogAndcat.png" class="ml-5" style="max-width:40%;" alt="">
     </div>
