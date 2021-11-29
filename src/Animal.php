@@ -189,27 +189,64 @@ class Animal
         return $return;
     }
 
-    public function getLastMeeting() {
+    /**
+     * Renvoie le dernier rendez-voys.
+     * @return string
+     * @throws Exception
+     */
+    public function getLastMeeting():string {
         $req=MyPDO::getInstance()->prepare(<<<SQL
-        SELECT *
-        FROM Meeting
+        SELECT * FROM Meeting
         WHERE animalId=?
         AND meetingDate < CURRENT_DATE
+        ORDER BY 'meetingDate' DESC
+        LIMIT 1
         SQL);
 
         $req->setFetchMode(PDO::FETCH_CLASS, Meeting::class);
         $req->execute([$this->animalId]);
-        $return=$req->fetchAll();
-        if(!$return)
+        $lastMeetings=$req->fetchAll();
+        $date="";
+        if(!$lastMeetings)
         {
             throw new InvalidArgumentException("No meeting for this animal.");
+        } else {
+            foreach($lastMeetings as $lastMeeting)
+            {
+                $date = ucwords(utf8_encode(strftime("%A %d %b %Y", strtotime($lastMeeting->getDateTime()))));
+            }
+            return $date;
         }
-        return $return;
-
     }
 
-    public function getNextMeeting() {
+    /**
+     * Renvoi le prochain rendez-vous.
+     * @return string
+     * @throws Exception
+     */
+    public function getNextMeeting():string {
+        $req=MyPDO::getInstance()->prepare(<<<SQL
+        SELECT * FROM Meeting
+        WHERE animalId=?
+        AND meetingDate > CURRENT_DATE
+        ORDER BY 'meetingDate' DESC
+        LIMIT 1
+        SQL);
 
+        $req->setFetchMode(PDO::FETCH_CLASS, Meeting::class);
+        $req->execute([$this->animalId]);
+        $lastMeetings=$req->fetchAll();
+        $date="";
+        if(!$lastMeetings)
+        {
+            throw new InvalidArgumentException("No meeting for this animal.");
+        } else {
+            foreach($lastMeetings as $lastMeeting)
+            {
+                $date = ucwords(utf8_encode(strftime("%A %d %b %Y <br> %H:%M", strtotime($lastMeeting->getDateTime()))));
+            }
+            return $date;
+        }
     }
 
     /**

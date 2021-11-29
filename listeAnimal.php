@@ -5,6 +5,8 @@ require "autoload.php";
 
 $webPage = new WebPage("Mes Animaux");
 $auth = new SecureUserAuthentication();
+setlocale(LC_ALL, 'fr_FR', 'French_France', 'French');
+date_default_timezone_set('Europe/Paris');
 
 if(!SecureUserAuthentication::isUserConnected()){
     header("Location: connexion.php");
@@ -23,16 +25,25 @@ $rep = $animals->fetchAll();
 /**Si le client à au moins un animal**/
 if ($rep){
     $webPage->appendContent(<<< HTML
-<div class="d-flex justify-content-center">
-    <h3 style="font-weight: bold; margin-top: 20px;">{$webPage->getIcon('cat', 38)}Mes Formidables Animaux</h3>
-</div>
-
-HTML);
-
+    <div class="d-flex justify-content-center">
+        <h3 style="font-weight: bold; margin-top: 20px;">{$webPage->getIcon('cat', 38)}Mes Formidables Animaux</h3>
+    </div>
+    HTML);
     /**Pour chaque animal du client**/
     foreach ($rep as $animal) {
         $animal = Animal::createFromId($animal['animalId']);
-
+        //Dernier rendez-voys
+        try {
+            $lastDate = $animal->getLastMeeting();
+        } catch (exception $e){
+            $lastDate = "Aucun rendez-vous";
+        }
+        //Prochain rendez-vous
+        try {
+            $nextDate = $animal->getNextMeeting();
+        } catch (exception $e) {
+            $nextDate = "Aucun rendez-vous";
+        }
         /**On affiche l'animal**/
         $webPage->appendContent(<<< HTML
 <style>
@@ -58,10 +69,9 @@ HTML);
             {$webPage->getImgCarre("{$animal->getSpecieName()}", $animal->getName(), 200)}
             <div class="d-flex flex-column justify-content-center" style="margin-left: 15px;">
                 <a style="color: #02897A; font-weight: bold;">Prochain rendez-vous
-                <a style="color: #262626; font-weight: bold;">Mercredi 2 Octobre 2021
-                <a style="color: #262626; font-weight: bold; margin-bottom: 10px;">11:00
+                <a style="color: #262626; font-weight: bold;margin-bottom: 10px;">$nextDate
                 <a style="color: #02897A; font-weight: bold;">Dernier rendez-vous
-                <a style="color: #262626; font-weight: bold;">Jeudi 25 Octobre 2020
+                <a style="color: #262626; font-weight: bold;">$lastDate
             </div>
         </div>
         <div class="d-flex flex-column justify-content-center" style="width: 30%;">
