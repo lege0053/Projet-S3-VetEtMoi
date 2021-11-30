@@ -40,5 +40,15 @@ class Species
         return $this->speciesId;
     }
 
+    public static function getSpeciesList(): array
+    {
+        $rq = MyPDO::getInstance()->prepare(<<<SQL
+            SELECT * FROM Species
+        SQL);
+        $rq->execute();
+        $rq->setFetchMode(PDO::FETCH_CLASS, self::class);
+        return $rq->fetchAll();
+    }
+
 
 }

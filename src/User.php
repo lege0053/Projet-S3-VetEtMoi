@@ -182,6 +182,16 @@ class User
         return $pdo->fetchAll();
     }
 
+    public static function getVetoList(): array
+    {
+        $rq = MyPDO::getInstance()->prepare(<<<SQL
+            SELECT userId, firstName, lastName FROM Users
+            WHERE isVeto = 1
+        SQL);
+        $rq->execute();
+        return $rq->fetchAll();
+    }
+
     /**
      * @return string
      */

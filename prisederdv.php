@@ -7,6 +7,7 @@ $auth = new SecureUserAuthentication();
 if(!SecureUserAuthentication::isUserConnected())
     header("Location: connexion.php");
 
+$user = $auth->getUser();
 $webPage = new WebPage("Prise de Rendez-Vous");
 $webPage->appendCss(<<<CSS
     table {
@@ -45,9 +46,77 @@ if(isset($_POST['animalId']) && !empty($_POST['animalId'])) {
     $hiddenAnimalId = "<input id='hiddenAnimalId' type='text' value='$animalId' hidden>";
 }
 
-$animalsSelect = "<select id='animalId' name='animalId'><option value=''>Nouvel Animal</option></select>";
-$speciesSelect = "<select id='speciesId' name='speciesId'><option value=''>Veuillez choisir une espèce</option></select>";
-$vetosSelect = "<select id='vetoId' name='vetoId'><option value=''>Vétérinaire</option></select>";
+/////////////////
+// Selects bar //
+/////////////////
+$vetoList = User::getVetoList();
+$vetoOptions = "<option value=''>Vétérinaire</option>";
+foreach ($vetoList as $veto){
+    $vetoOptions .= "<option value='{$veto['userId']}'>{$veto['lastName']} {$veto['firstName']}</option>{}";
+}
+
+$speciesList = Species::getSpeciesList();
+$speciesOptions = "<option value=''>Veuillez choisir une espèce</option>";
+foreach ($speciesList as $species){
+    $speciesOptions .= "<option value='{$species->getSpeciesId()}'>{$species->getSpeciesName()}</option>{}";
+}
+$animalsSelect = "<select id='animalId' name='animalId'><option value='-1'>Nouvel Animal</option></select>";
+$speciesSelect = "<select id='speciesId' name='speciesId'>$speciesOptions</select>";
+$vetosSelect = "<select id='vetoId' name='vetoId'>$vetoOptions</select>";
+
+$webPage->appendJs(<<<JS
+
+    var animalList = {};
+
+    window.onload = function() {
+        new AjaxRequest(
+        {
+            url: "api/getUserAnimals.php",
+            method: 'get',
+            handleAs: 'json',
+            parameters: {
+                userId: "{$user->getUserId()}"
+            },
+            onSuccess: function (res) {
+                let animalSelect = document.getElementById('animalId');
+                for(let animal in res) {
+                    let option = document.createElement('option');
+                    option.value = res[animal]['animalId'];
+                    option.innerText = res[animal]['name'];
+                    animalList[res[animal]['animalId']] = res[animal]['speciesId'];
+                    animalSelect.appendChild(option);
+                }
+                console.log(animalList);
+            },
+            onError: function (status, message) {
+            }
+        });
+        
+        let animalSelect = document.getElementById('animalId');
+        let speciesSelect = document.getElementById('speciesId');
+        let vetoSelect = document.getElementById('vetoId');
+        
+        animalSelect.onchange = function(){
+            if(this.options[this.selectedIndex].value == '-1')
+                speciesSelect.disabled = false;
+            else{
+                speciesSelect.disabled = true;
+                for(let i = 0; i < speciesSelect.options.length; i++){
+                    let sOption = speciesSelect.options[i];
+                    if(sOption.value == animalList[this.options[this.selectedIndex].value])
+                        sOption.selected = true;
+                    else
+                        sOption.selected = false;
+                }
+            }
+        }
+        
+        vetoSelect.onchange = function() {
+            
+        }
+        
+    }
+JS);
 
 //PLANNING
 $planning = <<<HTML
@@ -92,7 +161,7 @@ $planning.= <<< HTML
 HTML;
 //FIN PLANNING
 
-$html= <<< HTML
+$pageContent = <<< HTML
 <div class="d-flex flex-column justify-content-center align-items-center">
     <span class="title main-ui-class" style="margin-top: 50px; margin-bottom: 30px;">Prise de Rendez-Vous</span>
     <div class="d-flex justify-content-center align-items-center" style="margin: 1em; column-gap: 2em;">
@@ -122,5 +191,5 @@ $html= <<< HTML
 </div>
 HTML;
 
-$webPage->appendContent($html);
+$webPage->appendContent($pageContent);
 echo $webPage->toHTML();

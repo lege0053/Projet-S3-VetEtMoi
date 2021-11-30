@@ -14,7 +14,7 @@ if(isset($_GET['userId']) && !empty($_GET['userId'])) {
     $res = $rq->fetch();
     if($res){
         $rq = MyPDO::getInstance()->prepare(<<<SQL
-            SELECT a.name, a.birthDay, a.raceId, r.raceName, s.speciesId, s.speciesName FROM Animal a 
+            SELECT a.animalId, a.name, a.birthDay, a.raceId, r.raceName, s.speciesId, s.speciesName FROM Animal a 
                 JOIN Race r ON a.raceId = r.raceId
                 JOIN Species s ON r.speciesId = s.speciesId
             WHERE a.userId = :userId
