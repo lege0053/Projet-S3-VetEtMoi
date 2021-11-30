@@ -1,9 +1,18 @@
 //////////////////////
 // Popup Background //
 //////////////////////
-var popupBackground = document.createElement("div");
+let meetingAnimalId = '';
+let meetingSpeciesId = '';
+let meetingTimeSlotId = '';
+let meetingTimeSlotTypeId = '';
+let meetingVetoId = '';
+let meetingYear = 2020;
+let meetingWeek = 1;
+
+
+let popupBackground = document.createElement("div");
 popupBackground.id = "popupBackground";
-var st = popupBackground.style;
+let st = popupBackground.style;
 st.width = '100%';
 st.height = '100%';
 st.backgroundColor = 'rgba(0,0,0, 0.4)';
@@ -17,9 +26,9 @@ popupBackground.hidden = true;
 ///////////
 // Popup //
 ///////////
-var popup = document.createElement("div");
+let popup = document.createElement("div");
 popup.id = "popup";
-var edSt = popup.style;
+let edSt = popup.style;
 edSt.padding = '20px 50px';
 edSt.borderRadius = '20px';
 edSt.backgroundColor = "#DDDDDD";
@@ -31,62 +40,15 @@ edSt.gap = '20px';
 ///////////
 // Title //
 ///////////
-var title = document.createElement("span");
+let title = document.createElement("span");
 title.innerText = "Modifier le Rendez-Vous";
 title.style.fontSize = "28px";
 
-///////////////////
-// Cancel Button //
-///////////////////
-var cancelEdit = document.createElement("input");
-cancelEdit.id = "cancelButton"
-cancelEdit.type = "submit";
-cancelEdit.className = "button";
-cancelEdit.value = "Annuler la modification";
-cancelEdit.style.padding = "12px 25px";
-cancelEdit.style.fontSize = "18px";
-cancelEdit.onclick = function(){
-    onExitPopup();
-}
-
-/////////////////////
-// Continue Button //
-/////////////////////
-var continueButton = document.createElement("input");
-continueButton.id = "continueButton"
-continueButton.type = "submit";
-continueButton.className = "button";
-continueButton.value = "Continuer";
-continueButton.style.padding = "12px 25px";
-continueButton.style.fontSize = "18px";
-continueButton.onclick = function(){
-    onExitPopup();
-}
-
-////////////////
-// Bottom Div //
-////////////////
-var actionListDiv = document.createElement("div");
-actionListDiv.id = "actionListDiv";
-actionListDiv.style.display = "flex";
-actionListDiv.style.columnGap = "10px";
-
-
-/////////////////////
-// End Edit Button //
-/////////////////////
-var editButton = document.createElement("input");
-editButton.id = "editMeetingButton";
-editButton.type = "submit";
-editButton.className = "button";
-editButton.value = "Modifier le rendez-vous";
-editButton.style.padding = "12px 25px";
-editButton.style.fontSize = "18px";
 
 ///////////////////
 // Delete Button //
 ///////////////////
-var deleteButton = document.createElement("input");
+let deleteButton = document.createElement("input");
 deleteButton.id = "deleteMeetingButton";
 deleteButton.type = "submit";
 deleteButton.className = "button";
@@ -109,46 +71,45 @@ deleteButton.onclick = function() {
             method: 'post',
             handleAs: 'json',
             parameters: {
+                meetingId: hiddenInputMeetingId.value
             },
             onSuccess: function (res) {
                 console.log("Success ??");
                 console.log(res);
                 if (res) {
                     if (res['success']) {
-                        let meetingId = document.getElementById("hiddenInputMeetingId").value;
-                        document.getElementById("meeting-" + meetingId).remove();
-
                         clearPopupContainer();
-
-                        title.innerText = translate(res['success']);
                         popup.appendChild(title);
-                        popup.appendChild(continueButton);
                     } else if (res['error']) {
                         clearPopupContainer();
                         popup.appendChild(title);
-                        popup.appendChild(continueButton);
                     }
                 }
             },
             onError: function (status, message) {
                 clearPopupContainer();
                 popup.appendChild(title);
-                popup.appendChild(continueButton);
             }
         });
-    this.style.backgroundColor = "#C20D0D";
+    this.style.backgroundColor = "#c20d0d";
 }
 
 ///////////////
 // Functions //
 ///////////////
-window.onload = function() {
-    appendOriginalElement();
-    document.onclick = function(e){
-        if(e.target.id == 'popupBackground') {
-            onExitPopup();
-        }
+appendOriginalElement();
+document.onclick = function(e){
+    if(e.target.id == 'popupBackground') {
+        onExitPopup();
     }
+}
+
+function appendOriginalElement() {
+    popupBackground.appendChild(popup);
+    popup.appendChild(title);
+    popup.appendChild(deleteButton);
+
+    document.body.appendChild(popupBackground);
 }
 
 function onExitPopup() {
@@ -158,10 +119,18 @@ function onExitPopup() {
     enableScroll();
 }
 
-function showEditMeetingPopup(meetingId) {
-    title.innerText = "Modifier le Rendez-Vous";
+function onOpenPopup(aId, sId, vId, tsId, tstId, y, w) {
+
+    meetingAnimalId = aId;
+    meetingSpeciesId = sId;
+    meetingVetoId = vId;
+    meetingTimeSlotId = tsId;
+    meetingTimeSlotTypeId = tstId;
+    meetingYear = y;
+    meetingWeek = w;
+
+    title.innerText = "Prendre Rendez-Vous";
     document.getElementById("popupBackground").hidden = false;
-    document.getElementById("hiddenInputMeetingId").value = meetingId;
     disableScroll();
 }
 
@@ -172,19 +141,6 @@ function clearPopupContainer() {
 
 function hideEditMeetingPopup() {
     document.getElementById("popupBackground").hidden = true;
-}
-
-function appendOriginalElement() {
-    popupBackground.appendChild(popup);
-    actionListDiv.appendChild(editButton);
-    actionListDiv.appendChild(deleteButton);
-
-    popup.appendChild(title);
-    popup.appendChild(hiddenInputMeetingId);
-    popup.appendChild(cancelEdit);
-    popup.appendChild(actionListDiv);
-
-    document.body.appendChild(popupBackground);
 }
 
 /*

@@ -82,6 +82,7 @@ $webPage->appendCss(<<<CSS
     }
 CSS);
 
+$webPage->appendJsUrl('js/takeMeetingPopup.js');
 $webPage->appendJs(<<<JS
 
     window.onload = function() {
@@ -113,11 +114,13 @@ $webPage->appendJs(<<<JS
         dateBefore.onclick = function() {
             backward();
             updateDate();
+            reloadAvailableTimeSlot();
         }
         
         dateAfter.onclick = function() {
             forward();
             updateDate();
+            reloadAvailableTimeSlot();
         }
         
         function forward(){
@@ -136,8 +139,6 @@ $webPage->appendJs(<<<JS
             let oneJan = new Date(firstDay.getFullYear(),0,1);
             let numberOfDays = Math.floor((firstDay - oneJan) / (24 * 60 * 60 * 1000));
             week = Math.ceil(( firstDay.getDay() + 1 + numberOfDays) / 7);
-            
-            console.log(week);
         }
         
         reloadAvailableTimeSlot();
@@ -231,18 +232,20 @@ $webPage->appendJs(<<<JS
         }
         
         
-        function radioOnClick()
+        function radioOnClick(timeSlotId)
         {
-            
+            let animalId = animalSelect.options[animalSelect.selectedIndex].value;
+            let speciesId = speciesSelect.options[speciesSelect.selectedIndex].value;
+            let vetoId = vetoSelect.options[vetoSelect.selectedIndex].value;
+            let timeSlotTypeId = document.getElementsByName('timeSlotTypeId')[0].checked ? "1" : "0";
+            onOpenPopup(animalId, speciesId, vetoId, timeSlotId, timeSlotTypeId, year, week);
         }
-        
         
         
         function reloadAvailableTimeSlot() {
             let meetingType = document.querySelector('input[name="timeSlotTypeId"]:checked').id;
             let vetoId = vetoSelect.options[vetoSelect.selectedIndex].value;
-            let year = '2021';
-            let week = '48';
+            let weekNumber = week < 10 ? '0' + week : '' + week;
             new AjaxRequest({
                 url: "api/getAvailableTimeSlot.php",
                 method: 'get',
@@ -251,7 +254,7 @@ $webPage->appendJs(<<<JS
                     meetingType: meetingType,
                     vetoId: vetoId,
                     year: year,
-                    week: week
+                    week: weekNumber
                 },
                 onSuccess: function (res) {
                     clearAvailableTimeSlot();
