@@ -63,6 +63,16 @@ continueButton.onclick = function(){
     onExitPopup();
 }
 
+/////////////////////////////////////////////
+// Hidden Input with Meeting Id For DELETE //
+/////////////////////////////////////////////
+var hiddenInputMeetingId = document.createElement("input");
+hiddenInputMeetingId.name = "meetingId";
+hiddenInputMeetingId.id = "hiddenInputMeetingId"
+hiddenInputMeetingId.value = "";
+hiddenInputMeetingId.type = "text";
+hiddenInputMeetingId.hidden = true;
+
 ////////////////
 // Bottom Div //
 ////////////////
@@ -109,6 +119,7 @@ deleteButton.onclick = function() {
             method: 'post',
             handleAs: 'json',
             parameters: {
+                meetingId: hiddenInputMeetingId.value
             },
             onSuccess: function (res) {
                 console.log("Success ??");
