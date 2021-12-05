@@ -3,6 +3,7 @@
 //////////////////////
 let meetingAnimalId = '';
 let meetingSpeciesId = '';
+let meetingChooseDate = '';
 let meetingTimeSlotId = '';
 let meetingTimeSlotTypeId = '';
 let meetingVetoId = '';
@@ -41,57 +42,69 @@ edSt.gap = '20px';
 // Title //
 ///////////
 let title = document.createElement("span");
-title.innerText = "Modifier le Rendez-Vous";
+title.innerText = "Rendez-Vous";
 title.style.fontSize = "28px";
 
+////////////////
+// Bottom Div //
+////////////////
+var actionListDiv = document.createElement("div");
+actionListDiv.id = "actionListDiv";
+actionListDiv.style.display = "flex";
+actionListDiv.style.columnGap = "10px";
 
 ///////////////////
-// Delete Button //
+// Cancel Button //
 ///////////////////
-let deleteButton = document.createElement("input");
-deleteButton.id = "deleteMeetingButton";
-deleteButton.type = "submit";
-deleteButton.className = "button";
-deleteButton.value = "Supprimer le rendez-vous";
-deleteButton.style.padding = "12px 25px";
-deleteButton.style.fontSize = "18px";
-deleteButton.style.backgroundColor = "#C20D0D";
-deleteButton.style.transition = "0.2s background-color ease-in-out";
-deleteButton.onmouseover = function() {
+var cancelButton = document.createElement("input");
+cancelButton.id = "cancelButton"
+cancelButton.type = "submit";
+cancelButton.className = "button";
+cancelButton.value = "Annuler";
+cancelButton.style.padding = "12px 25px";
+cancelButton.style.fontSize = "18px";
+cancelButton.style.backgroundColor = "#C20D0D";
+cancelButton.style.transition = "0.2s background-color ease-in-out";
+cancelButton.onmouseover = function() {
     this.style.backgroundColor = "#810000";
 }
 
-deleteButton.onmouseleave = function(){
+cancelButton.onmouseleave = function(){
     this.style.backgroundColor = "#C20D0D";
 }
-deleteButton.onclick = function() {
+cancelButton.onclick = function(){
+    onExitPopup();
+    this.style.backgroundColor = "#c20d0d";
+}
+
+/////////////////////////
+// Take Meeting Button //
+/////////////////////////
+let takeMeetingButton = document.createElement("input");
+takeMeetingButton.id = "deleteMeetingButton";
+takeMeetingButton.type = "submit";
+takeMeetingButton.className = "button";
+takeMeetingButton.value = "Prendre rendez-vous";
+takeMeetingButton.style.padding = "12px 25px";
+takeMeetingButton.style.fontSize = "18px";
+takeMeetingButton.onclick = function() {
     let ajaxRequest = new AjaxRequest(
         {
-            url: "trmt/deleteMeeting.php",
+            url: "trmt/take_meeting.php",
             method: 'post',
             handleAs: 'json',
             parameters: {
-                meetingId: hiddenInputMeetingId.value
+                vetoId: meetingVetoId,
+                animalId: meetingAnimalId,
+                timeSlotId: meetingTimeSlotId,
+                speciesId: meetingSpeciesId,
+                chooseDate: meetingChooseDate
             },
             onSuccess: function (res) {
-                console.log("Success ??");
-                console.log(res);
-                if (res) {
-                    if (res['success']) {
-                        clearPopupContainer();
-                        popup.appendChild(title);
-                    } else if (res['error']) {
-                        clearPopupContainer();
-                        popup.appendChild(title);
-                    }
-                }
             },
             onError: function (status, message) {
-                clearPopupContainer();
-                popup.appendChild(title);
             }
         });
-    this.style.backgroundColor = "#c20d0d";
 }
 
 ///////////////
@@ -106,8 +119,12 @@ document.onclick = function(e){
 
 function appendOriginalElement() {
     popupBackground.appendChild(popup);
+
+    actionListDiv.appendChild(cancelButton);
+    actionListDiv.appendChild(takeMeetingButton);
+
     popup.appendChild(title);
-    popup.appendChild(deleteButton);
+    popup.appendChild(actionListDiv);
 
     document.body.appendChild(popupBackground);
 }
@@ -128,10 +145,49 @@ function onOpenPopup(aId, sId, vId, tsId, tstId, y, w) {
     meetingTimeSlotTypeId = tstId;
     meetingYear = y;
     meetingWeek = w;
+    setMeetingChooseDate();
 
-    title.innerText = "Prendre Rendez-Vous";
+    title.innerText = "Rendez-Vous";
+    updatePopup();
     document.getElementById("popupBackground").hidden = false;
     disableScroll();
+}
+
+function setMeetingChooseDate(){
+    meetingChooseDate = getDateOfISOWeek(meetingWeek, meetingYear);
+    new AjaxRequest({
+        url: "api/getTimeSlotInformation.php",
+        method: 'get',
+        handleAs: 'json',
+        parameters: {
+            timeSlotId: meetingTimeSlotId,
+        },
+        onSuccess: function (res) {
+            switch(res[0]['dayName'])
+            {
+                case "Mardi":
+                    meetingChooseDate = meetingChooseDate +1;
+                    break;
+                case "Mercredi":
+                    meetingChooseDate = meetingChooseDate +2;
+                    break;
+                case "Jeudi":
+                    meetingChooseDate = meetingChooseDate +3;
+                    break;
+                case "Vendredi":
+                    meetingChooseDate = meetingChooseDate +4;
+                    break;
+                case "Samedi":
+                    meetingChooseDate = meetingChooseDate +5;
+                    break;
+                case "Dimanche":
+                    meetingChooseDate = meetingChooseDate +6;
+                    break;
+            }
+        },
+        onError: function (status, message) {
+        }
+    });
 }
 
 function clearPopupContainer() {
@@ -141,6 +197,11 @@ function clearPopupContainer() {
 
 function hideEditMeetingPopup() {
     document.getElementById("popupBackground").hidden = true;
+}
+
+function updatePopup()
+{
+
 }
 
 /*
@@ -188,4 +249,16 @@ function enableScroll() {
     window.removeEventListener(wheelEvent, preventDefault, wheelOpt);
     window.removeEventListener('touchmove', preventDefault, wheelOpt);
     window.removeEventListener('keydown', preventDefaultForScrollKeys, false);
+}
+
+
+function getDateOfISOWeek(w, y) {
+    let simple = new Date(y, 0, 1 + (w - 1) * 7);
+    let dow = simple.getDay();
+    let ISOweekStart = simple;
+    if (dow <= 4)
+        ISOweekStart.setDate(simple.getDate() - simple.getDay() + 1);
+    else
+        ISOweekStart.setDate(simple.getDate() + 8 - simple.getDay());
+    return ISOweekStart;
 }
