@@ -214,7 +214,7 @@ $webPage->appendJs(<<<JS
                 radio.innerText = res[i]['startHour'].substring(0, res[i]['startHour'].length - 3);
                 radio.style.textAlign = 'center';
                 radio.onclick = function() {
-                    radioOnClick();
+                    radioOnClick(radio.value);
                 }
                 
                 let div = document.getElementById(res[i]['dayName']);

@@ -101,6 +101,7 @@ takeMeetingButton.onclick = function() {
                 chooseDate: meetingChooseDate
             },
             onSuccess: function (res) {
+                console.log(res);
             },
             onError: function (status, message) {
             }
@@ -142,6 +143,7 @@ function onOpenPopup(aId, sId, vId, tsId, tstId, y, w) {
     meetingSpeciesId = sId;
     meetingVetoId = vId;
     meetingTimeSlotId = tsId;
+    console.log(meetingTimeSlotId);
     meetingTimeSlotTypeId = tstId;
     meetingYear = y;
     meetingWeek = w;
@@ -163,6 +165,11 @@ function setMeetingChooseDate(){
             timeSlotId: meetingTimeSlotId,
         },
         onSuccess: function (res) {
+
+            console.log(meetingTimeSlotId);
+            console.log(res);
+            console.log(res[0]);
+
             switch(res[0]['dayName'])
             {
                 case "Mardi":

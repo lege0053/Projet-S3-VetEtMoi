@@ -28,6 +28,7 @@ if($auth->isUserConnected()) {
             VALUES (:meetingId, :meetingDate, :userId, :animaId, :vetoId, :speciesId)
         SQL);
         $req->execute(['meetingId' => $meetingId, 'meetingDate' => $chooseDate, 'userId' => $userId, 'animaId' => $animalId, 'vetoId' => $vetoId, 'speciesId' => $speciesId]);
-        header('Location: ../profile.php');
-    }else header('Location: ../ajouterrdv.php?err_infos');
-}else header('Location: ../connexion.php');
+        echo json_encode(['success' => 'success_take_meeting']);
+    }else //echo json_encode(['error' => 'lack_of_information']);
+    echo json_encode($_POST);
+}else echo json_encode(["error" => "user_not_connected"]);
