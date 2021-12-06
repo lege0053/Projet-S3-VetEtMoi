@@ -200,7 +200,7 @@ function setMeetingChooseDate(){
             }
 
             let day = meetingChooseDate.getDate();
-            let month = meetingChooseDate.getMonth();
+            let month = meetingChooseDate.getMonth()+1;
             let year = meetingChooseDate.getFullYear();
             meetingChooseDate = day +'/'+month+'/'+year;
         },
