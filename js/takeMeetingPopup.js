@@ -88,10 +88,17 @@ takeMeetingButton.value = "Prendre rendez-vous";
 takeMeetingButton.style.padding = "12px 25px";
 takeMeetingButton.style.fontSize = "18px";
 takeMeetingButton.onclick = function() {
+
+    console.log(meetingVetoId);
+    console.log(meetingAnimalId);
+    console.log(meetingTimeSlotId);
+    console.log(meetingSpeciesId);
+    console.log(meetingChooseDate);
+
     let ajaxRequest = new AjaxRequest(
         {
             url: "trmt/take_meeting.php",
-            method: 'post',
+            method: 'get',
             handleAs: 'json',
             parameters: {
                 vetoId: meetingVetoId,
@@ -173,24 +180,29 @@ function setMeetingChooseDate(){
             switch(res[0]['dayName'])
             {
                 case "Mardi":
-                    meetingChooseDate = meetingChooseDate +1;
+                    meetingChooseDate.setDate(meetingChooseDate.getDate() + 1);
                     break;
                 case "Mercredi":
-                    meetingChooseDate = meetingChooseDate +2;
+                    meetingChooseDate.setDate(meetingChooseDate.getDate() + 2);
                     break;
                 case "Jeudi":
-                    meetingChooseDate = meetingChooseDate +3;
+                    meetingChooseDate.setDate(meetingChooseDate.getDate() + 3);
                     break;
                 case "Vendredi":
-                    meetingChooseDate = meetingChooseDate +4;
+                    meetingChooseDate.setDate(meetingChooseDate.getDate() + 4);
                     break;
                 case "Samedi":
-                    meetingChooseDate = meetingChooseDate +5;
+                    meetingChooseDate.setDate(meetingChooseDate.getDate() + 5);
                     break;
                 case "Dimanche":
-                    meetingChooseDate = meetingChooseDate +6;
+                    meetingChooseDate.setDate(meetingChooseDate.getDate() + 6);
                     break;
             }
+
+            let day = meetingChooseDate.getDate();
+            let month = meetingChooseDate.getMonth();
+            let year = meetingChooseDate.getFullYear();
+            meetingChooseDate = day +'/'+month+'/'+year;
         },
         onError: function (status, message) {
         }
