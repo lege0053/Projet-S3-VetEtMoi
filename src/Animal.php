@@ -280,21 +280,21 @@ class Animal
      * @return array
      * @throws Exception
      */
-    public function getHisVaccins():array
+    public function getHisVaccine():array
     {
         $req=MyPDO::getInstance()->prepare(<<<SQL
-        SELECT * FROM Vacciné
+        SELECT * FROM Vaccinated
         WHERE animalId=?
         SQL);
 
-        $req->setFetchMode(PDO::FETCH_CLASS, Vaccin::class);
+        $req->setFetchMode(PDO::FETCH_CLASS, Vaccine::class);
         $req->execute([$this->animalId]);
-        $hisVaccins=$req->fetchAll();
-        if(!$hisVaccins)
+        $hisVaccine=$req->fetchAll();
+        if(!$hisVaccine)
         {
-            throw new InvalidArgumentException("No vaccins for this animal.");
+            throw new InvalidArgumentException("No vaccine for this animal.");
         }
-        return $hisVaccins;
+        return $hisVaccine;
     }
 
     /**
