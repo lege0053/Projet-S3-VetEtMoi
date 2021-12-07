@@ -205,7 +205,6 @@ $webPage->appendJs(<<<JS
         
         function reloadAvailableTimeSlot() {
             let weekNumber = week < 10 ? '0' + week : '' + week;
-            console.log(vetoId);
             new AjaxRequest({
                 url: "api/getTakeTimeSlot.php",
                 method: 'get',
