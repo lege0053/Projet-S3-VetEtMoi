@@ -7,6 +7,10 @@ class Animal
     private string $birthDay;
     private ? string $deathDay;
     private ? string $comment;
+    private ? string $dress;
+    private ? string $weight;
+    private ? string $tatoo;
+    private ? string $chip;
     private string $userId;
     private int $threatId;
     private int $genderId;
@@ -401,6 +405,70 @@ class Animal
             return "Femelle";
         }
         return "Mâle";
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getWeight(): ?string
+    {
+        return $this->weight;
+    }
+
+    /**
+     * @param string|null $weight
+     */
+    public function setWeight(?string $weight): void
+    {
+        $this->weight = $weight;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDress(): ?string
+    {
+        return $this->dress;
+    }
+
+    /**
+     * @param string|null $dress
+     */
+    public function setDress(?string $dress): void
+    {
+        $this->dress = $dress;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getTatoo(): ?string
+    {
+        return $this->tatoo;
+    }
+
+    /**
+     * @param string|null $tatoo
+     */
+    public function setTatoo(?string $tatoo): void
+    {
+        $this->tatoo = $tatoo;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getChip(): ?string
+    {
+        return $this->chip;
+    }
+
+    /**
+     * @param string|null $chip
+     */
+    public function setChip(?string $chip): void
+    {
+        $this->chip = $chip;
     }
 
 }
