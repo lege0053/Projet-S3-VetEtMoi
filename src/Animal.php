@@ -276,6 +276,28 @@ class Animal
     }
 
     /**
+     * Retourne tous les vaccins de l'animal
+     * @return array
+     * @throws Exception
+     */
+    public function getHisVaccins():array
+    {
+        $req=MyPDO::getInstance()->prepare(<<<SQL
+        SELECT * FROM Vacciné
+        WHERE animalId=?
+        SQL);
+
+        $req->setFetchMode(PDO::FETCH_CLASS, Vaccin::class);
+        $req->execute([$this->animalId]);
+        $hisVaccins=$req->fetchAll();
+        if(!$hisVaccins)
+        {
+            throw new InvalidArgumentException("No vaccins for this animal.");
+        }
+        return $hisVaccins;
+    }
+
+    /**
      * @return int
      */
     public function getUserId(): string
