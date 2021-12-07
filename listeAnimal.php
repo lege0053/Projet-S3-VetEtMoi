@@ -79,13 +79,14 @@ if ($rep){
              <form action="profile_animal.php" method="post" style="margin-bottom: 10px;">
                 <button class="buttonLstAnimals" type="submit" name="animalId" value="{$animal->getAnimalId()}">Info sur {$animal->getName()}</button>
             </form>
-            <form action="prisederdv.php" method="post" style="margin-top: 10px;">
+            <form action="takeMeeting.php" method="post" style="margin-top: 10px;">
                 <button class="buttonLstAnimals" type="submit" name="animal" value="{$animal->getAnimalId()}">Rendez-vous</button>
             </form>
         </div>
     </div>
 </div>
-HTML);
+HTML
+        );
 }
 
 $webPage->appendContent("</div>");
@@ -97,11 +98,12 @@ $webPage->appendContent("</div>");
     <div class="d-flex flex-column justify-content-center align-items-center">
         <h3 style="font-weight: bold;align-self: center;">Vous n'avez pas d'animaux enregistrer...</h3>
         <p class="align-items-center">Venez nous présentez vos animaux directement en clinique pour qu'ils apparaissent !</p>
-        <a href="prisederdv.php" class="btn m-1 mb-5" style="font-weight: bold;background-color: #02897A; color: #FFFFFF">Prenez rendez-vous</a>
+        <a href="takeMeeting.php" class="btn m-1 mb-5" style="font-weight: bold;background-color: #02897A; color: #FFFFFF">Prenez rendez-vous</a>
     </div>
     <img src="img/animal/diversAnimals.png" width="700" alt="">
 </div>
-HTML);
+HTML
+    );
 }
 
 

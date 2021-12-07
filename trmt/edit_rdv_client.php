@@ -23,5 +23,5 @@ if ($auth->isUserConnected()) {
         );
         $req2->execute([$meetingDate, $animalId, $vetoId, $meetingId]);
         header('Location: ../profile.php');
-    }else header('Location: ../prisederdv.php?err_infos');
+    }else header('Location: ../takeMeeting.php?err_infos');
 }else header('Location: ../connexion.php');
