@@ -126,28 +126,6 @@ $webPage->appendJs(<<<JS
         
         reloadAvailableTimeSlot();
         
-        /*new AjaxRequest(
-        {
-            url: "api/getUserAnimals.php",
-            method: 'get',
-            handleAs: 'json',
-            parameters: {
-                userId: "{$user->getUserId()}"
-            },
-            onSuccess: function (res) {
-                let animalSelect = document.getElementById('animalId');
-                for(let animal in res) {
-                    let option = document.createElement('option');
-                    option.value = res[animal]['animalId'];
-                    option.innerText = res[animal]['name'];
-                    animalList[res[animal]['animalId']] = res[animal]['speciesId'];
-                    animalSelect.appendChild(option);
-                }
-            },
-            onError: function (status, message) {
-            }
-        });*/
-        
         animalSelect.onchange = function(){
             if(this.options[this.selectedIndex].value == '-1')
                 speciesSelect.disabled = false;
@@ -226,7 +204,6 @@ $webPage->appendJs(<<<JS
         
         
         function reloadAvailableTimeSlot() {
-            let meetingType = document.querySelector('input[name="timeSlotTypeId"]:checked').id;
             let weekNumber = week < 10 ? '0' + week : '' + week;
             console.log(vetoId);
             new AjaxRequest({
@@ -234,7 +211,6 @@ $webPage->appendJs(<<<JS
                 method: 'get',
                 handleAs: 'json',
                 parameters: {
-                    meetingType: meetingType,
                     vetoId: vetoId,
                     year: year,
                     week: weekNumber
