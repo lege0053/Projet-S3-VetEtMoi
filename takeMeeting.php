@@ -95,6 +95,8 @@ $webPage->appendJs(<<<JS
         let dateBefore = document.getElementById('dateBefore');
         let dateAfter = document.getElementById('dateAfter');
         
+        let hiddenAnimalId = document.getElementById("hiddenAnimalId");
+        
         let currentDay = new Date();
         let first = currentDay.getDate() - currentDay.getDay() + 1;
         let last = first + 6;
@@ -152,6 +154,7 @@ $webPage->appendJs(<<<JS
                 userId: "{$user->getUserId()}"
             },
             onSuccess: function (res) {
+                
                 let animalSelect = document.getElementById('animalId');
                 for(let animal in res) {
                     let option = document.createElement('option');
@@ -159,6 +162,26 @@ $webPage->appendJs(<<<JS
                     option.innerText = res[animal]['name'];
                     animalList[res[animal]['animalId']] = res[animal]['speciesId'];
                     animalSelect.appendChild(option);
+                }
+                
+                if(hiddenAnimalId != null) {
+                    for(let i = 0; i < animalSelect.options.length; i++ ) {
+                        if(animalSelect.options[i].value == hiddenAnimalId.value) {
+                            let option = animalSelect.options[i];
+                            
+                            option.selected = true;
+                            animalSelect.options[0].selected = false;
+                            speciesSelect.disabled = true;
+                            for(let i = 0; i < speciesSelect.options.length; i++){
+                                let sOption = speciesSelect.options[i];
+                                if(sOption.value == animalList[animalSelect.options[animalSelect.selectedIndex].value])
+                                    sOption.selected = true;
+                                else
+                                    sOption.selected = false;
+                            }
+                            
+                        }
+                    }
                 }
             },
             onError: function (status, message) {
@@ -210,6 +233,7 @@ $webPage->appendJs(<<<JS
                 radio.className = 'buttonHr';
                 radio.name = 'timeSlotId';
                 radio.value = res[i]['timeSlotId'];
+                radio.id = 'meeting-' + res[i]['timeSlotId'];
                 radio.style.background = '#81CB45';
                 radio.innerText = res[i]['startHour'].substring(0, res[i]['startHour'].length - 3);
                 radio.style.textAlign = 'center';

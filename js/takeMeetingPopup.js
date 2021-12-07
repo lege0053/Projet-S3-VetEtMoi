@@ -77,6 +77,20 @@ cancelButton.onclick = function(){
     this.style.backgroundColor = "#c20d0d";
 }
 
+/////////////////////
+// Continue Button //
+/////////////////////
+var continueButton = document.createElement("input");
+continueButton.id = "continueButton"
+continueButton.type = "submit";
+continueButton.className = "button";
+continueButton.value = "Continuer";
+continueButton.style.padding = "12px 25px";
+continueButton.style.fontSize = "18px";
+continueButton.onclick = function(){
+    onExitPopup();
+}
+
 /////////////////////////
 // Take Meeting Button //
 /////////////////////////
@@ -97,7 +111,7 @@ takeMeetingButton.onclick = function() {
 
     let ajaxRequest = new AjaxRequest(
         {
-            url: "trmt/take_meeting.php",
+            url: "trmt/take_meeting_trmt.php",
             method: 'get',
             handleAs: 'json',
             parameters: {
@@ -109,6 +123,21 @@ takeMeetingButton.onclick = function() {
             },
             onSuccess: function (res) {
                 console.log(res);
+
+                if(res['success']){
+                    clearPopupContainer();
+                    popup.appendChild(title);
+                    let success = document.createElement('span');
+                    success.style.fontSize = '24px';
+                    success.innerText = "Rendez-vous pris avec succès !";
+                    popup.appendChild(success);
+                    popup.appendChild(continueButton);
+
+                    document.getElementById('meeting-' + meetingTimeSlotId).remove();
+                }else{
+
+                }
+
             },
             onError: function (status, message) {
             }
@@ -150,7 +179,6 @@ function onOpenPopup(aId, sId, vId, tsId, tstId, y, w) {
     meetingSpeciesId = sId;
     meetingVetoId = vId;
     meetingTimeSlotId = tsId;
-    console.log(meetingTimeSlotId);
     meetingTimeSlotTypeId = tstId;
     meetingYear = y;
     meetingWeek = w;
@@ -172,10 +200,6 @@ function setMeetingChooseDate(){
             timeSlotId: meetingTimeSlotId,
         },
         onSuccess: function (res) {
-
-            console.log(meetingTimeSlotId);
-            console.log(res);
-            console.log(res[0]);
 
             switch(res[0]['dayName'])
             {
