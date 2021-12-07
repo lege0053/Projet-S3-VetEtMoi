@@ -22,6 +22,10 @@ if($auth->isUserConnected()) {
             $meetingId.= $allChars[random_int(0,61)];
         }
 
+        if($animalId == -1){
+            $animalId = null;
+        }
+
         //Insertion du nouveau Meeting dans la bd
         $req = MyPDO::getInstance()->prepare(<<<SQL
             INSERT INTO Meeting(meetingId, meetingDate, userId, animalId, vetoId, speciesId)
