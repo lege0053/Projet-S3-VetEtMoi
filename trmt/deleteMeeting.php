@@ -13,7 +13,7 @@ if(isset($_POST['meetingId']) && !empty($_POST['meetingId']) && $auth->isUserCon
 
     if($meeting->getUserId() == $user->getUserId()){
 
-        /*$pdo = MyPDO::getInstance();
+        $pdo = MyPDO::getInstance();
         $rq1 = $pdo->prepare(<<<SQL
             DELETE FROM Concern
             WHERE meetingId = :meetingId
@@ -24,7 +24,7 @@ if(isset($_POST['meetingId']) && !empty($_POST['meetingId']) && $auth->isUserCon
             DELETE FROM Meeting
             WHERE meetingId = :meetingId
         SQL);
-        $rq2->execute(['meetingId' => $meetingId]);*/
+        $rq2->execute(['meetingId' => $meetingId]);
         echo json_encode(["success" => "success_delete_meeting"]);
     } else echo json_encode(["error" => "not_your_meeting"]);
 } else echo json_encode(["error" => "no_meeting_id"]);

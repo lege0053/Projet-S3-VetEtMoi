@@ -187,12 +187,11 @@ function hideEditMeetingPopup() {
 
 function appendOriginalElement() {
     popupBackground.appendChild(popup);
-    actionListDiv.appendChild(editButton);
+    actionListDiv.appendChild(cancelEdit);
     actionListDiv.appendChild(deleteButton);
 
     popup.appendChild(title);
     popup.appendChild(hiddenInputMeetingId);
-    popup.appendChild(cancelEdit);
     popup.appendChild(actionListDiv);
 
     document.body.appendChild(popupBackground);
