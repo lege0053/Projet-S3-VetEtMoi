@@ -8,7 +8,6 @@ $webPage->appendCss(<<<CSS
     border-right: 2px solid #828282;
 }
 
-
 table {
   table-layout: fixed;
   width: 100%;
@@ -23,18 +22,27 @@ th {
 font-weight: bold;
 }
 
-th[scope=row] {
+.tabAnimaux th[scope=row], .tabClient th[scope=row] {
     border-right: 2px solid #828282;
 }
-
 
 th[scope=col] {
 border-bottom: 2px solid #828282;
 }
 
 .tabAnimaux th{
-font-size: 20px;
-color:#02897A;
+    font-size: 20px;
+    color:#02897A;
+    width: 50%;
+}
+
+.tabVaccins th{
+    width: 50%;
+}
+
+.tabVaccins td{
+    font-weight: bold;
+    color: #02897A;
 }
 
 .buttonNewPresta{
@@ -180,13 +188,45 @@ $html = <<< HTML
                 </div>
             </div>
             <div class="d-flex flex-column" style="width: 50%;">
-                <h3 style="background-color: #C4C4C4; color: white; font-size: 25px; font-weight: bold; padding: 15px; text-align: center; width: 100%;">
-                    <span style="padding-right: 180px;">{$webPage->getIcon('arrow-left', 28)}</span>Historique<span style="padding-left: 180px;">{$webPage->getIcon('arrow-right', 28)}</span></h3> 
+                <div class="d-flex flex-column" style="height: 50%">
+                    <h3 style="background-color: #C4C4C4; color: white; font-size: 25px; font-weight: bold; padding: 15px; text-align: center; width: 100%;">
+                        <span style="padding-right: 180px;">{$webPage->getIcon('arrow-left', 28)}</span>Historique<span style="padding-left: 180px;">{$webPage->getIcon('arrow-right', 28)}</span>
+                    </h3> 
+                </div>
+                <div class="d-flex flex-column" style="height: 50%">
+                    <h3 style="background-color: #C4C4C4; color: white; font-size: 25px; font-weight: bold; padding: 15px; text-align: center; width: 100%;">Vaccins</h3> 
+                    <table class="tabVaccins">
+                        <tr>
+                            <th scope="row">CH (Maladie de carré et hépatite de rubarth)</th>
+                            <td>{$webPage->getIcon('valide', 28)}</td>
+                            <td>27/12/2021</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">P (Parvovirose)</th>
+                            <td>{$webPage->getIcon('valide', 28)}</td>
+                            <td>27/12/2021</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">PI (Parainfluenza)</th>
+                            <td>{$webPage->getIcon('valide', 28)}</td>
+                            <td>27/12/2021</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">L4 (leptospirose)</th>
+                            <td>{$webPage->getIcon('invalid', 28)}</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">R (Rage)</th>
+                            <td>{$webPage->getIcon('invalid', 28)}</td>
+                            <td></td>
+                        </tr>
+                    </table>                
+                </div>
             </div>
         </div>
     </div>
 </div>
-
 HTML;
 
 $webPage->appendContent($html);
