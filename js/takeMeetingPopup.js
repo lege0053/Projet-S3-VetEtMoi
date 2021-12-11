@@ -77,6 +77,15 @@ cancelButton.onclick = function(){
     this.style.backgroundColor = "#c20d0d";
 }
 
+///////////////
+// Day Title //
+///////////////
+
+var dayTitle = document.createElement("span");
+dayTitle.id = "dayTitle";
+dayTitle.style.fontSize = "18px";
+
+
 /////////////////////
 // Continue Button //
 /////////////////////
@@ -87,7 +96,7 @@ continueButton.className = "button";
 continueButton.value = "Continuer";
 continueButton.style.padding = "12px 25px";
 continueButton.style.fontSize = "18px";
-continueButton.onclick = function(){
+continueButton.onclick = function() {
     onExitPopup();
 }
 
@@ -156,13 +165,6 @@ document.onclick = function(e){
 
 function appendOriginalElement() {
     popupBackground.appendChild(popup);
-
-    actionListDiv.appendChild(cancelButton);
-    actionListDiv.appendChild(takeMeetingButton);
-
-    popup.appendChild(title);
-    popup.appendChild(actionListDiv);
-
     document.body.appendChild(popupBackground);
 }
 
@@ -173,6 +175,7 @@ function onExitPopup() {
     enableScroll();
 }
 
+
 function onOpenPopup(aId, sId, vId, tsId, tstId, y, w) {
 
     meetingAnimalId = aId;
@@ -182,15 +185,17 @@ function onOpenPopup(aId, sId, vId, tsId, tstId, y, w) {
     meetingTimeSlotTypeId = tstId;
     meetingYear = y;
     meetingWeek = w;
-    setMeetingChooseDate();
+
+
+    setMeetingChooseDate(dayTitle);
 
     title.innerText = "Rendez-Vous";
-    updatePopup();
     document.getElementById("popupBackground").hidden = false;
     disableScroll();
+    updatePopup();
 }
 
-function setMeetingChooseDate(){
+function setMeetingChooseDate(dayTitle){
     meetingChooseDate = getDateOfISOWeek(meetingWeek, meetingYear);
     new AjaxRequest({
         url: "api/getTimeSlotInformation.php",
@@ -227,6 +232,7 @@ function setMeetingChooseDate(){
             let month = meetingChooseDate.getMonth()+1;
             let year = meetingChooseDate.getFullYear();
             meetingChooseDate = day +'/'+month+'/'+year;
+            dayTitle.innerText = "Date: " + meetingChooseDate;
         },
         onError: function (status, message) {
         }
@@ -244,6 +250,19 @@ function hideEditMeetingPopup() {
 
 function updatePopup()
 {
+
+    let timeSlotTitle = document.createElement("span");
+    timeSlotTitle.id = "timeSlotTitle";
+    timeSlotTitle.innerText = "Horaire: " + document.getElementById("timeSlot-"+ meetingTimeSlotId).innerText;
+    timeSlotTitle.style.fontSize = "18px";
+
+    actionListDiv.appendChild(cancelButton);
+    actionListDiv.appendChild(takeMeetingButton);
+
+    popup.appendChild(title);
+    popup.appendChild(dayTitle);
+    popup.appendChild(timeSlotTitle);
+    popup.appendChild(actionListDiv);
 
 }
 

@@ -233,7 +233,7 @@ $webPage->appendJs(<<<JS
                 radio.className = 'buttonHr';
                 radio.name = 'timeSlotId';
                 radio.value = res[i]['timeSlotId'];
-                radio.id = 'meeting-' + res[i]['timeSlotId'];
+                radio.id = 'timeSlot-' + res[i]['timeSlotId'];
                 radio.style.background = '#81CB45';
                 radio.innerText = res[i]['startHour'].substring(0, res[i]['startHour'].length - 3);
                 radio.style.textAlign = 'center';
