@@ -256,7 +256,7 @@ HTML;
             <a class="linkNav m-2 p-2" href="./inscription.php">{$this->getIcon("user")}S'INSCRIRE</a>
         HTML
         : (
-            AbstractUserAuthentication::isUserAdmin() ?
+            AbstractUserAuthentication::isUserAdmin() || AbstractUserAuthentication::isUserVeto() ?
                 <<< HTML
                     <a class="linkNav m-2 p-2" href="./gestion.php">GESTION</a>
                     <a class="linkNav m-2 p-2" href="./profile.php">{$this->getIcon("user")}MON COMPTE</a>
