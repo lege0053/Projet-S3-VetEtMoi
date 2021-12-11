@@ -85,7 +85,7 @@ for($i=0; $i <10; $i++)
             $html.= <<< HTML
             </datalist>
         </th>
-        <td><input style="background-color: #C4C4C4;" type="number" step="0.1" value="1.0" required></td>
+        <td><input style="background-color: #C4C4C4; width: 100%;" type="number" step="0.1" value="1.0" required></td>
         <td>26.00</td>
         <td>26.00</td>
     </tr>
