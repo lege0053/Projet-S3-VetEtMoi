@@ -96,9 +96,9 @@ $html .= <<< HTML
                 </table>
             </div>
             <div class="d-flex justify-content-space-between" style="margin-top: 50px;">
-            <input type='button' class='button' value='Imprimer la facture' style='padding: 12px 25px; font-size: 18px; '>
-            <input type='button' class='button' onclick='showEditMeetingPopup();' value='Payer la prestation' style='padding: 12px 25px; font-size: 18px; '>
-            <input type='submit' class='button' value='Valider la prestation' style='padding: 12px 25px; font-size: 18px; '>
+                <input type='button' class='button' value='Imprimer la facture' style='padding: 12px 25px; font-size: 18px; '>
+                <input type='button' class='button' onclick='showEditMeetingPopup();' value='Payer la prestation' style='padding: 12px 25px; font-size: 18px; '>
+                <input type='submit' class='button' value='Valider la prestation' style='padding: 12px 25px; font-size: 18px; '>
             </div>
         </div>
     </div>
