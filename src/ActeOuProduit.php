@@ -7,11 +7,16 @@ class ActeOuProduit
     private string $name;
     private float $PU_TTC;
 
-    public function __construct(int $id, string $name, float $PU_TTC)
+    public function createFromId(int $id): self
     {
-        $this->id = $id;
-        $this->name = $name;
-        $this->PU_TTC = $PU_TTC;
+        $pdo = MyPDO::getInstance()->prepare(<<< SQL
+            SELECT * FROM ActeOuProduit
+            WHERE id = :id
+        SQL
+        );
+        $pdo->execute(['id' => $id]);
+        $pdo->setFetchMode(PDO::FETCH_CLASS, self::class);
+        return $pdo->fetch();
     }
 
     /**
