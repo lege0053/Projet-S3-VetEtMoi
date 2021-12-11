@@ -172,6 +172,7 @@ class WebPage
                 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
                 <script defer type='text/javascript' src='js/ajaxrequest.js'></script>
                 <script defer type='text/javascript' src='js/translateList.js'></script>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
                 <title>{$this->title}</title>
                 {$this->head()}
             </head>
@@ -258,7 +259,15 @@ HTML;
         : (
             AbstractUserAuthentication::isUserAdmin() || AbstractUserAuthentication::isUserVeto() ?
                 <<< HTML
-                    <a class="linkNav m-2 p-2" href="./gestion.php">GESTION</a>
+                    <div class="m-2 p-2">
+                        <div class="dropdown">
+                            <a href="#" class="dropdown-toggle linkNav" data-bs-toggle="dropdown">GESTION</a>
+                            <div class="dropdown-menu">
+                                <a href="nouvelle_prestation.php" class="dropdown-item">Nouvelle Prestation</a>
+                                <a href="fiche_client_animal.php" class="dropdown-item">Fiche Client</a>
+                            </div>
+                        </div>
+                    </div>
                     <a class="linkNav m-2 p-2" href="./profile.php">{$this->getIcon("user")}MON COMPTE</a>
                 HTML
             : <<<HTML
