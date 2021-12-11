@@ -3,7 +3,7 @@ declare(strict_types=1);
 require "autoload.php";
 
 $auth = new SecureUserAuthentication();
-if(!SecureUserAuthentication::isUserConnected() && !$auth->getUser()->isVeto() || !$auth->getUser()->isAdmin())
+if(!SecureUserAuthentication::isUserConnected() || !$auth->getUser()->isVeto() || !$auth->getUser()->isAdmin())
     header("Location: connexion.php");
 
 $webPage = new WebPage("Fiche Client");
