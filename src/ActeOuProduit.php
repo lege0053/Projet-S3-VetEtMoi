@@ -30,7 +30,7 @@ class ActeOuProduit
     /**
      * @return float
      */
-    public function getPUTTC(): float
+    public function getPU_TTC(): float
     {
         return $this->PU_TTC;
     }
