@@ -263,7 +263,7 @@ HTML;
                         <div class="dropdown">
                             <a href="#" class="dropdown-toggle linkNav" data-bs-toggle="dropdown">GESTION</a>
                             <div class="dropdown-menu">
-                                <a href="vetoMeeting.php" class="dropdown-item">Planning</a>
+                                <a href="vetoPlanning.php" class="dropdown-item">Planning</a>
                                 <a href="nouvelle_prestation.php" class="dropdown-item">Nouvelle Prestation</a>
                                 <a href="fiche_client_animal.php" class="dropdown-item">Fiche Client</a>
                             </div>
