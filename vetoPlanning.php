@@ -61,14 +61,9 @@ $webPage->appendJs(<<<JS
 
     window.onload = function() {
     
-        var animalList = {};
-        
-        let animalSelect = document.getElementById('animalId');
-        let speciesSelect = document.getElementById('speciesId');
-        let vetoSelect = document.getElementById('vetoId');
         let dateBefore = document.getElementById('dateBefore');
         let dateAfter = document.getElementById('dateAfter');
-        let vetoId = document.getElementById('vetoId');
+        let vetoId = {$user->getUserId()}
         
         let currentDay = new Date();
         let first = currentDay.getDate() - currentDay.getDay() + 1;
@@ -118,25 +113,6 @@ $webPage->appendJs(<<<JS
         
         reloadAvailableTimeSlot();
         
-        animalSelect.onchange = function(){
-            if(this.options[this.selectedIndex].value == '-1')
-                speciesSelect.disabled = false;
-            else{
-                speciesSelect.disabled = true;
-                for(let i = 0; i < speciesSelect.options.length; i++){
-                    let sOption = speciesSelect.options[i];
-                    if(sOption.value == animalList[this.options[this.selectedIndex].value])
-                        sOption.selected = true;
-                    else
-                        sOption.selected = false;
-                }
-            }
-        }
-        
-        vetoSelect.onchange = function() {
-            reloadAvailableTimeSlot();
-        }
-        
         let radios = document.getElementsByName('timeSlotTypeId');
         for(let i = 0; i < radios.length; i++){
             let radio = radios[i];
@@ -185,13 +161,9 @@ $webPage->appendJs(<<<JS
         }
         
         
-        function radioOnClick(timeSlotId)
+        function radioOnClick(radioId)
         {
-            let animalId = animalSelect.options[animalSelect.selectedIndex].value;
-            let speciesId = speciesSelect.options[speciesSelect.selectedIndex].value;
-            let vetoId = document.getElementById('vetoId');
-            let timeSlotTypeId = document.getElementsByName('timeSlotTypeId')[0].checked ? "1" : "0";
-            onOpenPopup(animalId, speciesId, vetoId, timeSlotId, timeSlotTypeId, year, week);
+            console.log("Radio OnClick");
         }
         
         
@@ -219,8 +191,6 @@ $webPage->appendJs(<<<JS
 JS);
 
 $webPage->appendContent(<<<HTML
-
-$vetoS
 <div class="d-flex flex-column justify-content-center align-items-center">
     <span class="title main-ui-class" style="margin-top: 50px; margin-bottom: 30px;">Planning de la semaine</span>
 
