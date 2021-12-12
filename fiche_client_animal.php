@@ -6,6 +6,12 @@ $auth = new SecureUserAuthentication();
 if(!SecureUserAuthentication::isUserConnected() || !$auth->getUser()->isVeto() || !$auth->getUser()->isAdmin())
     header("Location: connexion.php");
 
+
+$userId = $_GET['userId'];
+$user = new User (['userId' => $userId]);
+$user->flush();
+
+
 $webPage = new WebPage("Fiche Client");
 $webPage->appendCss(<<<CSS
 .borderR {
@@ -98,27 +104,27 @@ $html = <<< HTML
                 <table class="tabClient">
                     <tr>
                         <th scope="row" style="color:#02897A; width: 120px;">Nom</th>
-                        <td style="color:#02897A;">DUPONT</td>
+                        <td style="color:#02897A;">{$user->getLastName()}</td>
                     </tr>
                     <tr style="background-color: #E3E3E3;">
                         <th scope="row">Prénom</th>
-                        <td>Jean</td>
+                        <td>{$user->getFirstName()}</td>
                     </tr>
                     <tr>
                         <th scope="row">Adresse</th>
-                        <td>55 Bis Rue Ernest Vallée</td>
+                        <td>{$user->getRue()}</td>
                     </tr>
                     <tr>
                         <th scope="row">CP - Ville</th>
-                        <td>02310, NOGENT L'ARTAUD</td>
+                        <td>{$user->getCp()} - {$user->getCity()}</td>
                     </tr>
                     <tr>
                         <th scope="row" style="background-color: #E3E3E3;">Téléphone</th>
-                        <td style="background-color: #E3E3E3;">0683254863</td>
+                        <td style="background-color: #E3E3E3;">{$user->getPhone()}</td>
                     </tr>
                     <tr>
                         <th scope="row">Mail</th>
-                        <td>jeandupont@orange.fr</td>
+                        <td>{$user->getEmail()}</td>
                     </tr>
                     <tr>
                         <th scope="row" style="color:#02897A; background-color: #E3E3E3;">Solde</th>
