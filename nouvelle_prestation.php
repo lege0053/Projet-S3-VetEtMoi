@@ -72,24 +72,39 @@ $html = <<< HTML
                     </thead>
                     <tbody>
 HTML;
-$actesOuProduits = ["CONSULTATION_PRE-OPERATOIRE","BILAN_SANGUIN_PRE-OPERATOIRE_CHIEN", "ANESTHESIE_D'INDUCTION_CHIEN_<_50_KG", "CASTRATION_CHIEN", "PREVICOX_227_MG_150_CPS_PRIS_D'UNE_PLAQUETTE", "RETRAIT_DES_FILS"];
+//RECUPERATION DES ACTES ET DES PRODUITS
+    $req = MyPDO::getInstance()->prepare(<<<SQL
+            SELECT *
+            FROM ActeOuProduit
+        SQL);
+    $req->execute();
+    $req->setFetchMode(PDO::FETCH_CLASS, ActeOuProduit::class);
+    $actesOuProduits = $req->fetchAll();
+    if(!$actesOuProduits)
+    {
+        throw new InvalidArgumentException("No ActesOuProduit.");
+    }
 for($i=0; $i <10; $i++)
 {
     $html.= <<< HTML
     <tr>
         <th scope="row">
-            <input list="acte_produit" type="text" id="choix_actes_produits" placeholder="ajouter..." style="">
+            <input list="acte_produit" type="text" name="acte_produit_select" id="choix_actes_produits" placeholder="ajouter...">
             <datalist id="acte_produit">
     HTML;
     foreach ($actesOuProduits as $acteOuProduit) {
-        $html.="<option value=$acteOuProduit>";
+        $html.="<option value={$acteOuProduit->getName()}>";
     }
-            $html.= <<< HTML
+    $qte = 1.0;
+    $PU_TTC = $actesOuProduits[$i]->getPU_TTC();
+    $Total_TTC = $PU_TTC * $qte;
+
+        $html.= <<< HTML
             </datalist>
         </th>
-        <td><input style="background-color: #C4C4C4; width: 100%;" type="number" step="0.1" value="1.0" required></td>
-        <td>26.00</td>
-        <td>26.00</td>
+        <td><input style="background-color: #C4C4C4; width: 100%;" type="number" step="0.1" value="$qte" required></td>
+        <td>$PU_TTC</td>
+        <td>$Total_TTC</td>
     </tr>
     HTML;
 }
