@@ -3,21 +3,22 @@ declare(strict_types=1);
 
 include_once "../src/MyPDO.php";
 
-$min_value = 0;
-$max_value = 25;
-if(!isset($_GET['min_value'], $_GET['max_value']) && !empty($_GET['min_value']) && !empty($_GET['max_value'])){
-    $min_value = $_GET['min_value'];
-    $max_value = $_GET['max_value'];
+$min_offset = 1;
+$row_number = 25;
+if(isset($_GET['min_offset'], $_GET['row_number']) && !empty($_GET['min_offset']) && !empty($_GET['row_number'])){
+    $min_offset = $_GET['min_offset'];
+    $row_number = $_GET['row_number'];
 }
 
-//header('Content-type: application/json');
+header('Content-type: application/json');
 
 $rq = MyPDO::getInstance()->prepare(<<<SQL
-    SELECT * FROM(SELECT userId, firstName, lastName FROM Users
-                  WHERE isVeto = 0)
-    WHERE ROWNUMBER >= :min_value AND ROWNUMBER <= :max_value
+    SELECT userId, firstName, lastName FROM Users
+    WHERE isVeto = 0
+    ORDER BY lastName
+    LIMIT $min_offset, $row_number
 SQL);
-$rq->execute([':min_value' => $min_value, ':max_value' => $max_value]);
+$rq->execute();
 $array = $rq->fetchAll();
 if($array)
     echo json_encode($array);
