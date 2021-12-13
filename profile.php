@@ -63,11 +63,14 @@ if($rdvList){
     foreach($rdvList as $rdv){
         $meetingId = $rdv->getMeetingId();
         $animal = $rdv->getAnimal();
-        $id = $animal->getAnimalId();
+        if($animal)
+            $animalName = $rdv->getAnimal()->getName();
+        else
+            $animalName = "Nouvel Animal";
         $date = ucwords(utf8_encode(strftime("%A %d %b %Y - %H:%M", strtotime($rdv->getDateTime()))));
         $rdvs .= "<div id='meeting-$meetingId' class='rdv-item'>
                     <span>{$date}</span>
-                    <span style='display: flex; justify-content: center;'>{$animal->getName()}</span>
+                    <span style='display: flex; justify-content: center;'>{$animalName}</span>
                     <span style='display: flex; justify-content: end;'>
                         <input type='button' class='button' onclick='showEditMeetingPopup(\"$meetingId\");' value='Modifier' style='padding: 12px 25px; font-size: 18px; '>
                     </span>

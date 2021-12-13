@@ -11,7 +11,7 @@ class Meeting
     private int $isPayed;
     private ? float $price;
     private string $userId;
-    private string $animalId;
+    private ? string $animalId;
     private string $vetoId;
 
     /**
@@ -76,9 +76,11 @@ class Meeting
         return $this->userId;
     }
 
-    public function getAnimal() : Animal
+    public function getAnimal() : ? Animal
     {
-        return Animal::createFromId($this->animalId);
+        if($this->animalId)
+            return Animal::createFromId($this->animalId);
+        return null;
     }
 
     /**
