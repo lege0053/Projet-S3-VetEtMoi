@@ -3,14 +3,20 @@ declare(strict_types=1);
 require "autoload.php";
 
 $auth = new SecureUserAuthentication();
-if(!SecureUserAuthentication::isUserConnected() || !$auth->getUser()->isVeto() || !$auth->getUser()->isAdmin())
+if(!(SecureUserAuthentication::isUserConnected() || $auth->getUser()->isVeto() || $auth->getUser()->isAdmin()))
     header("Location: connexion.php");
 
+$req = MyPDO::getInstance()->prepare(<<<SQL
+            SELECT *
+            FROM Users
+            WHERE userId = ?;
+        SQL
+);
+$req->execute([$_GET['userId']]);
+$data = $req->fetch();
 
-$userId = $_GET['userId'];
-$user = new User (['userId' => $userId]);
-$user->flush();
-
+$user = new User($data);
+$animals = $user->getAnimals();
 
 $webPage = new WebPage("Fiche Client");
 $webPage->appendCss(<<<CSS
@@ -74,22 +80,32 @@ border-bottom: 2px solid #828282;
 CSS);
 
 
-
 //INFORMATION ANIMAUX DU CLIENT ET INSERTION DANS UN TABLEAU//
 $tabAnimaux="";
-$animauxDuClient = [['name' =>'Rocky', 'species' => 'Chien', 'threat' => 'Faible', 'race' => 'Labrador'], ['name' => 'Gribouille', 'species' => 'Chat', 'threat' => 'Moyen', 'race' => 'Men Coon']];
-foreach ($animauxDuClient as $animalDuClient) {
+foreach ($animals as $animal) {
     $tabAnimaux .= <<< HTML
 <tr>
     <td class="d-flex flex-row borderR" style="justify-content: space-between;">
-        <div>{$animalDuClient['name']}</div>
-        <div><img src="img/greenCircle.png" alt="Dangerosité faible" height="23px;"</div>
+        <div>{$animal->getName()}</div>
+HTML;
+    if ($animal->getThreatId() == 1){
+        $tabAnimaux .= '<div style="height: 23px; width: 23px; background-color: limegreen; border: none; border-radius: 50%;"></div>';
+    }
+    if($animal->getThreatId() == 2){
+        $tabAnimaux .= '<div style="height: 23px; width: 23px; background-color: orange; border: none; border-radius: 50%;"></div>';
+    } elseif ($animal->getThreatId() == 3 ) {
+        $tabAnimaux .= '<div style="height: 23px; width: 23px; background-color: red; border: none; border-radius: 50%;"></div>';
+    }
+
+    $tabAnimaux .= <<< HTML
     </td>
-    <td class="borderR">{$animalDuClient['species']}</td>
-    <td>{$animalDuClient['race']}</td>
+    <td class="borderR">{$animal->getSpecieName()}</td>
+    <td>{$animal->getNameRace()}</td>
 </tr>
 HTML;
 }
+
+$animalSelect = $animals[0];
 
 $html = <<< HTML
 <div class="d-flex flex-column" style="padding-top: 100px;">
@@ -167,19 +183,19 @@ $html = <<< HTML
                     <img src="img/rounded/rounded_Chien.png" alt="" height="330px" style="margin-left: 5px;">
                     <div class="d-flex flex-column pt-3 pl-4 justify-content-center" style=" font-size: 18px;">
                         <p style="margin: 0; font-weight: bold; color:#02897A;">Nom</p>
-                        <p>Rocky</p><br>     
+                        <p>{$animalSelect->getName()}</p><br>     
                         <p style="margin: 0; font-weight: bold; color:#02897A">Race</p>
-                        <p>Labrador</p><br>
+                        <p>{$animalSelect->getNameRace()}</p><br>
                         <p style="margin: 0; font-weight: bold; color:#02897A">Genre</p>
-                        <p>Femelle</p>
+                        <p>{$animalSelect->getGenderName()}</p>
                     </div>
                     <div class="d-flex flex-column pt-3 justify-content-center" style=" font-size: 18px; padding-left: 130px;">
                         <p style="margin: 0; font-weight: bold; color:#02897A;">Espèce</p>
-                        <p>Chien</p><br>
+                        <p>{$animalSelect->getSpecieName()}</p><br>
                         <p style="margin: 0; font-weight: bold; color:#02897A">Robe</p>
-                        <p>Sable</p><br>
+                        <p>{$animalSelect->getDress()}</p><br>
                         <p style="margin: 0; font-weight: bold; color:#02897A">Poids</p>
-                        <p>25.2 kg</p>
+                        <p>{$animalSelect->getWeight()}</p>
                     </div>
                 </div>
                 <div style="font-size: 18px; margin: 30px 0 30px 25px;">
