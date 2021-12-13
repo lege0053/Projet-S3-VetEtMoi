@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 include_once "../src/MyPDO.php";
 
-$min_offset = 1;
+$min_offset = 0;
 $row_number = 25;
 if(isset($_GET['min_offset'], $_GET['row_number']) && !empty($_GET['min_offset']) && !empty($_GET['row_number'])){
     $min_offset = $_GET['min_offset'];

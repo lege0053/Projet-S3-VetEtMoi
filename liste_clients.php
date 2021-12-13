@@ -18,18 +18,18 @@ $html= <<< HTML
 
 </div>
 HTML;
-
 $webPage->appendJs(<<<JS
-    new AjaxRequest({
-                url: "api/getListClients.php",
+    window.onload = function() {
+            new AjaxRequest({
+                url: "api/getListeClients.php",
                 method: 'get',
                 handleAs: 'json',
                 parameters: {},
                 onSuccess: function (res) {
                     let listeCli = document.getElementById('liste-clients');
-                    for(let i=0 ; i<listeCli.length ; i++)
+                    for(let i = 0; i < listeCli.length; i++)
                     {
-                        let clientName = docunment.createElement('span');
+                        let clientName = document.createElement('span');
                         clientName.style.width = '800px';
                         clientName.style.backgroundColor = '#DDDDDD';
                         clientName.style.padding = '25px';
@@ -45,6 +45,7 @@ $webPage->appendJs(<<<JS
                 onError: function (status, message) {
                 }  
             });
+    }
     
 JS);
 
