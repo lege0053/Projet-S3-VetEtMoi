@@ -162,9 +162,8 @@ $webPage->appendJs(<<<JS
         
         function radioOnClick(animalId, userId)
         {
-            location.href = "fiche_client_animal.php?animalId=" + animalId + "?userId=" + userId;
+            location.href = "fiche_client_animal.php?animalId=" + animalId + "&userId=" + userId;
         }
-        
         
         function reloadVetoMeetings() {
             let weekNumber = week < 10 ? '0' + week : '' + week;
