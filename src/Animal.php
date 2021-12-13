@@ -365,6 +365,17 @@ class Animal
         return $this->genderId;
     }
 
+    public function getGenderName():string
+    {
+        if($this->genderId == 1) {
+            return 'Femelle';
+        }elseif ($this->genderId == 2)
+        {
+            return 'Mâle';
+        }
+        return 'Autre';
+    }
+
     /**
      * @return int
      */
@@ -396,15 +407,6 @@ class Animal
         $race = Race::createFromId($this->getRaceID());
         $specie = Species::createFromId($race->getSpeciesId());
         return $specie->getSpeciesName();
-    }
-
-    public function getGenderName(): string
-    {
-        if($this->genderId == 1)
-        {
-            return "Femelle";
-        }
-        return "Mâle";
     }
 
     /**
