@@ -85,7 +85,6 @@ if($rdvList){
             </div>
             $rdvs
         </div>
-
     HTML;
 }
 

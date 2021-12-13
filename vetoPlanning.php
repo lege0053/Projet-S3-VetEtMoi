@@ -63,7 +63,7 @@ $webPage->appendJs(<<<JS
     
         let dateBefore = document.getElementById('dateBefore');
         let dateAfter = document.getElementById('dateAfter');
-        let vetoId = {$user->getUserId()}
+        let vetoId = document.getElementById('vetoId').value.toString();
         
         let currentDay = new Date();
         let first = currentDay.getDate() - currentDay.getDay() + 1;
@@ -84,13 +84,13 @@ $webPage->appendJs(<<<JS
         dateBefore.onclick = function() {
             backward();
             updateDate();
-            reloadAvailableTimeSlot();
+            reloadVetoMeetings();
         }
         
         dateAfter.onclick = function() {
             forward();
             updateDate();
-            reloadAvailableTimeSlot();
+            reloadVetoMeetings();
         }
         
         function forward(){
@@ -111,18 +111,18 @@ $webPage->appendJs(<<<JS
             week = Math.ceil(( firstDay.getDay() + 1 + numberOfDays) / 7);
         }
         
-        reloadAvailableTimeSlot();
+        reloadVetoMeetings();
         
         let radios = document.getElementsByName('timeSlotTypeId');
         for(let i = 0; i < radios.length; i++){
             let radio = radios[i];
             radio.onclick = function() {
-                reloadAvailableTimeSlot();
+                reloadVetoMeetings();
             };
         }
         
         
-        function clearAvailableTimeSlot(){
+        function clearMeetings(){
             let ids = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
             for(let id in ids){
                 let meetingDiv = document.getElementById(ids[id]);
@@ -143,7 +143,7 @@ $webPage->appendJs(<<<JS
                 radio.innerText = res[i]['startHour'].substring(0, res[i]['startHour'].length - 3);
                 radio.style.textAlign = 'center';
                 radio.onclick = function() {
-                    radioOnClick(radio.value);
+                    radioOnClick(res[i]['animalId']);
                 }
                 
                 document.getElementById(res[i]['dayName']).appendChild(radio);
@@ -160,13 +160,13 @@ $webPage->appendJs(<<<JS
         }
         
         
-        function radioOnClick(radioId)
+        function radioOnClick(animalId)
         {
-            console.log("Radio OnClick");
+            location.href = "fiche_client_animal.php?animalId=" + animalId;
         }
         
         
-        function reloadAvailableTimeSlot() {
+        function reloadVetoMeetings() {
             let weekNumber = week < 10 ? '0' + week : '' + week;
             new AjaxRequest({
                 url: "api/getVetoPlanning.php",
@@ -178,7 +178,7 @@ $webPage->appendJs(<<<JS
                     week: weekNumber
                 },
                 onSuccess: function (res) {
-                    clearAvailableTimeSlot();
+                    clearMeetings();
                     addMeeting(res);
                 },
                 onError: function (status, message) {
@@ -191,6 +191,8 @@ JS);
 
 $webPage->appendContent(<<<HTML
 <div class="d-flex flex-column justify-content-center align-items-center">
+    <input id="vetoId" value="{$user->getUserId()}" hidden>
+    
     <span class="title main-ui-class" style="margin-top: 50px; margin-bottom: 30px;">Planning de la semaine</span>
 
     <!-- Planning -->
