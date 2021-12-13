@@ -265,7 +265,7 @@ HTML;
                             <div class="dropdown-menu">
                                 <a href="vetoPlanning.php" class="dropdown-item">Planning</a>
                                 <a href="nouvelle_prestation.php" class="dropdown-item">Nouvelle Prestation</a>
-                                <a href="fiche_client_animal.php" class="dropdown-item">Fiche Client</a>
+                                <a href="liste_clients.php" class="dropdown-item">Listes des Clients</a>
                             </div>
                         </div>
                     </div>
