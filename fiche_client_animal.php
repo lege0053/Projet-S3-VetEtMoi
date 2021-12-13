@@ -84,20 +84,21 @@ $data = $req->fetch();
 $user = new User($data);
 
     //INFORMATION ANIMAUX DU CLIENT ET INSERTION DANS UN TABLEAU//
+$tabAnimaux = "";
+try {
     $animals = $user->getAnimals();
-    $tabAnimaux="";
     foreach ($animals as $animal) {
         $tabAnimaux .= <<< HTML
     <tr>
         <td class="d-flex flex-row borderR" style="justify-content: space-between;">
             <div>{$animal->getName()}</div>
     HTML;
-        if ($animal->getThreatId() == 1){
+        if ($animal->getThreatId() == 1) {
             $tabAnimaux .= '<div style="height: 23px; width: 23px; background-color: limegreen; border: none; border-radius: 50%;"></div>';
         }
-        if($animal->getThreatId() == 2){
+        if ($animal->getThreatId() == 2) {
             $tabAnimaux .= '<div style="height: 23px; width: 23px; background-color: orange; border: none; border-radius: 50%;"></div>';
-        } elseif ($animal->getThreatId() == 3 ) {
+        } elseif ($animal->getThreatId() == 3) {
             $tabAnimaux .= '<div style="height: 23px; width: 23px; background-color: red; border: none; border-radius: 50%;"></div>';
         }
 
@@ -108,6 +109,8 @@ $user = new User($data);
     </tr>
     HTML;
     }
+} catch (exception $e) {
+}
 
 $html = <<< HTML
     <div class="d-flex flex-column" style="padding-top: 100px;">
