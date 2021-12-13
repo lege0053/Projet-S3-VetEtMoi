@@ -4,18 +4,15 @@ require "autoload.php";
 $webPage = new WebPage("Conseils");
 
 $html= <<< HTML
-<div class='d-flex align-items-center flex-column ' style='row-gap:2em; width:100%;'>
+<div class='d-flex align-items-center flex-column ' style='row-gap:2em; width:100%; margin-top: 2.5em;'>
     <span class='title main-ui-class'> Liste des Clients </span>
 
     <div class="d-flex justify-content-center flex-column main-ui-class">
-        <div class="d-flex justify-content-center">
-        
-            <label for='search-bar'>Nom : </label> 
-            <input type="search" id="search-bar"> 
+        <div class="d-flex justify-content-center align-items-center" style="gap: 0.5em;">
+            <label for='search-bar' style="margin: 0; font-size: 1.35em;">Nom:</label> 
+            <input type="search" id="search-bar" placeholder="Rechercher..." style="padding: 10px; border-radius: 10px; width: 300px;"> 
         </div>
-        <div id="liste-clients">
-        </div>
-        
+        <div id="liste-clients"></div>
     </div>
 
 </div>
