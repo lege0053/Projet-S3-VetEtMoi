@@ -1,23 +1,14 @@
 <?php
 declare(strict_types=1);
 require "autoload.php";
+setlocale(LC_ALL, 'fr_FR', 'French_France', 'French');
+date_default_timezone_set('Europe/Paris');
 
 $auth = new SecureUserAuthentication();
 if(!(SecureUserAuthentication::isUserConnected() || $auth->getUser()->isVeto() || $auth->getUser()->isAdmin()))
     header("Location: connexion.php");
 
-$req = MyPDO::getInstance()->prepare(<<<SQL
-            SELECT *
-            FROM Users
-            WHERE userId = ?;
-        SQL
-);
-$req->execute([$_GET['userId']]);
-$data = $req->fetch();
-
-$user = new User($data);
-$animals = $user->getAnimals();
-
+//Configuration de base
 $webPage = new WebPage("Fiche Client");
 $webPage->appendCss(<<<CSS
 .borderR {
@@ -80,7 +71,65 @@ border-bottom: 2px solid #828282;
 CSS);
 
 
+
+//Client
+$userId = $_GET['userId'];
+$req = MyPDO::getInstance()->prepare(<<<SQL
+            SELECT *
+            FROM Users
+            WHERE userId = ?;
+        SQL
+);
+$req->execute([$userId]);
+$data = $req->fetch();
+$user = new User($data);
+
+//Animal sélectionné
+if(isset($_GET['animalId']) && !empty($_GET['animalId'])) {
+    $animalSelect = Animal::createFromId($_GET['animalId']);
+} else
+{
+    $animalSelect = [];
+}
+
+$age = date_diff(date_create($animalSelect->getBirthDay()), date_create("now"))->format("%y ans %m mois");
+$dateNais = ucwords(utf8_encode(strftime("%A %d %b %Y - %H:%M", strtotime($animalSelect->getBirthDay()))));
+if($animalSelect->getDeathDay() == null) {
+    $dateDeath = '';
+} else {
+    $dateDeath = ucwords(utf8_encode(strftime("%A %d %b %Y - %H:%M", strtotime($animalSelect->getBirthDay()))));
+}
+if ($animalSelect->getTatoo() == null) {
+    $tatoo = '';
+} else{
+    $tatoo = $animalSelect->getTatoo();
+}
+if($animalSelect->getChip() == null)
+{
+    $puce = '';
+} else {
+    $puce = $animalSelect->getChip();
+}
+if($animalSelect->getComment() == null){
+    $remarque = '';
+}
+else {
+    $remarque = $animalSelect->getComment();
+}
+if($animalSelect->getDress() == null)
+{
+    $dress = '';
+}
+    $dress = $animalSelect->getDress();
+
+if($animalSelect->getWeight() == null) {
+    $weight = '';
+} else{
+    $weight = $animalSelect->getWeight();
+}
+
 //INFORMATION ANIMAUX DU CLIENT ET INSERTION DANS UN TABLEAU//
+$animals = $user->getAnimals();
 $tabAnimaux="";
 foreach ($animals as $animal) {
     $tabAnimaux .= <<< HTML
@@ -104,8 +153,6 @@ HTML;
 </tr>
 HTML;
 }
-
-$animalSelect = $animals[0];
 
 $html = <<< HTML
 <div class="d-flex flex-column" style="padding-top: 100px;">
@@ -180,7 +227,7 @@ $html = <<< HTML
             <div class="d-flex flex-column" style="width: 50%; border-right: 15px solid #C4C4C4;">
                 <h3 style="background-color: #C4C4C4; color: white; font-size: 25px; font-weight: bold; padding: 15px; text-align: center; width: 100%;">Information général</h3> 
                 <div class="d-flex flex-row">
-                    <img src="img/rounded/rounded_Chien.png" alt="" height="330px" style="margin-left: 5px;">
+                    <div style="margin-left: 5px;">{$webPage->getImgCarre("{$animalSelect->getSpecieName()}", $animalSelect->getName(), 330)}</div>
                     <div class="d-flex flex-column pt-3 pl-4 justify-content-center" style=" font-size: 18px;">
                         <p style="margin: 0; font-weight: bold; color:#02897A;">Nom</p>
                         <p>{$animalSelect->getName()}</p><br>     
@@ -193,24 +240,24 @@ $html = <<< HTML
                         <p style="margin: 0; font-weight: bold; color:#02897A;">Espèce</p>
                         <p>{$animalSelect->getSpecieName()}</p><br>
                         <p style="margin: 0; font-weight: bold; color:#02897A">Robe</p>
-                        <p>{$animalSelect->getDress()}</p><br>
+                        <p>$dress</p><br>
                         <p style="margin: 0; font-weight: bold; color:#02897A">Poids</p>
-                        <p>{$animalSelect->getWeight()}</p>
+                        <p>$weight</p>
                     </div>
                 </div>
                 <div style="font-size: 18px; margin: 30px 0 30px 25px;">
                     <p style="margin: 0; font-weight: bold; color:#02897A;">Age</p> 
-                    <p>2 ans et 5 mois</p>
+                    <p>$age</p>
                     <p style="margin: 0; font-weight: bold; color:#02897A;">Date de Naissance</p> 
-                    <p>10/01/2019</p>
+                    <p>$dateNais</p>
                      <p style="margin: 0; font-weight: bold; color:#02897A;">Date de Décès</p> 
-                    <p>Encore en vie le coquin !</p>
+                    <p>$dateDeath</p>
                     <p style="margin: 0; font-weight: bold; color:#02897A;">Tatouage</p> 
-                    <p>304UJB</p>
+                    <p>$tatoo</p>
                     <p style="margin: 0; font-weight: bold; color:#02897A;">N° Puce</p> 
-                    <p>250 268 267 203 154</p>
+                    <p>$puce</p>
                     <p style="margin: 0; font-weight: bold; color:#02897A;">Remarque</p> 
-                    <p>Ne supporte pas le collier Seresto, se gratte</p>
+                    <p>$remarque</p>
                 </div>
             </div>
             <div class="d-flex flex-column" style="width: 50%;">
@@ -222,31 +269,7 @@ $html = <<< HTML
                 <div class="d-flex flex-column" style="height: 50%">
                     <h3 style="background-color: #C4C4C4; color: white; font-size: 25px; font-weight: bold; padding: 15px; text-align: center; width: 100%;">Vaccins</h3> 
                     <table class="tabVaccins">
-                        <tr>
-                            <th scope="row">CH (Maladie de carré et hépatite de rubarth)</th>
-                            <td>{$webPage->getIcon('valide', 28)}</td>
-                            <td>27/12/2021</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">P (Parvovirose)</th>
-                            <td>{$webPage->getIcon('valide', 28)}</td>
-                            <td>27/12/2021</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">PI (Parainfluenza)</th>
-                            <td>{$webPage->getIcon('valide', 28)}</td>
-                            <td>27/12/2021</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">L4 (leptospirose)</th>
-                            <td>{$webPage->getIcon('invalid', 28)}</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">R (Rage)</th>
-                            <td>{$webPage->getIcon('invalid', 28)}</td>
-                            <td></td>
-                        </tr>
+                        {$animalSelect->getTableVaccin()}
                     </table>                
                 </div>
             </div>
