@@ -32,7 +32,7 @@ edSt.gap = '20px';
 // Title //
 ///////////
 var title = document.createElement("span");
-title.innerText = "Modifier le Rendez-Vous";
+title.innerText = "Êtes-vous sûr de supprimer le Rendez-Vous ?";
 title.style.fontSize = "28px";
 
 ///////////////////
@@ -42,7 +42,7 @@ var cancelEdit = document.createElement("input");
 cancelEdit.id = "cancelButton"
 cancelEdit.type = "submit";
 cancelEdit.className = "button";
-cancelEdit.value = "Annuler la modification";
+cancelEdit.value = "Annuler";
 cancelEdit.style.padding = "12px 25px";
 cancelEdit.style.fontSize = "18px";
 cancelEdit.onclick = function(){
@@ -89,7 +89,7 @@ var editButton = document.createElement("input");
 editButton.id = "editMeetingButton";
 editButton.type = "submit";
 editButton.className = "button";
-editButton.value = "Modifier le rendez-vous";
+editButton.value = "Êtes-vous sûr de supprimer le Rendez-Vous ?";
 editButton.style.padding = "12px 25px";
 editButton.style.fontSize = "18px";
 
@@ -170,7 +170,7 @@ function onExitPopup() {
 }
 
 function showEditMeetingPopup(meetingId) {
-    title.innerText = "Modifier le Rendez-Vous";
+    title.innerText = "Êtes-vous sûr de supprimer le Rendez-Vous ?";
     document.getElementById("popupBackground").hidden = false;
     document.getElementById("hiddenInputMeetingId").value = meetingId;
     disableScroll();

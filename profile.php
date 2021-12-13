@@ -52,6 +52,20 @@ $webPage->appendCss(<<<CSS
         padding: 25px;
         border-radius: 20px;
     }
+    .button-delete {
+        font-weight: bold;
+        letter-spacing: 0.02em;
+        border-radius: 10px;
+        color: white;
+        text-decoration: none;
+        background-color: #C20D0D;
+        transition: 0.2s background-color ease-in-out;
+    }
+    .button-delete:hover {
+        background-color: #810000;
+        text-decoration: none;
+        color: white;
+    }
 CSS
 );
 
@@ -72,7 +86,7 @@ if($rdvList){
                     <span>{$date}</span>
                     <span style='display: flex; justify-content: center;'>{$animalName}</span>
                     <span style='display: flex; justify-content: end;'>
-                        <input type='button' class='button' onclick='showEditMeetingPopup(\"$meetingId\");' value='Modifier' style='padding: 12px 25px; font-size: 18px; '>
+                        <input type='button' class='button-delete' onclick='showEditMeetingPopup(\"$meetingId\");' value='Supprimer' style='padding: 12px 25px; font-size: 18px;'>
                     </span>
                   </div>";
     }
