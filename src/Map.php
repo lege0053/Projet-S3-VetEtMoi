@@ -7,7 +7,7 @@ class Map
      * Ajoute-les urls js et les liens nécessaire à l’utilisation de MapBox.
      * @param WebPage $page
      */
-    public static function addHeader(WebPage $page)
+    private static function addHeader(WebPage $page):void
     {
         $page->appendToHead(
             <<<HTML
@@ -30,7 +30,7 @@ class Map
      * @param string $style Le style css de la div qui contient la carte.
      * @throws Exception
      */
-    public static function displayMap(WebPage $page, string $userId, string $style='d-flex flex-grow-1')
+    public static function displayMap(WebPage $page, string $userId, string $style='d-flex flex-grow-1'):void
     {
         self::addHeader($page);
 
@@ -60,8 +60,7 @@ class Map
                     },
                     trackUserLocation: true,
                     showUserHeading: true
-                    });
-                    
+                    }); 
                     map.addControl(geocolateControl);                    
                     
                     var directions=new MapboxDirections({accessToken: mapboxgl.accessToken});
@@ -71,14 +70,13 @@ class Map
                     map.on('load', function ()
                     {
                         geocolateControl.trigger();
-                        var coord;
                         navigator.geolocation.getCurrentPosition(function (pos)
                         {
                            directions.setOrigin([pos.coords.longitude,pos.coords.latitude]);
                         })
                         var addr = '<?=$addr?>';
                         directions.setDestination(addr);
-                    })    
+                    })
             </script>
             HTML);
     }
