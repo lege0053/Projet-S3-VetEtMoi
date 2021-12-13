@@ -143,7 +143,7 @@ $webPage->appendJs(<<<JS
                 radio.innerText = res[i]['startHour'].substring(0, res[i]['startHour'].length - 3);
                 radio.style.textAlign = 'center';
                 radio.onclick = function() {
-                    radioOnClick(res[i]['animalId']);
+                    radioOnClick(res[i]['animalId'], res[i]['userId']);
                 }
                 
                 document.getElementById(res[i]['dayName']).appendChild(radio);
@@ -160,9 +160,9 @@ $webPage->appendJs(<<<JS
         }
         
         
-        function radioOnClick(animalId)
+        function radioOnClick(animalId, userId)
         {
-            location.href = "fiche_client_animal.php?animalId=" + animalId;
+            location.href = "fiche_client_animal.php?animalId=" + animalId + "?userId=" + userId;
         }
         
         
