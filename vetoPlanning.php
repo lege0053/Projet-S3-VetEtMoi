@@ -146,7 +146,6 @@ $webPage->appendJs(<<<JS
                     radioOnClick(radio.value);
                 }
                 
-                let div = document.getElementById(res[i]['dayName']);
                 document.getElementById(res[i]['dayName']).appendChild(radio);
             }
             

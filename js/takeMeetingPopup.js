@@ -142,7 +142,7 @@ takeMeetingButton.onclick = function() {
                     popup.appendChild(success);
                     popup.appendChild(continueButton);
 
-                    document.getElementById('meeting-' + meetingTimeSlotId).remove();
+                    document.getElementById('timeSlot-' + meetingTimeSlotId).remove();
                 }else{
 
                 }
