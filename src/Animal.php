@@ -326,9 +326,9 @@ class Animal
     }
 
     /**
-     * @return string
+     * @return string/null
      */
-    public function getDeathDay(): string
+    public function getDeathDay()
     {
         return $this->deathDay;
     }
@@ -350,9 +350,9 @@ class Animal
     }
 
     /**
-     * @return string
+     * @return string/null
      */
-    public function getComment(): string
+    public function getComment()
     {
         return $this->comment;
     }
@@ -473,4 +473,51 @@ class Animal
         $this->chip = $chip;
     }
 
+    public function hasVaccine(string $idVaccine): bool
+    {
+        $req=MyPDO::getInstance()->prepare(<<<SQL
+        SELECT *
+        FROM Vaccinated
+        WHERE idVaccine=?
+        AND idAnimal=?
+        SQL);
+
+        $req->execute([$idVaccine, $this->animalId]);
+        if($req->rowCount() == 1) {
+            return true;
+        }
+        return false;
+    }
+
+    public function getTableVaccin():string
+    {
+        $html ="";
+        $race = Race::createFromId($this->getRaceID());
+        $idSpecies = $race->getSpeciesId();
+
+        $req = MyPDO::getInstance()->prepare(<<<SQL
+        SELECT *
+        FROM Vaccine
+        WHERE idSpecies=?
+        SQL
+        );
+        $req->setFetchMode(PDO::FETCH_CLASS, Vaccine::class);
+        $req->execute([$idSpecies]);
+        $vaccins = $req->fetchAll();
+        if (!$vaccins) {
+            return "<p style='align-self: center; font-size: 20px; padding-top: 50px;'>Aucun vaccin disponible pour cette espèce</p>";
+        }
+        foreach ($vaccins as $vaccin) {
+                if($this->hasVaccine($vaccin->getIdVaccine())) {$isValid = 'valide';}
+                else {$isValid = 'invalid';}
+            $html.= <<< HTML
+            <tr>
+                <th scope="row">{$vaccin->getVaccineName()}</th>
+                <td><img src="img/svg/icon-$isValid.svg" height="28" width="28" alt=""></td>
+                <td>27/12/2021</td>
+            </tr>
+        HTML;
+        }
+        return $html;
+    }
 }
