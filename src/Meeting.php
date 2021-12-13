@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 include_once("Animal.php");
+include_once("Species.php");
 include_once("TimeSlot.php");
 
 class Meeting
@@ -13,6 +14,7 @@ class Meeting
     private string $userId;
     private ? string $animalId;
     private string $vetoId;
+    private ? int $speciesId;
 
     /**
      * @param int $meetingId
@@ -121,6 +123,19 @@ class Meeting
         } catch(Exception $e){
             return $this->meetingDate;
         }
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getSpeciesId(): ? int
+    {
+        return $this->speciesId;
+    }
+
+    public function getSpecies(): Species
+    {
+        return Species::createFromId($this->speciesId);
     }
 
 }

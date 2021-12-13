@@ -66,7 +66,7 @@ if($rdvList){
         if($animal)
             $animalName = $rdv->getAnimal()->getName();
         else
-            $animalName = "Nouvel Animal";
+            $animalName = "Nouvel Animal - ".$rdv->getSpecies()->getSpeciesName();
         $date = ucwords(utf8_encode(strftime("%A %d %b %Y - %H:%M", strtotime($rdv->getDateTime()))));
         $rdvs .= "<div id='meeting-$meetingId' class='rdv-item'>
                     <span>{$date}</span>
