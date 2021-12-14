@@ -68,6 +68,13 @@ border-bottom: 2px solid #828282;
 .buttonNewPresta:hover {
     background-color: #055945;
 }
+.form-input-custom{
+    padding: 4px 8px 4px 8px;
+    border-radius: 4px;
+    outline: 0;
+    border:0;
+    background-color: #C9C9C9;
+}
 CSS);
 
 
@@ -83,7 +90,7 @@ $req->execute([$userId]);
 $data = $req->fetch();
 $user = new User($data);
 
-    //INFORMATION ANIMAUX DU CLIENT ET INSERTION DANS UN TABLEAU//
+//INSERTION DES ANIMAUX DU CLIENT DANS UN TABLEAU//
 $tabAnimaux = "";
 try {
     $animals = $user->getAnimals();
@@ -226,7 +233,7 @@ try {
             <h3 style="background-color: #262626; color: white; font-size: 25px; font-weight: bold; padding: 15px; text-align: center; width: 100%; border-radius: 5px 5px 0 0;">Fiche Animal du Client</h3> 
             <div class="d-flex flex-row">
                 <div class="d-flex flex-column" style="width: 50%; border-right: 15px solid #C4C4C4;">
-                    <h3 style="background-color: #C4C4C4; color: white; font-size: 25px; font-weight: bold; padding: 15px; text-align: center; width: 100%;">Information général</h3> 
+                    <h3 style="background-color: #262626; color: white; font-size: 25px; font-weight: bold; padding: 15px; text-align: center; width: 100%;">Information général</h3> 
                     <div class="d-flex flex-row">
                         <div style="margin-left: 5px;">{$webPage->getImgCarre("{$animalSelect->getSpecieName()}", $animalSelect->getName(), 330)}</div>
                         <div class="d-flex flex-column pt-3 pl-4 justify-content-center" style=" font-size: 18px;">
@@ -263,12 +270,12 @@ try {
                 </div>
                 <div class="d-flex flex-column" style="width: 50%;">
                     <div class="d-flex flex-column" style="height: 50%">
-                        <h3 style="background-color: #C4C4C4; color: white; font-size: 25px; font-weight: bold; padding: 15px; text-align: center; width: 100%;">
+                        <h3 style="background-color: #262626; color: white; font-size: 25px; font-weight: bold; padding: 15px; text-align: center; width: 100%;">
                             <span style="padding-right: 180px;">{$webPage->getIcon('arrow-left', 28)}</span>Historique<span style="padding-left: 180px;">{$webPage->getIcon('arrow-right', 28)}</span>
                         </h3> 
                     </div>
                     <div class="d-flex flex-column" style="height: 50%">
-                        <h3 style="background-color: #C4C4C4; color: white; font-size: 25px; font-weight: bold; padding: 15px; text-align: center; width: 100%;">Vaccins</h3> 
+                        <h3 style="background-color: #262626; color: white; font-size: 25px; font-weight: bold; padding: 15px; text-align: center; width: 100%;">Vaccins</h3> 
                         <table class="tabVaccins">
                             {$animalSelect->getTableVaccin()}
                         </table>                
@@ -280,49 +287,107 @@ try {
     HTML;
     $webPage->appendContent($html);
 }catch (exception $e) {
-    $html .= <<<HTML
-    <div class="d-flex flex-column" style="margin-top: 40px;">
-        <div class="d-flex justify-content-center" style="background-color: #262626; border-radius: 10px; width: 45%; align-self: center;">
-            <h3 style="font-weight: bold;background-color: #262626; color: white; font-size: 25px; margin: auto; padding: 15px;">Ajouter un Nouvel Animal</h3> 
+    $html .= <<< HTML
+    <div class="d-flex flex-column" style="background-color: #E3E3E3; margin: 20px 50px 20px 50px;">
+        <h3 style="background-color: #262626; color: white; font-size: 25px; font-weight: bold; padding: 15px; text-align: center; width: 100%; border-radius: 5px 5px 0 0;">Ajouter un Nouvel Animal</h3> 
+        <div class="d-flex flex-row">
+            <div class="d-flex flex-column" style="width: 50%; border-right: 15px solid #C4C4C4;">
+                <h3 style="background-color: #262626; color: white; font-size: 25px; font-weight: bold; padding: 15px; text-align: center; width: 100%;">Information général</h3> 
+                <div class="d-flex flex-column pt-2 pr-5 pl-5">
+                    <form action="trmt/ajouterAnimal_trmt.php" method="post"">              
+                        <!--Nom-->
+                        <div class="form-group d-flex flex-column">
+                            <div class="d-flex flex-row">
+                                {$webPage->getIcon("cat")}
+                                <div style="font-weight: bold;">Nom</div>
+                            </div>
+                            <input type="text" id="nom" name="nom" class="form-input-custom" placeholder="Nom" required>
+                        </div>
+                        <!--Race-->
+                        <div class="form-group d-flex flex-column">
+                            <div style="font-weight: bold;" class="d-flex flex-row">
+                                    {$webPage->getIcon("cat")}
+                                    <div style="font-weight: bold;">Race</div>
+                            </div>
+                            <input type="text" id="race" name="race" class="form-input-custom" placeholder="Race" required>
+                        </div>
+                        <!--Genre-->
+                        <div class="form-group d-flex flex-column">
+                            <div style="font-weight: bold;" class="d-flex flex-row">
+                                {$webPage->getIcon("cat")}
+                                <div style="font-weight: bold;">Genre</div>
+                            </div>
+                            <input type="text" id="genre" name="genre" class="form-input-custom" placeholder="Genre" required>
+                        </div>
+                        <!--Espèce-->
+                        <div class="form-group d-flex flex-column">
+                            <div class="d-flex flex-row">
+                                {$webPage->getIcon("cat")}
+                                <div style="font-weight: bold;">Espèce</div>
+                            </div>
+                            <input type="text" id="species" name="species" class="form-input-custom" placeholder="Espèce" required>
+                        </div>
+                        <!--Robe-->
+                        <div class="form-group d-flex flex-column">
+                            <div class="d-flex flex-row">
+                                {$webPage->getIcon("cat")}
+                                <div style="font-weight: bold;">Robe</div>
+                            </div>
+                            <input type="text" id="comment" name="comment" class="form-input-custom" placeholder="Robe" required>
+                        </div>
+                        <!--Poids-->
+                        <div class="form-group d-flex flex-column">
+                            <div class="d-flex flex-row">
+                                {$webPage->getIcon("cat")}
+                                <div style="font-weight: bold;">Poids</div>
+                            </div>
+                            <input type="text" id="poids" name="poids" class="form-input-custom" placeholder="Poids">
+                        </div>
+                        <!--Date de Naissance-->
+                        <div class="form-group d-flex flex-column">
+                            <div class="d-flex flex-row">
+                                {$webPage->getIcon("cat")}
+                                <div style="font-weight: bold;">Date de naissance</div>
+                            </div>
+                            <input type="date" id="birth" name="birth" class="form-input-custom" placeholder="Date de naissance" required>
+                        </div>
+                        <!--Tatouage-->
+                        <div class="form-group d-flex flex-column">
+                            <div class="d-flex flex-row">
+                                {$webPage->getIcon("cat")}
+                                <div style="font-weight: bold;">Tatouage</div>
+                            </div>
+                            <input type="text" id="tatoo" name="tatoo" class="form-input-custom" placeholder="Tatouage">
+                        </div>
+                        <!--N° Puce-->
+                        <div class="form-group d-flex flex-column">
+                            <div class="d-flex flex-row">
+                                {$webPage->getIcon("cat")}
+                                <div style="font-weight: bold;">N° Puce</div>
+                            </div>
+                            <input type="text" id="chip" name="chip" class="form-input-custom" placeholder="N° Puce">
+                        </div>
+                        <!--Bouton submit Ajouter-->
+                        <div class="d-flex flex-row justify-content-center">
+                            <div class="form-group d-inline-flex">
+                                {$webPage->getHTMLButton(true, "Ajouter")}
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="d-flex flex-column" style="width: 50%;">
+                <div class="d-flex flex-column" style="height: 50%">
+                    <h3 style="background-color: #262626; color: white; font-size: 25px; font-weight: bold; padding: 15px; text-align: center; width: 100%;">
+                        <span style="padding-right: 180px;">{$webPage->getIcon('arrow-left', 28)}</span>Historique<span style="padding-left: 180px;">{$webPage->getIcon('arrow-right', 28)}</span>
+                    </h3> 
+                </div>
+                <div class="d-flex flex-column" style="height: 50%">
+                    <h3 style="background-color: #262626; color: white; font-size: 25px; font-weight: bold; padding: 15px; text-align: center; width: 100%;">Vaccins</h3> 
+                    <table class="tabVaccins"></table>        
+                </div>
+            </div>
         </div>
-        <div class="d-flex flex-row justify-content-center mt-4 mb-5">
-    <div class="d-flex flex-column pt-2 pb-2 pr-5 pl-5" style="background-color: #DDDDDD; border-radius: 10px">
-            <form action="trmt/ajouterAnimal_trmt.php" method="post" onsubmit="hash512();">              
-                <div class="form-group d-flex flex-column">
-                    <div class="d-flex flex-row">
-                        {$webPage->getIcon("cat")}
-                        <div style="font-weight: bold;">Nom</div>
-                    </div>
-                    <input type="text" id="nom" name="nom" class="pt-1 pb-1 pr-2 pl-2 rounded" style="outline: 0; border:0;background-color: #C9C9C9;" placeholder="Nom" required>
-                </div>
-                    
-                <div class="form-group d-flex flex-column">
-                    <div class="d-flex flex-row">
-                        {$webPage->getIcon("cat")}
-                        <div style="font-weight: bold;">Date de naissance</div>
-                    </div>
-                    <input type="date" id="birth" name="birth" class="pt-1 pb-1 pr-2 pl-2 rounded" style="outline: 0; border:0;background-color: #C9C9C9;" placeholder="Date de naissance" required>
-                </div>
-                <div class="form-group d-flex flex-column">
-                    <div style="font-weight: bold;" class="d-flex flex-row">
-                        {$webPage->getIcon("cat")}
-                        <div style="font-weight: bold;">Race</div>
-                    </div>
-                    <input type="text" id="race" name="race" class="pt-1 pb-1 pr-2 pl-2 rounded" style="outline: 0; border:0;background-color: #C9C9C9;" placeholder="Race" required>
-                </div>
-                <div class="form-group d-flex flex-column">
-                    <div class="d-flex flex-row">
-                        {$webPage->getIcon("cat")}
-                        <div style="font-weight: bold;">Commentaire</div>
-                    </div>
-                    <input type="text" id="comment" name="comment" class="pt-1 pb-1 pr-2 pl-2 rounded" style="outline: 0; border:0;background-color: #C9C9C9;" placeholder="Commentaire">
-                </div>
-                <div class="d-flex flex-row justify-content-center">
-                    <div class="form-group d-inline-flex">
-                        {$webPage->getHTMLButton(true, "Ajouter")}
-                    </div>
-                </div>
-            </form>
     </div>
 </div>
 HTML;
