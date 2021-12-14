@@ -393,5 +393,4 @@ try {
 HTML;
     $webPage->appendContent($html);
 }
-
 echo $webPage->toHTML();
