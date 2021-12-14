@@ -2,8 +2,11 @@
 declare(strict_types=1);
 require "autoload.php";
 $auth = new SecureUserAuthentication();
-if(!SecureUserAuthentication::isUserConnected() || !$auth->getUser()->isVeto() || !$auth->getUser()->isAdmin())
+if(!SecureUserAuthentication::isUserConnected() )
     header("Location: connexion.php");
+if(!$auth->getUser()->isVeto()) {
+    header("Location: accueil.php");
+}
 $webPage=new WebPage("Prestation");
 $webPage->appendCss(<<<CSS
 table {

@@ -4,6 +4,12 @@ require "autoload.php";
 setlocale(LC_ALL, 'fr_FR', 'French_France', 'French');
 date_default_timezone_set('Europe/Paris');
 
+$userId = isset($_GET['userId']) && !empty($_GET['userId']) ? $_GET['userId'] : null;
+$animalId = isset($_GET['animalId']) && !empty($_GET['animalId']) ? $_GET['animalId'] : null;
+if($userId == null) {
+    header('Location : accueil.php');
+}
+
 $auth = new SecureUserAuthentication();
 if(!(SecureUserAuthentication::isUserConnected() || $auth->getUser()->isVeto() || $auth->getUser()->isAdmin()))
     header("Location: connexion.php");
@@ -79,7 +85,6 @@ CSS);
 
 
 //Client
-$userId = $_GET['userId'];
 $req = MyPDO::getInstance()->prepare(<<<SQL
             SELECT *
             FROM Users
@@ -163,7 +168,8 @@ $html = <<< HTML
                 <div class="d-flex justify-content-space-between" style="margin: 12px;">
                     <input type='buttonNewPresta' class='button' value='Envoyer un SMS' style="text-align: center;" >
                     <input type='buttonNewPresta' class='button' value='Envoyer un Email' style="text-align: center;">
-                    <form action="profile_animal.php" method="post">
+                    <form action="nouvelle_prestation.php" method="post">
+                        <input type="text" hidden name="animalId" value="">
                         <button class="buttonNewPresta" type="submit" name="animalId" value="{$userId}">Nouvelle Prestation</button>
                     </form>
                 </div>
@@ -189,7 +195,7 @@ HTML;
 
 //Animal sélectionné
 try {
-    $animalSelect = Animal::createFromId($_GET['animalId']);
+    $animalSelect = Animal::createFromId($animalId);
 
     $age = date_diff(date_create($animalSelect->getBirthDay()), date_create("now"))->format("%y ans %m mois");
     $dateNais = ucwords(utf8_encode(strftime("%A %d %b %Y - %H:%M", strtotime($animalSelect->getBirthDay()))));
