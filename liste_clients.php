@@ -16,7 +16,7 @@ $html= <<< HTML
     <div class="d-flex justify-content-center flex-column main-ui-class">
         <div class="d-flex justify-content-center align-items-center" style="gap: 0.5em;">
             <label for='search-bar' style="margin: 0; font-size: 1.35em;">Nom:</label> 
-            <input type="search" id="search-bar" placeholder="Rechercher..." style="padding: 10px; border-radius: 10px; width: 300px;"> 
+            <input type="search" id="search-bar" placeholder="Rechercher..." style="padding: 10px; border-radius: 10px; width: 300px; background-color: #C9C9C9;"> 
         </div>
         <div id="liste-clients" style='padding:20px; width:100%;' class="d-flex justify-content-center align-items-center flex-column flex-grow-1"></div>
         
@@ -24,6 +24,25 @@ $html= <<< HTML
 
 </div>
 HTML;
+
+$webPage->appendCss(<<<CSS
+    .client-item {
+        width: 100%;
+        background-color: #C9C9C9;
+        padding: 18px;
+        border-radius: 20px;
+        margin: 10px;
+        border-bottom: solid rgba(0,0,0,0) 0.3em;
+        transition: transform 0.2s ease-in-out, border-bottom 0.2s ease-in-out;
+    }
+    .client-item:hover {
+        transform: translateY(-0.3em);
+        border-bottom: solid #A5A5A5 0.3em;
+        cursor: pointer;
+    }
+CSS
+);
+
 $webPage->appendJs(<<<JS
     window.onload = function() {
             new AjaxRequest({
@@ -36,11 +55,7 @@ $webPage->appendJs(<<<JS
                     for(let i = 0; i < res.length; i++)
                     {
                         let clientName = document.createElement('span');
-                        clientName.style.width = '100%';
-                        clientName.style.backgroundColor = '#C9C9C9';
-                        clientName.style.padding = '15px';
-                        clientName.style.borderRadius = '20px';
-                        clientName.style.margin = '10px';
+                        clientName.className = "client-item";
                         let prenom = res[i]['firstName'];
                         clientName.innerText = res[i]['lastName'].toUpperCase() + " " + prenom.charAt(0).toUpperCase() + prenom.slice(1).toLowerCase();
                         clientName.onclick = function(){
