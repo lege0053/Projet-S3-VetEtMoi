@@ -32,12 +32,13 @@ $webPage->appendCss(<<<CSS
         padding: 18px;
         border-radius: 20px;
         margin: 10px;
-        border-bottom: solid rgba(0,0,0,0) 0.3em;
+        transform: translateY(-0.15em);
+        border-bottom: solid #A5A5A5 0.3em;
         transition: transform 0.2s ease-in-out, border-bottom 0.2s ease-in-out;
     }
     .client-item:hover {
-        transform: translateY(-0.3em);
-        border-bottom: solid #A5A5A5 0.3em;
+        transform: translateY(0.15em);
+        border-bottom: solid rgba(0,0,0,0) 0.3em;
         cursor: pointer;
     }
 CSS
