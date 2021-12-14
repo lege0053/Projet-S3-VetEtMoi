@@ -65,4 +65,22 @@ class Race
         $return=$insert->fetchAll();
 
     }
+
+    public static function getRacesList(): array
+    {
+        $rq = MyPDO::getInstance()->prepare(<<<SQL
+            SELECT * FROM Race
+        SQL);
+        $rq->execute();
+        $rq->setFetchMode(PDO::FETCH_CLASS, self::class);
+        return $rq->fetchAll();
+    }
+
+    /**
+     * @return int
+     */
+    public function getRaceId(): int
+    {
+        return $this->raceId;
+    }
 }
