@@ -1,14 +1,13 @@
 <?php
 declare(strict_types=1);
+include_once "../autoload.php";
 
-require "autoload.php";
-
-if(isset($_POST['nom'], $_POST['race'], $_POST['genre'], $_POST['species'], $_POST['dress'], $_POST['birth'], $_POST['userId'], $_POST['threatId'])
-    && !empty($_POST['nom']) && !empty($_POST['race']) && !empty($_POST['genre']) && !empty($_POST['species']) && !empty($_POST['dress']) && !empty($_POST['birth']) && !empty($_POST['userId']) && !empty($_POST['threatId'])) {
+if(isset($_POST['nom'], $_POST['race'], $_POST['gender'], $_POST['species'], $_POST['dress'], $_POST['birth'], $_POST['userId'], $_POST['threatId'])
+    && !empty($_POST['nom']) && !empty($_POST['race']) && !empty($_POST['gender']) && !empty($_POST['species']) && !empty($_POST['dress']) && !empty($_POST['birth']) && !empty($_POST['userId']) && !empty($_POST['threatId'])) {
 
     $nom = WebPage::escapeString($_POST['nom']);
     $race = WebPage::escapeString($_POST['race']);
-    $genre = WebPage::escapeString($_POST['genre']);
+    $genre = WebPage::escapeString($_POST['gender']);
     $species = WebPage::escapeString($_POST['species']);
     $dress = WebPage::escapeString($_POST['dress']);
     $poids = WebPage::escapeString($_POST['poids']) ?? null;
@@ -30,8 +29,8 @@ if(isset($_POST['nom'], $_POST['race'], $_POST['genre'], $_POST['species'], $_PO
     //Insertion du nouvel Animal dans la bd
     $req2 = MyPDO::getInstance()->prepare(<<<SQL
         INSERT INTO Animal(animalId, name, birthDay, userId, threatId, genderId, raceId, dress, weight, tatoo, chip)
-        VALUES (:newAnimalId, :nom, STR_TO_DATE(:birth, '%d/%m/%Y'), :userId, :threatId, :genre, :race, :dress, :poids, :tatoo,:chip);
+        VALUES (:newAnimalId, :nom, STR_TO_DATE(:birth, '%d/%m/%Y'), :userId, :threatId, :gender, :race, :dress, :poids, :tatoo,:chip);
     SQL);
-    $req2->execute(['newAnimalId' => $newAnimalId, 'nom' => $nom, 'birth' => $birth, 'userId' => $userId, 'threatId' => $threatId, 'genre' => $genre, 'race' => $race, 'dress' => $dress, 'poids' => $poids, 'tatoo' => $tatoo, 'chip' => $chip]);
+    $req2->execute(['newAnimalId' => $newAnimalId, 'nom' => $nom, 'birth' => $birth, 'userId' => $userId, 'threatId' => $threatId, 'gender' => $gender, 'race' => $race, 'dress' => $dress, 'poids' => $poids, 'tatoo' => $tatoo, 'chip' => $chip]);
     header('Location: ../fiche_client_animal.php?userId='.$userId.'&animalId='.$newAnimalId);
 } else echo json_encode(['error' => 'lack_of_information']);

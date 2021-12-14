@@ -287,6 +287,38 @@ try {
     HTML;
     $webPage->appendContent($html);
 }catch (exception $e) {
+    //SpeciesList
+    $speciesList = Species::getSpeciesList();
+    $speciesOptions = "<option value='''>Espèce</option>";
+    foreach ($speciesList as $species){
+        $speciesOptions .= "<option value='{$species->getSpeciesId()}'>{$species->getSpeciesName()}</option>{}";
+    }
+    $speciesSelect = "<select class='form-select' style='background-color: #C9C9C9; border: none; color: gray;width: 100%;' id='species' name='species' required>$speciesOptions</select>";
+
+    //RacesList
+    $racesList = Race::getRacesList();
+    $raceOptions = "<option value='''>Race</option>";
+    foreach ($racesList as $race){
+        $raceOptions .= "<option value='{$race->getRaceId()}'>{$race->getRaceName()}</option>{}";
+    }
+    $raceSelect = "<select class='form-select' style='background-color: #C9C9C9; border: none; color: gray;width: 100%;' id='race' name='race' required>$raceOptions</select>";
+
+    //GenderList
+    $genderList = (new GenderStatus)->getGenderStatusList();
+    $genderOptions = "<option value='''>Genre</option>";
+    foreach ($genderList as $gender){
+        $genderOptions .= "<option value='{$gender->getGenderId()}'>{$gender->getGenderName()}</option>{}";
+    }
+    $genderSelect = "<select class='form-select' style='background-color: #C9C9C9; border: none; color: gray;width: 100%;' id='gender' name='gender' required>$genderOptions</select>";
+
+    //ThreatList
+    $threatList = (new Threat)->getThreatList();
+    $threatOptions = "<option value='''>Dangerosité</option>";
+    foreach ($threatList as $threat){
+        $threatOptions .= "<option value='{$threat->getThreatId()}'>{$threat->getThreatName()}</option>{}";
+    }
+    $threatSelect = "<select class='form-select' style='background-color: #C9C9C9; border: none; color: gray;width: 100%;' id='threat' name='threat' required>$threatOptions</select>";
+
     $html .= <<< HTML
     <div class="d-flex flex-column" style="background-color: #E3E3E3; margin: 20px 50px 20px 50px;">
         <h3 style="background-color: #262626; color: white; font-size: 25px; font-weight: bold; padding: 15px; text-align: center; width: 100%; border-radius: 5px 5px 0 0;">Ajouter un Nouvel Animal</h3> 
@@ -294,7 +326,7 @@ try {
             <div class="d-flex flex-column" style="width: 50%; border-right: 15px solid #C4C4C4;">
                 <h3 style="background-color: #262626; color: white; font-size: 25px; font-weight: bold; padding: 15px; text-align: center; width: 100%;">Information général</h3> 
                 <div class="d-flex flex-column pt-2 pr-5 pl-5">
-                    <form action="trmt/ajouterAnimal_trmt.php" method="post"">              
+                    <form action="trmt/ajouterAnimal_trmt.php" method="post"">
                         <!--Nom-->
                         <div class="form-group d-flex flex-column">
                             <div class="d-flex flex-row">
@@ -303,13 +335,21 @@ try {
                             </div>
                             <input type="text" id="nom" name="nom" class="form-input-custom" placeholder="Nom" required>
                         </div>
+                        <!--Espèce-->
+                        <div class="form-group d-flex flex-column">
+                            <div class="d-flex flex-row">
+                                {$webPage->getIcon("cat")}                                
+                                <div style="font-weight: bold;">Espèce</div>
+                            </div>
+                            <div class="form-input-custom">$speciesSelect</div>
+                        </div>
                         <!--Race-->
                         <div class="form-group d-flex flex-column">
                             <div style="font-weight: bold;" class="d-flex flex-row">
                                     {$webPage->getIcon("cat")}
                                     <div style="font-weight: bold;">Race</div>
                             </div>
-                            <input type="text" id="race" name="race" class="form-input-custom" placeholder="Race" required>
+                            <div class="form-input-custom">$raceSelect</div>
                         </div>
                         <!--Genre-->
                         <div class="form-group d-flex flex-column">
@@ -317,15 +357,7 @@ try {
                                 {$webPage->getIcon("cat")}
                                 <div style="font-weight: bold;">Genre</div>
                             </div>
-                            <input type="text" id="genre" name="genre" class="form-input-custom" placeholder="Genre" required>
-                        </div>
-                        <!--Espèce-->
-                        <div class="form-group d-flex flex-column">
-                            <div class="d-flex flex-row">
-                                {$webPage->getIcon("cat")}
-                                <div style="font-weight: bold;">Espèce</div>
-                            </div>
-                            <input type="text" id="species" name="species" class="form-input-custom" placeholder="Espèce" required>
+                            <div class="form-input-custom">$genderSelect</div>
                         </div>
                         <!--Robe-->
                         <div class="form-group d-flex flex-column">
@@ -333,7 +365,7 @@ try {
                                 {$webPage->getIcon("cat")}
                                 <div style="font-weight: bold;">Robe</div>
                             </div>
-                            <input type="text" id="comment" name="comment" class="form-input-custom" placeholder="Robe" required>
+                            <input type="text" id="dress" name="dress" class="form-input-custom" placeholder="Robe" required>
                         </div>
                         <!--Poids-->
                         <div class="form-group d-flex flex-column">
@@ -342,6 +374,14 @@ try {
                                 <div style="font-weight: bold;">Poids</div>
                             </div>
                             <input type="text" id="poids" name="poids" class="form-input-custom" placeholder="Poids">
+                        </div>
+                        <!--Dangerosité-->
+                        <div class="form-group d-flex flex-column">
+                            <div class="d-flex flex-row">
+                                {$webPage->getIcon("cat")}
+                                <div style="font-weight: bold;">Dangerosité</div>
+                            </div>
+                            <div class="form-input-custom">$threatSelect</div>
                         </div>
                         <!--Date de Naissance-->
                         <div class="form-group d-flex flex-column">
@@ -367,6 +407,8 @@ try {
                             </div>
                             <input type="text" id="chip" name="chip" class="form-input-custom" placeholder="N° Puce">
                         </div>
+                        <!--userId-->
+                        <input id="userId" name="userId" type="hidden" value=$userId>
                         <!--Bouton submit Ajouter-->
                         <div class="d-flex flex-row justify-content-center">
                             <div class="form-group d-inline-flex">
