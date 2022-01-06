@@ -402,6 +402,7 @@ try {
                             <div class="d-flex flex-row">
                                 {$webPage->getIcon("cat")}
                                 <div style="font-weight: bold;">Tatouage</div>
+                                
                             </div>
                             <input type="text" id="tatoo" name="tatoo" class="form-input-custom" placeholder="Tatouage">
                         </div>
