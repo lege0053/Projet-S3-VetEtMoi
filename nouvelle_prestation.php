@@ -143,7 +143,7 @@ if(!$actesOuProduits)
 
 $dataList = "";
 foreach ($actesOuProduits as $acteOuProduit) {
-    $dataList.="<option id=\"productId-{$acteOuProduit->getId()}\" value={$acteOuProduit->getName()}>";
+    $dataList.="<option id=\"productId-{$acteOuProduit->getId()}\" value=\"{$acteOuProduit->getName()}\">";
 }
 
 $webPage->appendContent(<<< HTML
