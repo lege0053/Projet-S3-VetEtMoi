@@ -32,7 +32,7 @@ $html= <<< HTML
     <div class="d-flex flex-column text-center" style="margin-top: 350px;">
         <h1 style="font-weight: bold; color: white; font-size: 64px; margin-bottom: 80px;">Espace</h1>
         <div class="d-flex flex-row mt-3">
-            <a href="#">{$webPage->getImgCarre("Chien", "Chiens")}</a> 
+            <a href="#">{$webPage->getImgCarre("Chien", "Chien")}</a> 
             <a href="#">{$webPage->getImgCarre("Chat", "Chat")}</a>
             <a href="#">{$webPage->getImgCarre("nac", "NAC")}</a>
         </div>
