@@ -371,7 +371,7 @@ try {
                                 {$webPage->getIcon("cat")}
                                 <div style="font-weight: bold;">Robe</div>
                             </div>
-                            <input type="text" id="dress" name="dress" class="form-input-custom" placeholder="Robe" required>
+                            <input type="text" id="dress" name="dress" class="form-input-custom" placeholder="Robe">
                         </div>
                         <!--Poids-->
                         <div class="form-group d-flex flex-column">
