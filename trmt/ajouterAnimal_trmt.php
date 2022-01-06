@@ -22,12 +22,14 @@ if ($auth->isUserConnected()) {
 
         //Création d'un animalId
         $req1 = MyPDO::getInstance()->prepare(<<<SQL
-            SELECT MAX(animalId) 
-            FROM Animal;
+            SELECT MAX(animalId)
+            FROM Animal
         SQL);
-        $res1 = $req1->execute();
-        if ($res1) {
-            $animalId = $req1[0] + 1 ;
+        $req1->execute();
+        $data = $req1->fetch();
+        var_dump($data);
+        if ($req1->rowCount() > 0) {
+            $animalId = $data[0] + 1 ;
         }
 
         //Insertion du nouvel animal dans la bd
