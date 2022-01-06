@@ -284,8 +284,7 @@ HTML;
             </svg>
             <a class="linkNav m-2 p-2" href="./accueil.php">ACCUEIL</a>
             <a class="linkNav m-2 p-2" href="./activites.php">ACTIVITES</a>
-                <a class="linkNav m-2 p-2" href="./conseils.php">CONSEILS</a>
-            <a class="linkNav m-2 p-2" href="./boutique.php">BOUTIQUE</a>
+            <a class="linkNav m-2 p-2" href="./conseils.php">CONSEILS</a>
             $userHeader
         </nav>
         HTML;
