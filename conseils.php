@@ -6,13 +6,10 @@ $webPage = new WebPage("Conseils");
 $html= <<< HTML
 <img src="img/animal/chat-chien.png" class="" style="max-width:100%;" alt="">
 
-
-
-<div>
-  
-    <div class="d-flex justify-content-center  m-5" style="background: #F3F4F5;border-radius: 20px;padding:10px 50px;">
-        <img src="img/animal/cat2.png" class="align-self-center" style="width:26%;height:26%; " alt="">
-        <div class="d-flex flex-column align-items-center pt-5 mr-5">
+<div style="display: flex; flex-direction: column; margin: 30px; row-gap: 30px;">
+    <div class="d-flex justify-content-center align-items-center" style="background: #F3F4F5; border-radius: 26px; padding: 25px;">
+        <img src="img/animal/cat2.png" style="width: 200px;" alt="">
+        <div class="d-flex flex-column align-items-center">
             <h2 style="font-weight: bold;">Conseil pour la santé de votre chat</h2>
             <ul class="" style="font-weight: bold;list-style-type: none;background: #DDDDDD;border-radius: 20px;padding:10px 50px;">
                 <li style=""> Vaccination : 
@@ -25,17 +22,12 @@ $html= <<< HTML
                 <li> castration : <span style="font-weight: normal;">  Age, recommandation... </span> </li>
                 
             </ul>
-            <a href="https://example.com">suivez ce lien pour voir tout les conseil</a>
-            </div>
+            <a href="https://example.com">Suivez ce lien pour voir tous les conseils</a>
         </div>
-       
     </div>
-</div>
-
-<div>
-    <div class="d-flex justify-content-center  m-5" style="background: #F3F4F5;border-radius: 20px;padding:10px 50px;">
-        <img src="img/animal/chienConseil3.png" class="align-self-center" style="width:26%;height:26%; " alt="">
-        <div class="d-flex flex-column align-items-center pt-2 mr-2">
+    <div class="d-flex justify-content-center align-items-center" style="background: #F3F4F5; border-radius: 26px; padding: 25px;">
+        <img src="img/animal/chienConseil3.png" style="height: auto; width: 200px;" alt="">
+        <div class="d-flex flex-column align-items-center">
             <h2 style="font-weight: bold;">Conseil pour la santé de votre chien</h2>
 
             <ul style="font-weight: bold;list-style-type: none;background: #DDDDDD;border-radius: 20px;padding:10px 50px;">
@@ -53,15 +45,13 @@ $html= <<< HTML
                 </li>
                 
             </ul>
-            <a href="https://example.com">suivez ce lien pour voir tout les conseil</a>
+            <a href="https://example.com">Suivez ce lien pour voir tous les conseils</a>
         </div>
     </div>
-</div>
 
-<div>
-    <div class="d-flex justify-content-center m-5" style="background: #F3F4F5;border-radius: 20px;padding:10px 50px;">
-        <img src="img/animal/hamster2.png" class="align-self-center" style="width:16%;height:16%; " alt="">
-        <div class="d-flex flex-column align-items-center pt-2 mr-2">
+    <div class="d-flex justify-content-center align-items-center" style="background: #F3F4F5; border-radius: 26px; padding: 25px;">
+        <img src="img/animal/hamster2.png" style="width: 200px;" alt="">
+        <div class="d-flex flex-column align-items-center">
             <h2 style="font-weight: bold;">Conseil pour la santé de votre NAC</h2>
             <ul style="font-weight: bold;list-style-type: none;background: #DDDDDD;border-radius: 20px;padding:10px 50px;">
                 <span style="font-weight: normal;">Dans cette rubrique, vous trouverez des renseignements 
@@ -69,7 +59,7 @@ $html= <<< HTML
                 Cet espace est accessible à tous les propriétaires, n’hésitez pas à partager.</span>
             </ul>
 
-            <a href="https://example.com">suivez ce lien pour voir tout les conseil</a>
+            <a href="https://example.com">Suivez ce lien pour voir tous les conseils</a>
         </div>
     </div>
 </div>
