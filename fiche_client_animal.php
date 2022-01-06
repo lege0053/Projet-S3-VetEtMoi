@@ -267,7 +267,7 @@ try {
                                     <p style="height: 28px;">$dress</p>
                                 </div>
                                 <div>
-                                    <p style="margin: 0; font-weight: bold; color:#02897A; height: 28px;">Poids</p>
+                                    <p style="margin: 0; font-weight: bold; color:#02897A; height: 28px;">Poids (en Kg)</p>
                                     <p style="height: 28px;">$weight</p>
                                 </div>
                             </div>
@@ -391,9 +391,9 @@ try {
                         <div class="form-group d-flex flex-column">
                             <div class="d-flex flex-row">
                                 {$webPage->getIcon("cat")}
-                                <div style="font-weight: bold;">Poids</div>
+                                <div style="font-weight: bold;">Poids (en Kg)</div>
                             </div>
-                            <input type="text" id="poids" name="poids" class="form-input-custom" placeholder="Poids">
+                            <input type="text" id="poids" name="poids" class="form-input-custom" placeholder="Poids (en Kg)">
                         </div>
                         <!--Dangerosité-->
                         <div class="form-group d-flex flex-column">
