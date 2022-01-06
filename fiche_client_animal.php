@@ -240,23 +240,37 @@ try {
             <div class="d-flex flex-row">
                 <div class="d-flex flex-column" style="width: 50%; border-right: 15px solid #C4C4C4;">
                     <h3 style="background-color: #262626; color: white; font-size: 25px; font-weight: bold; padding: 15px; text-align: center; width: 100%;">Information général</h3> 
-                    <div class="d-flex flex-row">
-                        <div style="margin-left: 5px;">{$webPage->getImgCarre("{$animalSelect->getSpecieName()}", $animalSelect->getName(), 330)}</div>
-                        <div class="d-flex flex-column pt-3 pl-4 justify-content-center" style=" font-size: 18px;">
-                            <p style="margin: 0; font-weight: bold; color:#02897A;">Nom</p>
-                            <p>{$animalSelect->getName()}</p><br>     
-                            <p style="margin: 0; font-weight: bold; color:#02897A">Race</p>
-                            <p>{$animalSelect->getNameRace()}</p><br>
-                            <p style="margin: 0; font-weight: bold; color:#02897A">Genre</p>
-                            <p>{$animalSelect->getGenderName()}</p>
-                        </div>
-                        <div class="d-flex flex-column pt-3 justify-content-center" style=" font-size: 18px; padding-left: 130px;">
-                            <p style="margin: 0; font-weight: bold; color:#02897A;">Espèce</p>
-                            <p>{$animalSelect->getSpecieName()}</p><br>
-                            <p style="margin: 0; font-weight: bold; color:#02897A">Robe</p>
-                            <p>$dress</p><br>
-                            <p style="margin: 0; font-weight: bold; color:#02897A">Poids</p>
-                            <p>$weight</p>
+                    <div class="d-flex flex-row" style="column-gap: 10px;">
+                        <div>{$webPage->getImgCarre("{$animalSelect->getSpecieName()}", $animalSelect->getName(), 330)}</div>
+                        <div class="d-flex flex-row" style="column-gap: 50px;">
+                            <div class="d-flex flex-column justify-content-center" style=" font-size: 18px;">
+                                <div>
+                                    <p style="margin: 0; font-weight: bold; color:#02897A; height: 28px;">Nom</p>
+                                    <p style="height: 28px;">{$animalSelect->getName()}</p> 
+                                </div>
+                                <div>
+                                    <p style="margin: 0; font-weight: bold; color:#02897A; height: 28px;">Race</p>
+                                    <p style="height: 28px;">{$animalSelect->getNameRace()}</p>
+                                </div>
+                                <div>
+                                    <p style="margin: 0; font-weight: bold; color:#02897A; height: 28px;">Genre</p>
+                                    <p style="height: 28px;">{$animalSelect->getGenderName()}</p>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-column justify-content-center" style=" font-size: 18px;">
+                                <div>
+                                    <p style="margin: 0; font-weight: bold; color:#02897A; height: 28px;">Espèce</p>
+                                    <p style="height: 28px;">{$animalSelect->getSpecieName()}</p>
+                                </div>
+                                <div>
+                                    <p style="margin: 0; font-weight: bold; color:#02897A; height: 28px;">Robe</p>
+                                    <p style="height: 28px;">$dress</p>
+                                </div>
+                                <div>
+                                    <p style="margin: 0; font-weight: bold; color:#02897A; height: 28px;">Poids</p>
+                                    <p style="height: 28px;">$weight</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div style="font-size: 18px; margin: 30px 0 30px 25px;">
