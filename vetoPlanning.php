@@ -208,7 +208,7 @@ $webPage->appendContent(<<<HTML
             <span id="dateAfter">{$webPage->getIcon('arrow-right', 28)}</span>
         </div>
         
-        <div class="d-flex flex-column justify-content-center align-items-center" style="margin-right: 25px; margin-left: 25px;">
+        <div class="d-flex flex-column justify-content-center align-items-center" style="margin-right: 25px; margin-left: 25px; border-radius: 0 0 25px 25px; overflow: hidden;">
              <div class="d-flex justify-content-center align-items-center" style="flex: 1; flex-grow: 1; width: 100%">
                 <span class="tableTitle">Lundi</span>
                 <span class="tableTitle">Mardi</span>
