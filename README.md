@@ -5,7 +5,7 @@ Projet effectué lors du Semestre 3 à l'IUT de Reims-Châlons-Charleville, dura
 Lien youtube : https://www.youtube.com/watch?v=VbqDxVjkosQ
 
 # Piste d'amélioration:
--Passer le projet sous le modèle MVC avec Symphony.
+* Passer le projet sous le modèle MVC avec Symphony.
 
 # Etudiants :
 * MAINGOT Thibaut
