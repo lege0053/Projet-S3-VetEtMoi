@@ -1,4 +1,4 @@
-Projet effectué lors du Semestre 3 à l'IUT de Reims-Châlons-Charleville, durant lequel nous avons dû réaliser un site web pour un vétérinaire.
+Projet effectué lors du Semestre 3 à l'IUT de Reims-Châlons-Charleville, durant lequel nous avons réaliser un site web pour un vétérinaire.
 
 Vidéo de présentation du site pour la soutenance: https://www.youtube.com/watch?v=VbqDxVjkosQ
 
